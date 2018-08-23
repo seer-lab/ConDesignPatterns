@@ -2,7 +2,8 @@
 % Martin Mwebesa
 % UOIT, February 25, 2011
 
-include "Java.Grm"
+% include "Java.Grm"
+include "../grammar/java5.grm"
 % include "JavaCommentOverrides.Grm"
 
 define labelM
@@ -49,10 +50,10 @@ end define
 
 redefine synchronized_statement
  	[synchronized_statement2]
-	| [attr labelM] 
+	| [attr labelM]
     'synchronized '( [expression] ')
         [statement]                  [NL]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] 
+	| [attr labelM] [NL] /* [stringlit] */ [NL]
     'synchronized '( [expression] ')
         [statement]                  [NL]
 end define
@@ -64,21 +65,21 @@ end define
 
 redefine if_statement
 	[if_statement2]
-    | 'if '( [expression] ') 
+    | 'if '( [expression] ')
 		[statement]
     [opt else_clause]      [NL]
 	| [attr labelM]
-	'if '( [expression] ') 
+	'if '( [expression] ')
 		[statement]
-    [opt else_clause]      [NL] 
+    [opt else_clause]      [NL]
 	| [attr labelM] [NL] /* [stringlit] */ [NL]
-	'if '( [expression] ') 
+	'if '( [expression] ')
 		[statement]
     [opt else_clause]      [NL]
 end redefine
 
 define if_statement2
-    'if '( [expression] ')     
+    'if '( [expression] ')
         [statement]
     [opt else_clause]      [NL]
 end define
@@ -98,31 +99,31 @@ end define
 
 redefine while_statement
 	[while_statement2]
-    | 'while '( [expression] ') 
+    | 'while '( [expression] ')
 	'{
-        [statement]     
+        [statement]
 	'}
- 	| [attr labelM] 
-	'while '( [expression] ') 
+ 	| [attr labelM]
+	'while '( [expression] ')
 	'{
-        [statement]     
+        [statement]
 	'}
- 	| [attr labelM] [NL] /* [stringlit] */ [NL] 
-	'while '( [expression] ') 
+ 	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	'while '( [expression] ')
 	'{
-		[statement]     
+		[statement]
 	'}
- 	| [attr labelM] [NL] /* [stringlit] */ [NL] 
-	'while '( [expression] ') 
+ 	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	'while '( [expression] ')
 	'{
 		[NL] /* [stringlit] */ [NL]
-		[statement]     
+		[statement]
 	'}
 end redefine
 
 define while_statement2
-    'while '( [expression] ') 
-        [statement]     
+    'while '( [expression] ')
+        [statement]
 end define
 
 redefine do_statement
@@ -131,39 +132,39 @@ redefine do_statement
 	'{
         [statement]
 	'}
-    'while '( [expression] ') ';  
- 	| [attr labelM] 
+    'while '( [expression] ') ';
+ 	| [attr labelM]
     'do
 	'{
         [statement]
 	'}
-    'while '( [expression] ') ';  
- 	| [attr labelM] [NL] /* [stringlit] */ [NL] 
+    'while '( [expression] ') ';
+ 	| [attr labelM] [NL] /* [stringlit] */ [NL]
     'do
 	'{
         [statement]
 	'}
-    'while '( [expression] ') ';  
- 	| [attr labelM] [NL] /* [stringlit] */ [NL] 
+    'while '( [expression] ') ';
+ 	| [attr labelM] [NL] /* [stringlit] */ [NL]
     'do
 	'{
 		[NL] /* [stringlit] */ [NL]
         [statement]
 	'}
-    'while '( [expression] ') ';  
+    'while '( [expression] ') ';
 end redefine
 
 define do_statement2
     'do
         [statement]
-    'while '( [expression] ') ';  
+    'while '( [expression] ') ';
 end define
 
 redefine expression_statement
  	[expression_statement2]
-	| [attr labelM] 
+	| [attr labelM]
 	[expression] ';
-	| [attr labelM] [NL] /* [stringlit] */ [NL] 
+	| [attr labelM] [NL] /* [stringlit] */ [NL]
 	[expression] ';
 end redefine
 
@@ -173,7 +174,7 @@ end define
 
 redefine return_statement
  	[return_statement2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] 
+	| [attr labelM] [NL] /* [stringlit] */ [NL]
     'return [opt expression] ';      [NL]
 end redefine
 
@@ -183,7 +184,7 @@ end define
 
 % redefine return_statement
  	% [return_statement2]
-	% | [attr labelM] [NL] /* [stringlit] */ [NL] 
+	% | [attr labelM] [NL] /* [stringlit] */ [NL]
     % 'return [opt expression] ';      [NL]
 % end redefine
 
@@ -200,8 +201,8 @@ function main
 	export CountWLMethodIDs [number]
 		0
 	export CountDoneMethodIDs [number]
-		0	
-		
+		0
+
 	export tmpRole1Passed [number]
 		0
 	export tmpRole1aPassed [number]
@@ -270,9 +271,9 @@ function main
 		0
 	% export tmpRole3aPassed [number]
 		% 0
-	export tmpThreadID [id]		
+	export tmpThreadID [id]
 		_
-	export tmpIntVarID [id]		
+	export tmpIntVarID [id]
 		_
 	export tmpWLThreadID [id]
 		_
@@ -286,7 +287,7 @@ function main
 		_
 	export tmpDoneUsedThreadID [id]
 		_
-	
+
 	export threadIdCollection [repeat id]
 		_
 	export intIdCollection [repeat id]
@@ -308,14 +309,14 @@ function main
 	export usedArrListIdCollection [repeat id]
 		_
    replace [program]
-        P [program]		
+        P [program]
 	construct TransformedProgram [stringlit]
 		"TransformedForReadWriteLockPatt.java"
 	by
-		P [getAllIntVars] [getAllArrayListVars] [getAllThreadVars] [findReadWriteLockPattern] 
+		P [getAllIntVars] [getAllArrayListVars] [getAllThreadVars] [findReadWriteLockPattern]
 		[printOutput] [printRLMethodIDs] [printWLMethodIDs] [printDoneMethodIDs] [printWLThreadIDs] [printWaitForRLCounterIDs] [printOutStdRLCounterIDs]
 		[fput TransformedProgram]
-		% P [getAllIntVars] [getAllArrayListVars] [getAllThreadVars] [findReadWriteLockPattern] 
+		% P [getAllIntVars] [getAllArrayListVars] [getAllThreadVars] [findReadWriteLockPattern]
 		% [printPatternNotFound] [printOutput] [printRLMethodIDs] [printWLMethodIDs] [printDoneMethodIDs] [printWLThreadIDs] [printWaitForRLCounterIDs] [printOutStdRLCounterIDs]
 		% [fput TransformedProgram]
 end function
@@ -323,34 +324,34 @@ end function
 function printPatternNotFound
 	replace [program]
 		P [program]
-	
+
 	import Counter [number]
-	
+
 	where
 		Counter [= 0]
-	
+
 	construct InstanceFound [stringlit]
 		"*** No instances of Read Write Lock Pattern found. "
-	
+
 	construct InstanceFoundPrint [id]
 		_ [unquote InstanceFound] [print]
-	
-	by 
+
+	by
 		P
 end function
 
 % Function print out the number of ReadWriteLock design pattern instances found.
 function printOutput
 	replace [program]
-		P [program]	
-	import Counter [number]	
+		P [program]
+	import Counter [number]
 	% where
-		% Counter [> 0]	
+		% Counter [> 0]
 	construct InstanceFound [stringlit]
-		"** Complete instances of ReadWriteLock Pattern found = "	
+		"** Complete instances of ReadWriteLock Pattern found = "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ Counter] [print]	
-	by 
+		_ [unquote InstanceFound] [+ Counter] [print]
+	by
 		P
 end function
 
@@ -358,194 +359,194 @@ end function
 % The number of these methods should equal the number of instances printed out in the "printOutput" function.
 function printRLMethodIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import RLMethodIDs [repeat id]
-	% import Counter [number]	
+	% import Counter [number]
 	% where
-		% Counter [> 0]	
-	import CountRLMethodIDs [number]	
+		% Counter [> 0]
+	import CountRLMethodIDs [number]
 	where
-		CountRLMethodIDs [> 0]	
+		CountRLMethodIDs [> 0]
 	construct InstanceFound [stringlit]
-		"** ROLE 1.  Read Lock methods instances used within the instance of the ReadWriteLock Design Pattern:  "	
+		"** ROLE 1.  Read Lock methods instances used within the instance of the ReadWriteLock Design Pattern:  "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintRLMethodIDs each RLMethodIDs]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the method names in the function "printRLMethodIDs".
 function thePrintRLMethodIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
 % Function to print out the names of the writelock methods that are used within the ReadWriteLock design pattern.
 % The number of these methods should equal the number of instances printed out in the "printOutput" function.
 function printWLMethodIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import WLMethodIDs [repeat id]
-	import CountWLMethodIDs [number]	
+	import CountWLMethodIDs [number]
 	where
-		CountWLMethodIDs [> 0]	
+		CountWLMethodIDs [> 0]
 	construct InstanceFound [stringlit]
-		"** ROLE 2.  Write Lock methods instances used within the instance of the ReadWriteLock Design Pattern:  "	
+		"** ROLE 2.  Write Lock methods instances used within the instance of the ReadWriteLock Design Pattern:  "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintWLMethodIDs each WLMethodIDs]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the method names in the function "printWLMethodIDs".
 function thePrintWLMethodIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
 % Function to print out the names of the done methods that are used within the ReadWriteLock design pattern.
 % The number of these methods should equal the number of instances printed out in the "printOutput" function.
 function printDoneMethodIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import DoneMethodIDs [repeat id]
-	import CountDoneMethodIDs [number]	
+	import CountDoneMethodIDs [number]
 	where
-		CountDoneMethodIDs [> 0]	
+		CountDoneMethodIDs [> 0]
 	construct InstanceFound [stringlit]
-		"** ROLE 3.  Done methods instances used within the instance of the ReadWriteLock Design Pattern:  "	
+		"** ROLE 3.  Done methods instances used within the instance of the ReadWriteLock Design Pattern:  "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintDoneMethodIDs each DoneMethodIDs]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the method names in the function "printDoneMethodIDs".
 function thePrintDoneMethodIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
 % Function to print out the names of the Write Lock thread used in the methods printed out in the "printRLMethodIDs" function.
 % The number of these threads should equal the number of ReadLock method names printed out in the "printRLMethodIDs" function.
 function printWLThreadIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import usedThreadIdCollectionWL [repeat id]
-	% import Counter [number]	
+	% import Counter [number]
 	% where
-		% Counter [> 0]	
+		% Counter [> 0]
 	construct InstanceFound [stringlit]
-		"** Methods above respectively use the following WriteLock thread:  "	
+		"** Methods above respectively use the following WriteLock thread:  "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintWLThreadIDs each usedThreadIdCollectionWL]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the Write Lock thread names in the function "printWLThreadIDs".
 function thePrintWLThreadIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
-% Function to print out the names of the variables holding the count of number of threads waiting to get a read lock 
+% Function to print out the names of the variables holding the count of number of threads waiting to get a read lock
 % (used in the Read Lock methods printed out in the "printRLMethodIDs" function).
 % The number of these variables should equal the number of ReadLock method names printed out in the "printRLMethodIDs" function.
 function printWaitForRLCounterIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import usedIntIdCollectionWaitRL [repeat id]
-	% import Counter [number]	
+	% import Counter [number]
 	% where
-		% Counter [> 0]	
+		% Counter [> 0]
 	construct InstanceFound [stringlit]
-		"** Methods above respectively use the following variables holding the count of number of threads waiting to get a read lock:  "	
+		"** Methods above respectively use the following variables holding the count of number of threads waiting to get a read lock:  "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintWaitForRLCounterIDs each usedIntIdCollectionWaitRL]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the counter variable names in the function "printWaitForRLCounterIDs".
 function thePrintWaitForRLCounterIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
-% Function to print out the names of the variables holding the count of number of read locks issued but have not yet been released by the threads they were issued to 
+% Function to print out the names of the variables holding the count of number of read locks issued but have not yet been released by the threads they were issued to
 % (used in the Read Lock methods printed out in the "printRLMethodIDs" function).
 % The number of these variables should equal the number of ReadLock method names printed out in the "printRLMethodIDs" function.
 function printOutStdRLCounterIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import usedIntIdCollectionOutStandRL [repeat id]
-	% import Counter [number]	
+	% import Counter [number]
 	% where
-		% Counter [> 0]	
+		% Counter [> 0]
 	construct InstanceFound [stringlit]
-		"** Methods above respectively use the following variables holding the count of number of read locks issued but have not yet been released by the threads they were issued to:  "	
+		"** Methods above respectively use the following variables holding the count of number of read locks issued but have not yet been released by the threads they were issued to:  "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintOutStdRLCounterIDs each usedIntIdCollectionOutStandRL]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the counter variable names in the function "printOutStdRLCounterIDs".
 function thePrintOutStdRLCounterIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
-% //*** ReadWriteLockPattern:  Role = Counter declaration outside of any methods within Role 1 (will contain count of number of read locks issued but have not yet 
+% //*** ReadWriteLockPattern:  Role = Counter declaration outside of any methods within Role 1 (will contain count of number of read locks issued but have not yet
 					% been released by the threads they were issued to).);
 % Function to obtain all integer variables declared within the ReadWriteLock class (at the top level i.e. not within any methods of the class) in the Java program hence obtaining:
 % 1) All possible counters within the class that will contain the count of the number of threads waiting to get the read lock.
@@ -555,7 +556,7 @@ rule getAllIntVars
 		'int
 	replace [variable_declaration]
 		RM [repeat modifier] TS [type_specifier] VDS [variable_declarators] ';
-	where 
+	where
 		 TS [isVarOfType VARTYPE]
 	deconstruct VDS
 		LVD [list variable_declarator+]
@@ -564,7 +565,7 @@ rule getAllIntVars
 	deconstruct VN
 		DN [declared_name] RD [repeat dimension]
 	deconstruct DN
-		flagID [id] OGP [opt generic_parameter]    
+		flagID [id] OGP [opt generic_parameter]
 	import intIdCollection [repeat id]
 	construct newIDCollection [repeat id]
 		intIdCollection [. flagID]
@@ -582,7 +583,7 @@ rule getAllArrayListVars
 		'ArrayList
 	replace [variable_declaration]
 		RM [repeat modifier] TS [type_specifier] VDS [variable_declarators] ';
-	where 
+	where
 		 TS [isVarOfType VARTYPE]
 	deconstruct VDS
 		LVD [list variable_declarator+]
@@ -591,7 +592,7 @@ rule getAllArrayListVars
 	deconstruct VN
 		DN [declared_name] RD [repeat dimension]
 	deconstruct DN
-		flagID [id] OGP [opt generic_parameter]    
+		flagID [id] OGP [opt generic_parameter]
 	import arrListIdCollection [repeat id]
 	construct newIDCollection [repeat id]
 		arrListIdCollection [. flagID]
@@ -601,7 +602,7 @@ rule getAllArrayListVars
 		'MUTATED RM TS VDS ';
 end rule
 
-% //*** ReadWriteLockPattern:  Thread creation outside of any methods within Role 1 (will contain the thread that currently has the write lock and 
+% //*** ReadWriteLockPattern:  Thread creation outside of any methods within Role 1 (will contain the thread that currently has the write lock and
 		% will be null when no thread has the write lock).
 % Function to obtain all thread variables declared within the ReadWriteLock class (at the top level i.e. not within any methods of the class) in the Java program hence obtaining
 % all possible threads within the class that will currently have the write lock (and will be null when no thread has the write lock).
@@ -610,7 +611,7 @@ rule getAllThreadVars
 		'Thread
 	replace [variable_declaration]
 		RM [repeat modifier] TS [type_specifier] VDS [variable_declarators] ';
-	where 
+	where
 		 TS [isVarOfType VARTYPE]
 	deconstruct VDS
 		LVD [list variable_declarator+]
@@ -619,7 +620,7 @@ rule getAllThreadVars
 	deconstruct VN
 		DN [declared_name] RD [repeat dimension]
 	deconstruct DN
-		flagID [id] OGP [opt generic_parameter]    
+		flagID [id] OGP [opt generic_parameter]
 	import threadIdCollection [repeat id]
 	construct newIDCollection [repeat id]
 		threadIdCollection [. flagID]
@@ -650,17 +651,17 @@ rule findReadWriteLockPattern
 	    CH [class_header] CB [class_body]
 	construct TransformedCB [class_body]
 		CB [findReadLockSynchMeth] [findReadLockSynchMeth2] [findWriteLockSynchMeth] [findDoneSynchMeth] [findDoneSynchMeth2]
-		
+
 	by
 		'MUTATED CH TransformedCB
 	% import Counter [number]
-	% where 
+	% where
 		% Counter [> 0]
-		
+
 	% construct ReadWriteLockAnnotation1pt1 [stringlit]
 		% "@ReadWriteLockPatternAnnotation(patternInstanceID="
 	% construct ReadWriteLockAnnotation1pt2 [stringlit]
-		% ", roleID=1, roleDescription='ReadWriteLock object/class.')"	
+		% ", roleID=1, roleDescription='ReadWriteLock object/class.')"
 
 	% by
 		% 'MUTATED /* ReadWriteLockAnnotation1pt1 [+ Counter] [+ ReadWriteLockAnnotation1pt2] */ CH TransformedCB
@@ -670,190 +671,190 @@ end rule
 % //*** ReadWriteLockPattern:  Role = 1(Synchronized method to issue a read lock.
 % //							** Contains Role 1a
 % //							** Contains Role 1b);
-% First Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition 
+% First Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition
 % uses the synchronized keyword.  The method can then be a candidate for being the synchronized method to issue a read lock.
 rule findReadLockSynchMeth
 	construct  SYNCH [modifier]
-		'synchronized		
-	replace [method_declaration] 
-		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]		
-	where 
-		RM [isMethodSynchronized SYNCH]		
+		'synchronized
+	replace [method_declaration]
+		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]
+	where
+		RM [isMethodSynchronized SYNCH]
 	deconstruct MB
-        BL2 [block]  		
+        BL2 [block]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}			
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
 	deconstruct RDS3
 		DS [declaration_or_statement]
-		RDS4 [repeat declaration_or_statement]   
-		
+		RDS4 [repeat declaration_or_statement]
+
 	construct TransformedDS [declaration_or_statement]
 		DS [getIfStmtRL]
-		
+
 	import tmpRole1aPassed [number]
 	where
 		tmpRole1aPassed [> 0]
-		
-	import intIdCollection [repeat id]		
+
+	import intIdCollection [repeat id]
 	construct TransformedRDS4 [repeat declaration_or_statement]
 		RDS4 [isIntVarOutStdRLIncr MD RDS4 each intIdCollection]
-	
-	import tmpRole1Passed [number]	
+
+	import tmpRole1Passed [number]
 	where
 		tmpRole1Passed [> 0]
-		
-	export tmpThreadID [id]		
+
+	export tmpThreadID [id]
 		_
-	export tmpIntVarID [id]		
+	export tmpIntVarID [id]
 		_
 
 	construct TransformedRDS3 [repeat declaration_or_statement]
-		TransformedDS 
-		TransformedRDS4    
-	
-	construct TransformedBL2 [block] 
-		'{                                        
-			TransformedRDS3   
-		'}	
+		TransformedDS
+		TransformedRDS4
+
+	construct TransformedBL2 [block]
+		'{
+			TransformedRDS3
+		'}
 	construct TransformedMB [method_body]
-        TransformedBL2  		 
-		
+        TransformedBL2
+
 	construct ReadWriteLockAnnotation1pt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1pt2 [stringlit]
-		", roleID=1, roleDescription='Synchronized method to issue a read lock.')"	
-		
-	export tmpRole1aPassed 
+		", roleID=1, roleDescription='Synchronized method to issue a read lock.')"
+
+	export tmpRole1aPassed
 		0
-	export tmpRole1Passed 
+	export tmpRole1Passed
 		0
-		
-	import CountRLMethodIDs [number]	
-	where 
+
+	import CountRLMethodIDs [number]
+	where
 		CountRLMethodIDs [> 0]
-		
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1pt1 [+ CountRLMethodIDs] [+ ReadWriteLockAnnotation1pt2] */ RM TS MD OT TransformedMB 
+		'MUTATED /* ReadWriteLockAnnotation1pt1 [+ CountRLMethodIDs] [+ ReadWriteLockAnnotation1pt2] */ RM TS MD OT TransformedMB
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 1(Synchronized method to issue a read lock.
 % //							** Contains Role 1a
 % //							** Contains Role 1b);
-% Second Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition 
+% Second Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition
 % uses the synchronized keyword.  The method can then be a candidate for being the synchronized method to issue a read lock.
 rule findReadLockSynchMeth2
 	construct  THIS [expression]
-		'this		
-	replace [method_declaration] 
-		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]		
+		'this
+	replace [method_declaration]
+		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]
 	deconstruct MB
-        BL [block]  		
+        BL [block]
 	deconstruct BL
-	    '{                                       
-			RDS [repeat declaration_or_statement] 
-		'}			
+	    '{
+			RDS [repeat declaration_or_statement]
+		'}
 	deconstruct RDS
 		STMT [statement]
-		RDS2 [repeat declaration_or_statement]		
+		RDS2 [repeat declaration_or_statement]
 	deconstruct STMT
-		SSTMT [synchronized_statement]		
+		SSTMT [synchronized_statement]
 	deconstruct SSTMT
 	    'synchronized '( EX [expression] ')
-			BL2 [block] 		
-	where 
-		EX [isMethodSynchdUsingThis THIS]		
+			BL2 [block]
+	where
+		EX [isMethodSynchdUsingThis THIS]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}	
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
 	deconstruct RDS3
 		DS [declaration_or_statement]
-		RDS4 [repeat declaration_or_statement]   
-		
+		RDS4 [repeat declaration_or_statement]
+
 	construct TransformedDS [declaration_or_statement]
 		DS [getIfStmtRL]
-		
+
 	import tmpRole1aPassed [number]
 	where
 		tmpRole1aPassed [> 0]
-		
-	import intIdCollection [repeat id]		
+
+	import intIdCollection [repeat id]
 	construct TransformedRDS4 [repeat declaration_or_statement]
 		RDS4 [isIntVarOutStdRLIncr MD RDS4 each intIdCollection]
-	
-	import tmpRole1Passed [number]	
+
+	import tmpRole1Passed [number]
 	where
 		tmpRole1Passed [> 0]
-		
-	export tmpThreadID [id]		
+
+	export tmpThreadID [id]
 		_
-	export tmpIntVarID [id]		
+	export tmpIntVarID [id]
 		_
 
 	construct TransformedRDS3 [repeat declaration_or_statement]
-		TransformedDS 
-		TransformedRDS4    
-	
-	construct TransformedBL2 [block] 
-		'{                                        
-			TransformedRDS3   
-		'}	
+		TransformedDS
+		TransformedRDS4
+
+	construct TransformedBL2 [block]
+		'{
+			TransformedRDS3
+		'}
 	construct TransformedSSTMT [synchronized_statement]
 	    'synchronized '( EX ')
-			TransformedBL2 		
+			TransformedBL2
 	construct TransformedSTMT [statement]
-		TransformedSSTMT		
+		TransformedSSTMT
 	construct TransformedRDS [repeat declaration_or_statement]
 		TransformedSTMT
-		RDS2 		
+		RDS2
 	construct TransformedBL [block]
-	    '{                                       
+	    '{
 			TransformedRDS
-		'}			
+		'}
 	construct TransformedMB [method_body]
-        TransformedBL  		 
-		
+        TransformedBL
+
 	construct ReadWriteLockAnnotation1pt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1pt2 [stringlit]
-		", roleID=1, roleDescription='Synchronized method to issue a read lock.')"	
-		
-	export tmpRole1aPassed 
+		", roleID=1, roleDescription='Synchronized method to issue a read lock.')"
+
+	export tmpRole1aPassed
 		0
-	export tmpRole1Passed 
+	export tmpRole1Passed
 		0
-		
-	import CountRLMethodIDs [number]	
-	where 
+
+	import CountRLMethodIDs [number]
+	where
 		CountRLMethodIDs [> 0]
-		
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1pt1 [+ CountRLMethodIDs] [+ ReadWriteLockAnnotation1pt2] */ RM TS MD OT TransformedMB 	
+		'MUTATED /* ReadWriteLockAnnotation1pt1 [+ CountRLMethodIDs] [+ ReadWriteLockAnnotation1pt2] */ RM TS MD OT TransformedMB
 end rule
 
 % Called from within findReadLockSynchMeth and findReadLockSynchMeth2 to check if there is an if-statement
 % //*** ReadWriteLockPattern:  Role = 1a(Boolean check if the designated thread has the write lock.
 % ///							** If true i.e. a thread has the write lock then processing continues to Role 1aa and then Role 1ab.
 % //							** If false then processing continues to 1b.);
-rule getIfStmtRL 
+rule getIfStmtRL
 	replace [if_statement]
-		'if '( EX2 [expression] ')     
+		'if '( EX2 [expression] ')
 			ifExpSTMT [statement]
-		OEC [opt else_clause] 		
-		
+		OEC [opt else_clause]
+
 	import threadIdCollection [repeat id]
-	import intIdCollection [repeat id]		
-		
+	import intIdCollection [repeat id]
+
 	construct InstanceFound [expression]
 		EX2 [isWriteLockThreadCheckExp EX2 each threadIdCollection]
-	
+
 	construct TransformedIfExpSTMT [statement]
 		ifExpSTMT [isIntVarWaitRLIncr each intIdCollection]
 			[isWhileLpWaitforWriteLock] [isDoWhileLpWaitforWriteLock]
 			[isIntVarWaitRLDecr]
-			
+
 	import tmpRole1aPassed [number]
 	where
 		tmpRole1aPassed [> 0]
@@ -861,19 +862,19 @@ rule getIfStmtRL
 	construct ReadWriteLockAnnotation1apt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1apt2 [stringlit]
-		", roleID=1a, roleDescription='Boolean check if the designated writeLockedThread has the write lock.')"	
-	
-	import CountRLMethodIDs [number]	
+		", roleID=1a, roleDescription='Boolean check if the designated writeLockedThread has the write lock.')"
+
+	import CountRLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountRLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1apt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1apt2] */ 
-		'if '( EX2 ')     
+		'MUTATED /* ReadWriteLockAnnotation1apt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1apt2] */
+		'if '( EX2 ')
 		'{
-			TransformedIfExpSTMT 
+			TransformedIfExpSTMT
 		'}
-		OEC 		
+		OEC
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 1a(Boolean check if the designated thread has the write lock.
@@ -883,114 +884,114 @@ function isWriteLockThreadCheckExp EX2 [expression] threadID [id]
 	replace [expression]
 		EX2
 	construct theNull [null_literal]
-		'null		
+		'null
 	where all
 		EX2 [matchesVarID threadID] [hasNull theNull]
-		
-	import tmpThreadID [id]		
-	export tmpThreadID	
+
+	import tmpThreadID [id]
+	export tmpThreadID
 		threadID
-		
-	% import intIdCollection [repeat id]		
+
+	% import intIdCollection [repeat id]
 	% construct InstanceFound [statement]
 		% ifExpSTMT [isIntVarWaitRLIncr ifExpSTMT MD threadID RDS4 each intIdCollection]
-		
+
 	by
 		EX2
-			
+
 end function
 
 % //*** ReadWriteLockPattern:  Role = 1aa(Increment designated counter variable by 1.);
 rule isIntVarWaitRLIncr intVarID [id]
 	replace [expression_statement]
-		EX [expression] '; 
-		
+		EX [expression] ';
+
 	construct incExpression1 [expression]
 		intVarID '++
 	construct incExpression2 [expression]
-		'++ intVarID 
+		'++ intVarID
 	construct incExpression3 [expression]
 		intVarID '+=1
 	construct incExpression4 [expression]
 		intVarID '+1
-		
+
 	construct waitRLIncrExpStmt [statement]
-		EX '; 
-		
+		EX ';
+
 	where
 		waitRLIncrExpStmt [hasExpression incExpression1] [hasExpression incExpression2] [hasExpression incExpression3] [hasExpression incExpression4]
-		
-	import tmpIntVarID [id]		
+
+	import tmpIntVarID [id]
 	export tmpIntVarID
 		intVarID
-		
+
 	% construct InstanceFound [statement]
 		% ifExpSTMT [isWhileLpWaitforWriteLock ifExpSTMT MD threadID intVarID RDS4] [isDoWhileLpWaitforWriteLock ifExpSTMT MD threadID intVarID RDS4]
 
 	construct ReadWriteLockAnnotation1aapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1aapt2 [stringlit]
-		", roleID=1aa, roleDescription='Increment designated waitingForReadLock counter variable by 1.')"	
-	
-	import CountRLMethodIDs [number]	
+		", roleID=1aa, roleDescription='Increment designated waitingForReadLock counter variable by 1.')"
+
+	import CountRLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountRLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1aapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1aapt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation1aapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1aapt2] */
+		EX ';
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 1ab(Loop iteratively checking if the designated thread has the write lock.);
 % //							** As long as true i.e. a thread has the write lock Role 1aba occurs
 % //							** When condition becomes false processing continues to Role 1ac.);
 % //*** ReadWriteLockPattern:  Role = 1aba(wait() is called to pause further processing);
-rule isWhileLpWaitforWriteLock 
+rule isWhileLpWaitforWriteLock
 	replace [while_statement]
-	    'while '( EX [expression] ') 
-			STMT [statement]                     
+	    'while '( EX [expression] ')
+			STMT [statement]
 
 	construct theNull [null_literal]
-		'null	        
-	import tmpThreadID [id]		
+		'null
+	import tmpThreadID [id]
 	where all
 		EX [matchesVarID tmpThreadID] [hasNull theNull]
-		
+
 	construct waitStmt [statement]
 		'wait();
 	where
 		STMT [hasStmt waitStmt]
-		
+
 	% construct InstanceFound [statement]
 		% ifExpSTMT [isIntVarWaitRLDecr MD threadID intVarID RDS4]
 
 	construct ReadWriteLockAnnotation1abpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1abpt2 [stringlit]
-		", roleID=1ab, roleDescription='Loop iteratively checking if the designated writeLockedThread has the write lock.')"	
+		", roleID=1ab, roleDescription='Loop iteratively checking if the designated writeLockedThread has the write lock.')"
 
 	construct ReadWriteLockAnnotation1abapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1abapt2 [stringlit]
-		", roleID=1aba, roleDescription='wait() is called to pause further processing.')"	
-	
-	import CountRLMethodIDs [number]	
+		", roleID=1aba, roleDescription='wait() is called to pause further processing.')"
+
+	import CountRLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountRLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1abpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abpt2] */ 
-	    'while '( EX ') 
+		'MUTATED /* ReadWriteLockAnnotation1abpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abpt2] */
+	    'while '( EX ')
 		{
-			/* ReadWriteLockAnnotation1abapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abapt2] */ 
-			STMT                     
+			/* ReadWriteLockAnnotation1abapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abapt2] */
+			STMT
 		}
-		
+
 		% 'MUTATED /* GuardedSuspensionAnnotation2apt1 [+ Counter] [+ GuardedSuspensionAnnotation2apt2] */
-	    % 'while '( EX ') 
+	    % 'while '( EX ')
 		% {
 			% /* GuardedSuspensionAnnotation2aapt1 [+ Counter] [+ GuardedSuspensionAnnotation2aapt2] */
-			% STMT                     
+			% STMT
 		% }
 
 end rule
@@ -999,162 +1000,162 @@ end rule
 % //							** As long as true i.e. a thread has the write lock Role 1aba occurs
 % //							** When condition becomes false processing continues to Role 1ac.);
 % //*** ReadWriteLockPattern:  Role = 1aba(wait() is called to pause further processing);
-rule isDoWhileLpWaitforWriteLock 
+rule isDoWhileLpWaitforWriteLock
 	replace [do_statement]
 		'do
 			 STMT [statement]
-		'while '( EX [expression] ') '; 			
+		'while '( EX [expression] ') ';
 
 	construct theNull [null_literal]
-		'null	        
-	import tmpThreadID [id]		
+		'null
+	import tmpThreadID [id]
 	where all
 		EX [matchesVarID tmpThreadID] [hasNull theNull]
-		
+
 	construct waitStmt [statement]
 		'wait();
 	where
 		STMT [hasStmt waitStmt]
-		
+
 	% construct InstanceFound [statement]
 		% ifExpSTMT [isIntVarWaitRLDecr MD threadID intVarID RDS4]
 
 	construct ReadWriteLockAnnotation1abpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1abpt2 [stringlit]
-		", roleID=1ab, roleDescription='Loop iteratively checking if the designated writeLockedThread has the write lock.')"	
+		", roleID=1ab, roleDescription='Loop iteratively checking if the designated writeLockedThread has the write lock.')"
 
 	construct ReadWriteLockAnnotation1abapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1abapt2 [stringlit]
-		", roleID=1aba, roleDescription='wait() is called to pause further processing.')"	
-	
-	import CountRLMethodIDs [number]	
+		", roleID=1aba, roleDescription='wait() is called to pause further processing.')"
+
+	import CountRLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountRLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1abpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abpt2] */ 
+		'MUTATED /* ReadWriteLockAnnotation1abpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abpt2] */
 		'do
 		{
-			/* ReadWriteLockAnnotation1abapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abapt2] */ 
+			/* ReadWriteLockAnnotation1abapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1abapt2] */
 			STMT
 		}
-		'while '( EX ') '; 			
+		'while '( EX ') ';
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 1ac(Decrement designated counter variable by 1.);
-rule isIntVarWaitRLDecr 
+rule isIntVarWaitRLDecr
 	replace [expression_statement]
-		EX [expression] '; 
-	
-	import tmpIntVarID [id]		
-	
+		EX [expression] ';
+
+	import tmpIntVarID [id]
+
 	construct decExpression1 [expression]
 		tmpIntVarID '--
 	construct decExpression2 [expression]
-		'-- tmpIntVarID 
+		'-- tmpIntVarID
 	construct decExpression3 [expression]
 		tmpIntVarID '-=1
 	construct decExpression4 [expression]
 		tmpIntVarID '-1
-		
+
 	construct waitRLDecrExpStmt [statement]
-		EX '; 
-		
+		EX ';
+
 	where
 		waitRLDecrExpStmt [hasExpression decExpression1] [hasExpression decExpression2] [hasExpression decExpression3] [hasExpression decExpression4]
-		
+
 	construct PlusOne [number]
 		1
 	import tmpRole1aPassed [number]
 	construct NewCount [number]
 		tmpRole1aPassed [+ PlusOne]
 	export tmpRole1aPassed
-		NewCount	
-				
-	% import intIdCollection [repeat id]		
+		NewCount
+
+	% import intIdCollection [repeat id]
 	% construct InstanceFound [repeat declaration_or_statement]
 		% RDS4 [isIntVarOutStdRLIncr MD threadID intVarID RDS4 each intIdCollection]
-		
+
 	construct ReadWriteLockAnnotation1acpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1acpt2 [stringlit]
-		", roleID=1ac, roleDescription='Decrement designated waitingForReadLock counter variable by 1.')"	
-	
-	import CountRLMethodIDs [number]	
+		", roleID=1ac, roleDescription='Decrement designated waitingForReadLock counter variable by 1.')"
+
+	import CountRLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountRLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1acpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1acpt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation1acpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation1acpt2] */
+		EX ';
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 1b(Increment counter variable by 1.);
 rule isIntVarOutStdRLIncr MD [method_declarator] RDS4 [repeat declaration_or_statement] secondIntVarID [id]
 	replace [expression_statement]
-		EX [expression] '; 
-		
-	import tmpIntVarID [id]		
-	import tmpThreadID [id]		
+		EX [expression] ';
+
+	import tmpIntVarID [id]
+	import tmpThreadID [id]
 
 	where not
 		tmpIntVarID [= secondIntVarID]
-		
+
 	construct incExpression1 [expression]
 		secondIntVarID '++
 	construct incExpression2 [expression]
-		'++ secondIntVarID 
+		'++ secondIntVarID
 	construct incExpression3 [expression]
 		secondIntVarID '+=1
 	construct incExpression4 [expression]
 		secondIntVarID '+1
-	
+
 	where
 		RDS4 [hasExpression incExpression1] [hasExpression incExpression2] [hasExpression incExpression3] [hasExpression incExpression4]
-		
+
 	deconstruct MD
-	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]    
+	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]
 	deconstruct MN
 		DN [declared_name]
 	deconstruct DN
-	   methodID [id] OGP [opt generic_parameter]    
-		
+	   methodID [id] OGP [opt generic_parameter]
+
 	import RLMethodIDs [repeat id]
 	construct newRLMethodIDs [repeat id]
 		RLMethodIDs [. methodID]
 	export RLMethodIDs
 		newRLMethodIDs
-		
+
 	construct PlusOne [number]
 		1
-		
+
 	import CountRLMethodIDs [number]
 	construct NewCount [number]
 		CountRLMethodIDs [+ PlusOne]
 	export CountRLMethodIDs
-		NewCount	
-		
+		NewCount
+
 	import tmpRole1Passed [number]
 	construct NewCountb [number]
 		tmpRole1Passed [+ PlusOne]
 	export tmpRole1Passed
-		NewCountb	
-		
-		
+		NewCountb
+
+
 	import usedThreadIdCollectionWL [repeat id]
 	construct newThreadIdCollection [repeat id]
 		usedThreadIdCollectionWL [. tmpThreadID]
 	export usedThreadIdCollectionWL
 		newThreadIdCollection
-		
+
 	import usedIntIdCollectionWaitRL [repeat id]
 	construct newIntIdCollectionWRL [repeat id]
 		usedIntIdCollectionWaitRL [. tmpIntVarID]
 	export usedIntIdCollectionWaitRL
 		newIntIdCollectionWRL
-		
+
 	import usedIntIdCollectionOutStandRL [repeat id]
 	construct newIntIdCollectionORL [repeat id]
 		usedIntIdCollectionOutStandRL [. secondIntVarID]
@@ -1166,11 +1167,11 @@ rule isIntVarOutStdRLIncr MD [method_declarator] RDS4 [repeat declaration_or_sta
 	construct ReadWriteLockAnnotation1bpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation1bpt2 [stringlit]
-		", roleID=1b, roleDescription='Increment designated outstandingReadLocks counter variable by 1.')"	
-	
+		", roleID=1b, roleDescription='Increment designated outstandingReadLocks counter variable by 1.')"
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation1bpt1 [+ CountRLMethodIDs] [+ ReadWriteLockAnnotation1bpt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation1bpt1 [+ CountRLMethodIDs] [+ ReadWriteLockAnnotation1bpt2] */
+		EX ';
 end rule
 
 
@@ -1178,32 +1179,32 @@ end rule
 % //							** Contains Role 2a
 % //							** Contains Role 2b
 % //							** Contains Role 2c
-% //							** Contains Role 2d);     
+% //							** Contains Role 2d);
 rule findWriteLockSynchMeth
-	replace [method_declaration] 
-		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]		
+	replace [method_declaration]
+		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]
 	deconstruct MB
-        BL [block]  
+        BL [block]
 	construct TransformedBL [block]
-		BL [obtain1stSychStmtfromBL BL MD] 
-		[obtain2ndSychStmtfromBL]	
+		BL [obtain1stSychStmtfromBL BL MD]
+		[obtain2ndSychStmtfromBL]
 		[obtain3rdSychStmtfromBL MD]
-		
-	import tmpRole2Passed [number]	
+
+	import tmpRole2Passed [number]
 	where
 		tmpRole2Passed [> 0]
-		
+
 	construct TransformedMB [method_body]
-        TransformedBL  		 
-		
+        TransformedBL
+
 	construct ReadWriteLockAnnotation2pt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2pt2 [stringlit]
-		", roleID=2, roleDescription='Method to issue a write lock.')"	
+		", roleID=2, roleDescription='Method to issue a write lock.')"
 
-	export tmpRole2Passed 
+	export tmpRole2Passed
 		0
-	import tmpWLThreadID [id]	
+	import tmpWLThreadID [id]
 	export tmpWLThreadID
 		_
 	import tmpNewThreadID [id]
@@ -1212,144 +1213,144 @@ rule findWriteLockSynchMeth
 	import tmpArrListID [id]
 	export tmpArrListID
 		_
-	
-	import CountWLMethodIDs [number]	
-	where 
+
+	import CountWLMethodIDs [number]
+	where
 		CountWLMethodIDs [> 0]
-		
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2pt1 [+ CountWLMethodIDs] [+ ReadWriteLockAnnotation2pt2] */ RM TS MD OT TransformedMB 	
+		'MUTATED /* ReadWriteLockAnnotation2pt1 [+ CountWLMethodIDs] [+ ReadWriteLockAnnotation2pt2] */ RM TS MD OT TransformedMB
 
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 2b(Critical section creation by synchronization of this Read/Write Lock object Role 1.
 % //							** Contains Role 2ba);
-% First Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition 
+% First Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition
 % uses the synchronized keyword.  The method can then be a candidate for being the synchronized method to issue a write lock.
-rule obtain1stSychStmtfromBL BL [block] MD [method_declarator] 
+rule obtain1stSychStmtfromBL BL [block] MD [method_declarator]
 	construct  THIS [expression]
-		'this		
+		'this
 	replace [synchronized_statement]
 	    'synchronized '( EX [expression] ')
-			BL2 [block] 		
-	where 
-		EX [isMethodSynchdUsingThis THIS]		
+			BL2 [block]
+	where
+		EX [isMethodSynchdUsingThis THIS]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}	
-		
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
+
 	import threadIdCollection [repeat id]
-	import arrListIdCollection [repeat id]	
+	import arrListIdCollection [repeat id]
 	construct TransformedRDS3 [repeat declaration_or_statement]
-		RDS3 [getIfStmtWL] 
-		[isNewThrdAssignedCurrThrd each threadIdCollection] 
+		RDS3 [getIfStmtWL]
+		[isNewThrdAssignedCurrThrd each threadIdCollection]
 		[isNewThrdAddedtoWLWaitingArr each arrListIdCollection]
-	
-	import tmpRole2bPassed [number]	
+
+	import tmpRole2bPassed [number]
 	where
 		tmpRole2bPassed [> 0]
-	
+
 	construct TransformedBL2 [block]
-		'{                                        
-			TransformedRDS3   
-		'}	
-		
+		'{
+			TransformedRDS3
+		'}
+
 	construct ReadWriteLockAnnotation2bpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2bpt2 [stringlit]
-		", roleID=2b, roleDescription='Critical section creation by synchronization of this writeLock method.')"	
-	
-	export tmpRole2bPassed 
+		", roleID=2b, roleDescription='Critical section creation by synchronization of this writeLock method.')"
+
+	export tmpRole2bPassed
 		0
-	
-	import CountWLMethodIDs [number]	
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2bpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2bpt2] */ 
+		'MUTATED /* ReadWriteLockAnnotation2bpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2bpt2] */
 	    'synchronized '( EX ')
 		'{
-			TransformedBL2  	
+			TransformedBL2
 		'}
 end rule
 
 % Called from within obtain1stSSfromBL to check if there is an if-statement
-rule getIfStmtWL    
+rule getIfStmtWL
 	replace [if_statement]
-		'if '( EX2 [expression] ')     
+		'if '( EX2 [expression] ')
 			ifExpSTMT [statement]
-		OEC [opt else_clause] 		
-		
+		OEC [opt else_clause]
+
 	import usedThreadIdCollectionWL [repeat id]
 	import usedIntIdCollectionOutStandRL [repeat id]
 
 	construct InstanceFound [expression]
 		EX2 [isNoOutStdRLExp EX2 each usedIntIdCollectionOutStandRL] [isWLThreadNull EX2 each usedThreadIdCollectionWL]
-		
+
 	construct TransformedIfExpSTMT [statement]
 		ifExpSTMT [isWLThrdAssignedCurrThrd] [isReturnStmt]
-	
-	% import tmpRole2bPassed [number]	
+
+	% import tmpRole2bPassed [number]
 	% where
 		% tmpRole2bPassed [> 0]
 
 	construct ReadWriteLockAnnotation2bapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2bapt2 [stringlit]
-		", roleID=2ba, roleDescription='Within Role 2b checking if the designated writeLockedThread is null and designated outstandingReadLocks counter variable is zero.')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2ba, roleDescription='Within Role 2b checking if the designated writeLockedThread is null and designated outstandingReadLocks counter variable is zero.')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2bapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2bapt2] */ 
-		'if '( EX2 ')     
+		'MUTATED /* ReadWriteLockAnnotation2bapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2bapt2] */
+		'if '( EX2 ')
 		'{
-			TransformedIfExpSTMT 
+			TransformedIfExpSTMT
 		'}
-		OEC 		
+		OEC
 end rule
 
-% //*** ReadWriteLockPattern:  Role = 2ba(Within Role 2b a check to whether designated counter variable is zero.  
+% //*** ReadWriteLockPattern:  Role = 2ba(Within Role 2b a check to whether designated counter variable is zero.
 % //							** If true proceed with Role 2baa and 2bab.
 % //							** If false proceed with Role 2bac and 2bad);
 function isNoOutStdRLExp EX2 [expression] intVarID [id]
 	replace [expression]
 		EX2
-	where 
-		EX2 [matchesVarID intVarID] 		
+	where
+		EX2 [matchesVarID intVarID]
 	by
 		EX2
 end function
 
-% //*** ReadWriteLockPattern:  Role = 2ba(Within Role 2b a check to whether the designated writelock thread is null.  
+% //*** ReadWriteLockPattern:  Role = 2ba(Within Role 2b a check to whether the designated writelock thread is null.
 % //							** If true proceed with Role 2baa and 2bab.
 % //							** If false proceed with Role 2bac and 2bad);
 function isWLThreadNull EX2 [expression] threadID [id]
 	replace [expression]
 		EX2
 	construct theNull [null_literal]
-		'null		
+		'null
 	where all
-		EX2 [matchesVarID threadID] [hasNull theNull]	
+		EX2 [matchesVarID threadID] [hasNull theNull]
 
 	import tmpWLThreadID [id]
 	export tmpWLThreadID
 		threadID
-	% import intIdCollection [repeat id]		
+	% import intIdCollection [repeat id]
 	% construct InstanceFound [statement]
-		% ifExpSTMT [isWLThrdAssignedCurrThrd BL RDS3 ifExpSTMT MD threadID]	
+		% ifExpSTMT [isWLThrdAssignedCurrThrd BL RDS3 ifExpSTMT MD threadID]
 	by
 		EX2
 end function
 
 % //*** ReadWriteLockPattern:  Role = 2baa(Assign the current thread to the designated writelock thread );
-rule isWLThrdAssignedCurrThrd 
+rule isWLThrdAssignedCurrThrd
 	replace [expression_statement]
-		EX [expression] '; 
+		EX [expression] ';
 	construct threadID2 [id]
 		'Thread
 	construct threadID3 [id]
@@ -1360,70 +1361,70 @@ rule isWLThrdAssignedCurrThrd
 		AE [assignment_expression]
 	import tmpWLThreadID [id]
 	where all
-		AE [matchesVarID tmpWLThreadID] [matchesVarID threadID2] [matchesVarID threadID3] [matchesAssignOp assignOp] 
+		AE [matchesVarID tmpWLThreadID] [matchesVarID threadID2] [matchesVarID threadID3] [matchesAssignOp assignOp]
 
 	% import threadIdCollection [repeat id]
 	% construct InstanceFound  [repeat declaration_or_statement]
 		% RDS3 [isNewThrdAssignedCurrThrd MD BL RDS3 threadID each threadIdCollection]
- 
+
 	construct ReadWriteLockAnnotation2baapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2baapt2 [stringlit]
-		", roleID=2baa, roleDescription='Assign the current thread to the designated writeLockedThread.')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2baa, roleDescription='Assign the current thread to the designated writeLockedThread.')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2baapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2baapt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation2baapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2baapt2] */
+		EX ';
 end rule
 
-% //*** ReadWriteLockPattern:  Role = 2bab(Return to the calling object that is using this method Role 2 of an instance of this object Role 1 .); 
-rule isReturnStmt 
+% //*** ReadWriteLockPattern:  Role = 2bab(Return to the calling object that is using this method Role 2 of an instance of this object Role 1 .);
+rule isReturnStmt
 	% replace [expression_statement]
-		% EX [expression] '; 
-		
+		% EX [expression] ';
+
 	% construct rtnStmt [statement]
-		% 'return;		
-	% where 
+		% 'return;
+	% where
 		% EX [hasStmt rtnStmt]
-		
+
 	replace [return_statement]
-		'return OE [opt expression] ';		
-		
+		'return OE [opt expression] ';
+
 	% deconstruct EX
 		% AE [assignment_expression]
 
 	% import tmpWLThreadID [id]
 	% where all
-		% AE [matchesVarID tmpWLThreadID] [matchesVarID threadID2] [matchesVarID threadID3] [matchesAssignOp assignOp] 
+		% AE [matchesVarID tmpWLThreadID] [matchesVarID threadID2] [matchesVarID threadID3] [matchesAssignOp assignOp]
 
 	% import threadIdCollection [repeat id]
 	% construct InstanceFound  [repeat declaration_or_statement]
 		% RDS3 [isNewThrdAssignedCurrThrd MD BL RDS3 threadID each threadIdCollection]
- 
+
 	construct ReadWriteLockAnnotation2babpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2babpt2 [stringlit]
-		", roleID=2bab, roleDescription='Return to the calling object that is using this method Role 2 of an instance of this object Role 1.')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2bab, roleDescription='Return to the calling object that is using this method Role 2 of an instance of this object Role 1.')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2babpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2babpt2] */ 
+		'MUTATED /* ReadWriteLockAnnotation2babpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2babpt2] */
 		'return OE ';
-		% EX '; 
+		% EX ';
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 2bac(Make thread Role 2a the current thread.);
 rule isNewThrdAssignedCurrThrd newThreadID [id]
 	replace [expression_statement]
-		EX [expression] '; 
-		
+		EX [expression] ';
+
 	import tmpWLThreadID [id]
 	where not
 		tmpWLThreadID [= newThreadID]
@@ -1437,34 +1438,34 @@ rule isNewThrdAssignedCurrThrd newThreadID [id]
 		AE [assignment_expression]
 
 	where all
-		AE [matchesVarID newThreadID] [matchesVarID threadID2] [matchesVarID threadID3] [matchesAssignOp assignOp] 
-		
+		AE [matchesVarID newThreadID] [matchesVarID threadID2] [matchesVarID threadID3] [matchesAssignOp assignOp]
+
 	import tmpNewThreadID [id]
 	export tmpNewThreadID
 		newThreadID
-	% import arrListIdCollection [repeat id]	
+	% import arrListIdCollection [repeat id]
 	% construct InstanceFound  [repeat declaration_or_statement]
 		% RDS3 [isNewThrdAddedtoWLWaitingArr MD usedThreadID BL RDS3 newThreadID each arrListIdCollection]
-		
+
 	construct ReadWriteLockAnnotation2bacpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2bacpt2 [stringlit]
-		", roleID=2bac, roleDescription='Make thread Role 2a the current thread.')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2bac, roleDescription='Make thread Role 2a the current thread.')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2bacpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2bacpt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation2bacpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2bacpt2] */
+		EX ';
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 2bad(Add thread Role 2a to arraylist);
 rule isNewThrdAddedtoWLWaitingArr arrListID [id]
 	replace [expression_statement]
-		EX [expression] '; 
-		
+		EX [expression] ';
+
 	construct idAdd [id]
 		'add
 	deconstruct EX
@@ -1472,134 +1473,134 @@ rule isNewThrdAddedtoWLWaitingArr arrListID [id]
 
 	import tmpNewThreadID [id]
 	where all
-		AE [matchesVarID tmpNewThreadID] [matchesVarID arrListID] [matchesVarID idAdd] 
-		
+		AE [matchesVarID tmpNewThreadID] [matchesVarID arrListID] [matchesVarID idAdd]
+
 	import tmpArrListID [id]
 	export tmpArrListID
 		arrListID
 
 	% construct InstanceFound [repeat declaration_or_statement]
-		% BL [obtain2ndSychStmtfromBL arrListID usedThreadID newThreadID BL MD]		
-		
+		% BL [obtain2ndSychStmtfromBL arrListID usedThreadID newThreadID BL MD]
+
 	construct PlusOne [number]
-		1		
+		1
 	import tmpRole2bPassed [number]
 	construct NewCount [number]
 		tmpRole2bPassed [+ PlusOne]
 	export tmpRole2bPassed
-		NewCount	
-			
+		NewCount
+
 	construct ReadWriteLockAnnotation2badpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2badpt2 [stringlit]
-		", roleID=2bad, roleDescription='Add thread Role 2a to arraylist.')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2bad, roleDescription='Add thread Role 2a to arraylist.')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2badpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2badpt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation2badpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2badpt2] */
+		EX ';
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 2c(Critical section creation by synchronization of thread Role 2a.
 % //							** Contains Role 2ca);
-rule obtain2ndSychStmtfromBL 
+rule obtain2ndSychStmtfromBL
 	replace [synchronized_statement]
 	    'synchronized '( EX [expression] ')
-			BL2 [block] 	
+			BL2 [block]
 
 	import tmpNewThreadID [id]
-	where 
-		EX [matchesVarID tmpNewThreadID]		
+	where
+		EX [matchesVarID tmpNewThreadID]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}	
-		
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
+
 	construct TransformedRDS3 [repeat declaration_or_statement]
 		RDS3 [isWhileLpThreadChk] [isDoWhileLpThreadChk]
 	construct TransformedBL2 [block]
-		'{                                        
+		'{
 				TransformedRDS3
-		'}	
-		
+		'}
+
 	construct ReadWriteLockAnnotation2cpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2cpt2 [stringlit]
-		", roleID=2c, roleDescription='Critical section creation by synchronization of thread Role 2a.')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2c, roleDescription='Critical section creation by synchronization of thread Role 2a.')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2cpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2cpt2] */ 
+		'MUTATED /* ReadWriteLockAnnotation2cpt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2cpt2] */
 	    'synchronized '( EX ')
 		'{
 			TransformedBL2
 		'}
 end rule
 
-% //*** ReadWriteLockPattern:  Role = 2ca(A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as thread the designated writelock thread .  
+% //*** ReadWriteLockPattern:  Role = 2ca(A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as thread the designated writelock thread .
 % //							** If true proceed with Role 2caa.
 % //							** If false then new thread Role 2a is allowed to continue to run and proceeds to Role 2d.);
-% //*** ReadWriteLockPattern:  Role = 2caa(New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().); 
-rule isWhileLpThreadChk 
+% //*** ReadWriteLockPattern:  Role = 2caa(New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().);
+rule isWhileLpThreadChk
 	replace [while_statement]
-	    'while '( EX [expression] ') 
-			STMT [statement]                     
+	    'while '( EX [expression] ')
+			STMT [statement]
 
 	construct neOp [equality_op]
 		'!=
-		
+
 	import tmpWLThreadID [id]
 	import tmpNewThreadID [id]
-		
+
 	where all
 		EX [matchesVarID tmpNewThreadID] [matchesVarID tmpWLThreadID] [matchesEqOp neOp]
-		
+
 	construct waitID [id]
 		'wait
 	where all
 		STMT [matchesVarID tmpNewThreadID] [matchesVarID waitID]
-		
+
 	% construct InstanceFound [repeat declaration_or_statement]
-		% BL [obtain3rdSychStmtfromBL arrListID newThreadID MD]		
+		% BL [obtain3rdSychStmtfromBL arrListID newThreadID MD]
 
 	construct ReadWriteLockAnnotation2capt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2capt2 [stringlit]
-		", roleID=2ca, roleDescription='A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as the designated writeLockedThread.')"	
+		", roleID=2ca, roleDescription='A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as the designated writeLockedThread.')"
 
 	construct ReadWriteLockAnnotation2caapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2caapt2 [stringlit]
-		", roleID=2caa, roleDescription='New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2caa, roleDescription='New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2capt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2capt2] */ 
-	    'while '( EX ') 
+		'MUTATED /* ReadWriteLockAnnotation2capt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2capt2] */
+	    'while '( EX ')
 		{
 			/* ReadWriteLockAnnotation2caapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2caapt2] */
-			STMT                     
+			STMT
 		}
 end rule
 
-% //*** ReadWriteLockPattern:  Role = 2ca(A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as the designated writelock thread.  
+% //*** ReadWriteLockPattern:  Role = 2ca(A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as the designated writelock thread.
 % //							** If true proceed with Role 2caa.
 % //							** If false then new thread Role 2a is allowed to continue to run and proceeds to Role 2d.);
-% //*** ReadWriteLockPattern:  Role = 2caa(New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().); 
-rule isDoWhileLpThreadChk 
+% //*** ReadWriteLockPattern:  Role = 2caa(New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().);
+rule isDoWhileLpThreadChk
 	replace [do_statement]
 		'do
 			 STMT [statement]
-		'while '( EX [expression] ') '; 			
+		'while '( EX [expression] ') ';
 
 	import tmpWLThreadID [id]
 	import tmpNewThreadID [id]
@@ -1608,82 +1609,82 @@ rule isDoWhileLpThreadChk
 		'!=
 	where all
 		EX [matchesVarID tmpNewThreadID] [matchesVarID tmpWLThreadID] [matchesEqOp neOp]
-		
+
 	construct waitID [id]
 		'wait
 	where all
 		STMT [matchesVarID tmpNewThreadID] [matchesVarID waitID]
-		
+
 	% construct InstanceFound [repeat declaration_or_statement]
-		% BL [obtain3rdSychStmtfromBL arrListID newThreadID MD]		
+		% BL [obtain3rdSychStmtfromBL arrListID newThreadID MD]
 
 	construct ReadWriteLockAnnotation2capt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2capt2 [stringlit]
-		", roleID=2ca, roleDescription='A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as the designated writeLockedThread.')"	
+		", roleID=2ca, roleDescription='A loop within critical section Role 2c to check if the new thread Role 2a is NOT the same as the designated writeLockedThread.')"
 
 	construct ReadWriteLockAnnotation2caapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2caapt2 [stringlit]
-		", roleID=2caa, roleDescription='New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().')"	
-	
-	import CountWLMethodIDs [number]	
+		", roleID=2caa, roleDescription='New thread Role 2a is placed in a waiting state until method Role 3 wakes it up using a nofityAll().')"
+
+	import CountWLMethodIDs [number]
 	construct tmpCountRLMethodIDs [number]
 		CountWLMethodIDs [+ 1]
-	
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2capt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2capt2] */ 
+		'MUTATED /* ReadWriteLockAnnotation2capt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2capt2] */
 		'do
 		{
 			/* ReadWriteLockAnnotation2caapt1 [+ tmpCountRLMethodIDs] [+ ReadWriteLockAnnotation2caapt2] */
 			STMT
 		}
-		'while '( EX ') '; 			
+		'while '( EX ') ';
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 2d(Critical section creation by synchronization of this Read Write Lock object Role 1.
 % //							** Contains Role 2da);
-rule obtain3rdSychStmtfromBL MD [method_declarator] 
+rule obtain3rdSychStmtfromBL MD [method_declarator]
 	construct  THIS [expression]
-		'this		
+		'this
 	replace [synchronized_statement]
 	    'synchronized '( EX [expression] ')
-			BL2 [block] 		
-	where 
-		EX [isMethodSynchdUsingThis THIS]		
+			BL2 [block]
+	where
+		EX [isMethodSynchdUsingThis THIS]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}	
-		
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
+
 	construct TransformedRDS3 [repeat declaration_or_statement]
 		RDS3 [isNewThrdRemdFromWLWaitingArr MD]
-		
+
 	construct TransformedBL2 [block]
-		'{                                        
-			TransformedRDS3   
-		'}	
-		
+		'{
+			TransformedRDS3
+		'}
+
 	construct ReadWriteLockAnnotation2dpt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2dpt2 [stringlit]
-		", roleID=2d, roleDescription='Critical section creation by synchronization of this writelock method.')"	
-	
-	import CountWLMethodIDs [number]	
-	
+		", roleID=2d, roleDescription='Critical section creation by synchronization of this writelock method.')"
+
+	import CountWLMethodIDs [number]
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2dpt1 [+ CountWLMethodIDs] [+ ReadWriteLockAnnotation2dpt2] */ 
+		'MUTATED /* ReadWriteLockAnnotation2dpt1 [+ CountWLMethodIDs] [+ ReadWriteLockAnnotation2dpt2] */
 	    'synchronized '( EX ')
 		'{
-			TransformedBL2  	
+			TransformedBL2
 		'}
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 2da(Remove current thread (Role 2a) from the arraylist of waiting threads.)
 rule isNewThrdRemdFromWLWaitingArr MD [method_declarator]
 	replace [expression_statement]
-		EX [expression] '; 
-		
+		EX [expression] ';
+
 	construct idRemove [id]
 		'remove
 	deconstruct EX
@@ -1692,306 +1693,306 @@ rule isNewThrdRemdFromWLWaitingArr MD [method_declarator]
 	import tmpArrListID [id]
 	import tmpNewThreadID [id]
 	where all
-		AE [matchesVarID tmpNewThreadID] [matchesVarID tmpArrListID] [matchesVarID idRemove] 
-		
+		AE [matchesVarID tmpNewThreadID] [matchesVarID tmpArrListID] [matchesVarID idRemove]
+
 	deconstruct MD
-	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]    
+	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]
 	deconstruct MN
 		DN [declared_name]
 	deconstruct DN
-	   methodID [id] OGP [opt generic_parameter]    
-		
+	   methodID [id] OGP [opt generic_parameter]
+
 	import WLMethodIDs [repeat id]
 	construct newWLMethodIDs [repeat id]
 		WLMethodIDs [. methodID]
 	export WLMethodIDs
-		newWLMethodIDs		
-		
+		newWLMethodIDs
+
 	construct PlusOne [number]
 		1
-		
+
 	import CountWLMethodIDs [number]
 	construct NewCount [number]
 		CountWLMethodIDs [+ PlusOne]
 	export CountWLMethodIDs
-		NewCount		 
-		
+		NewCount
+
 	import tmpRole2Passed [number]
 	construct NewCountb [number]
 		tmpRole2Passed [+ PlusOne]
 	export tmpRole2Passed
-		NewCountb	
+		NewCountb
 
 	construct ReadWriteLockAnnotation2dapt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation2dapt2 [stringlit]
-		", roleID=2da, roleDescription='Remove current thread (Role 2a) from the arraylist of waiting threads.')"	
-	
+		", roleID=2da, roleDescription='Remove current thread (Role 2a) from the arraylist of waiting threads.')"
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation2dapt1 [+ CountWLMethodIDs] [+ ReadWriteLockAnnotation2dapt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation2dapt1 [+ CountWLMethodIDs] [+ ReadWriteLockAnnotation2dapt2] */
+		EX ';
 end rule
 
 
 % //Call to the done method indicates current thread is finished with the resource
 % //*** ReadWriteLockPattern:  Role = 3(Synchronized method called when the current thread is finished with resource.);
 % //							** Contains Role 3a.);
-% First Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition 
+% First Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition
 % uses the synchronized keyword.  The method can then be a candidate for being the synchronized method to issue a read lock.
 rule findDoneSynchMeth
 	construct  SYNCH [modifier]
-		'synchronized		
-	replace [method_declaration] 
-		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]		
-	where 
-		RM [isMethodSynchronized SYNCH]		
+		'synchronized
+	replace [method_declaration]
+		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]
+	where
+		RM [isMethodSynchronized SYNCH]
 	deconstruct MB
-        BL2 [block]  		
+        BL2 [block]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}			
-		
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
+
 	construct TransformedRDS3 [repeat declaration_or_statement]
 		RDS3 [getIfStmtDone] [getIfStmtDone2 MD]
-		
-	import tmpRole3Passed [number]	
-	where 
+
+	import tmpRole3Passed [number]
+	where
 		tmpRole3Passed [> 0]
 
-	construct TransformedBL2 [block] 
-		'{                                        
-			TransformedRDS3   
-		'}	
+	construct TransformedBL2 [block]
+		'{
+			TransformedRDS3
+		'}
 	construct TransformedMB [method_body]
-        TransformedBL2  		 
-		
+        TransformedBL2
+
 	construct ReadWriteLockAnnotation3pt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation3pt2 [stringlit]
-		", roleID=3, roleDescription='Synchronized method called when the current thread is finished with resource.')"	
-		
+		", roleID=3, roleDescription='Synchronized method called when the current thread is finished with resource.')"
+
 	export tmpRole3Passed
 		0
-	import CountDoneMethodIDs [number]	
+	import CountDoneMethodIDs [number]
 
 	by
-		'MUTATED /* ReadWriteLockAnnotation3pt1 [+ CountDoneMethodIDs] [+ ReadWriteLockAnnotation3pt2] */ RM TS MD OT TransformedMB 
+		'MUTATED /* ReadWriteLockAnnotation3pt1 [+ CountDoneMethodIDs] [+ ReadWriteLockAnnotation3pt2] */ RM TS MD OT TransformedMB
 end rule
 
 % //Call to the done method indicates current thread is finished with the resource
 % //*** ReadWriteLockPattern:  Role = 3(Synchronized method called when the current thread is finished with resource.);
 % //							** Contains Role 3a.);
-% Second Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition 
+% Second Rule to determine if a method is synchronized by determining if one of the modifiers in the method definition
 % uses the synchronized keyword.  The method can then be a candidate for being the synchronized method to issue a read lock.
 rule findDoneSynchMeth2
 	construct  THIS [expression]
-		'this		
-	replace [method_declaration] 
-		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]		
+		'this
+	replace [method_declaration]
+		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]
 	deconstruct MB
-        BL [block]  		
+        BL [block]
 	deconstruct BL
-	    '{                                       
-			RDS [repeat declaration_or_statement] 
-		'}			
+	    '{
+			RDS [repeat declaration_or_statement]
+		'}
 	deconstruct RDS
 		STMT [statement]
-		RDS2 [repeat declaration_or_statement]		
+		RDS2 [repeat declaration_or_statement]
 	deconstruct STMT
-		SSTMT [synchronized_statement]		
+		SSTMT [synchronized_statement]
 	deconstruct SSTMT
 	    'synchronized '( EX [expression] ')
-			BL2 [block] 		
-	where 
-		EX [isMethodSynchdUsingThis THIS]		
+			BL2 [block]
+	where
+		EX [isMethodSynchdUsingThis THIS]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}	
-		
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
+
 	construct TransformedRDS3 [repeat declaration_or_statement]
 		RDS3 [getIfStmtDone] [getIfStmtDone2 MD]
-		
-	import tmpRole3Passed [number]	
-	where 
+
+	import tmpRole3Passed [number]
+	where
 		tmpRole3Passed [> 0]
 
-	construct TransformedBL2 [block] 
-		'{                                        
-			TransformedRDS3   
-		'}	
-	construct TransformedSSTMT [synchronized_statement]	
+	construct TransformedBL2 [block]
+		'{
+			TransformedRDS3
+		'}
+	construct TransformedSSTMT [synchronized_statement]
 	    'synchronized '( EX ')
-			TransformedBL2		
+			TransformedBL2
 	construct TransformedSTMT [statement]
-		TransformedSSTMT		
+		TransformedSSTMT
 	construct TransformedRDS [repeat declaration_or_statement]
 		TransformedSTMT
-		RDS2 	
-	construct TransformedBL [block] 
-	    '{                                       
-			TransformedRDS 
-		'}			
-		
+		RDS2
+	construct TransformedBL [block]
+	    '{
+			TransformedRDS
+		'}
+
 	construct TransformedMB [method_body]
-        TransformedBL2  			
-		
+        TransformedBL2
+
 	construct ReadWriteLockAnnotation3pt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation3pt2 [stringlit]
-		", roleID=3, roleDescription='Synchronized method called when the current thread is finished with resource.')"	
-		
+		", roleID=3, roleDescription='Synchronized method called when the current thread is finished with resource.')"
+
 	export tmpRole3Passed
 		0
-	import CountDoneMethodIDs [number]	
+	import CountDoneMethodIDs [number]
 
 	by
-		'MUTATED /* ReadWriteLockAnnotation3pt1 [+ CountDoneMethodIDs] [+ ReadWriteLockAnnotation3pt2] */ RM TS MD OT TransformedMB 
+		'MUTATED /* ReadWriteLockAnnotation3pt1 [+ CountDoneMethodIDs] [+ ReadWriteLockAnnotation3pt2] */ RM TS MD OT TransformedMB
 end rule
 
 % Called from within findDoneSynchMeth2 to check if there is an if-statement
-rule getIfStmtDone     
+rule getIfStmtDone
 	replace [if_statement]
-		'if '( EX2 [expression] ')     
+		'if '( EX2 [expression] ')
 			ifExpSTMT [statement]
-		OEC [opt else_clause] 		
-		
+		OEC [opt else_clause]
+
 	% import usedThreadIdCollectionWL [repeat id]
 	import usedIntIdCollectionOutStandRL [repeat id]
 	construct InstanceFound [expression]
-		EX2 [isOutStdRLGTZero EX2 each usedIntIdCollectionOutStandRL] 
-		
-	import tmpIsOutStdRLGTZeroPassed [number]	
-	where 
+		EX2 [isOutStdRLGTZero EX2 each usedIntIdCollectionOutStandRL]
+
+	import tmpIsOutStdRLGTZeroPassed [number]
+	where
 		tmpIsOutStdRLGTZeroPassed [> 0]
 	export tmpIsOutStdRLGTZeroPassed
 		0
-		
+
 	construct TransformedifExpSTMT [statement]
 		ifExpSTMT [isOutStdRLDecr] [getIfStmtOSRLZeroWFWLSize]
-		
-		
-	import tmpIsOutStdRLDecrPassed [number]	
-	where 
+
+
+	import tmpIsOutStdRLDecrPassed [number]
+	where
 		tmpIsOutStdRLDecrPassed [> 0]
 	export tmpIsOutStdRLDecrPassed
 		0
-		
-	import tmpGetIfStmtOSRLZeroWFWLSizePassed [number]	
-	where 
+
+	import tmpGetIfStmtOSRLZeroWFWLSizePassed [number]
+	where
 		tmpGetIfStmtOSRLZeroWFWLSizePassed [> 0]
 	export tmpGetIfStmtOSRLZeroWFWLSizePassed
 		0
-	
+
 	by
-		'MUTATED 
-		'if '( EX2 ')     
+		'MUTATED
+		'if '( EX2 ')
 		'{
-			ifExpSTMT 
+			ifExpSTMT
 		'}
-		OEC 		
+		OEC
 end rule
 
 function isOutStdRLGTZero EX2 [expression] intVarID [id]
 	replace [expression]
 		EX2
-		
+
 	construct gtRelOp [relational_op]
 		'>
 	construct numZero [number]
 		'0
 	where all
-		EX2 [matchesVarID intVarID] [matchesRelOp gtRelOp] [hasNumber numZero]		
+		EX2 [matchesVarID intVarID] [matchesRelOp gtRelOp] [hasNumber numZero]
 	% construct InstanceFound [statement]
-		% ifExpSTMT [isOutStdRLDecr RDS3 ifExpSTMT MD intVarID]	
+		% ifExpSTMT [isOutStdRLDecr RDS3 ifExpSTMT MD intVarID]
 	import tmpDoneIntVarID [id]
-	export tmpDoneIntVarID 
+	export tmpDoneIntVarID
 		intVarID
-		
+
 	import tmpIsOutStdRLGTZeroPassed [number]
-	export tmpIsOutStdRLGTZeroPassed 
+	export tmpIsOutStdRLGTZeroPassed
 		1
-	
+
 	by
 		EX2
 end function
 
-rule isOutStdRLDecr 
+rule isOutStdRLDecr
 	replace [expression_statement]
-		EX [expression] '; 
-		
+		EX [expression] ';
+
 	construct decr [post_inc_dec]
 		'--
 	deconstruct EX
 		AE [assignment_expression]
-		
+
 	import tmpDoneIntVarID [id]
 	where all
 		AE [matchesVarID tmpDoneIntVarID] [matchesPostIncDec decr]
-		
+
 	import tmpIsOutStdRLDecrPassed [number]
-	export tmpIsOutStdRLDecrPassed 
+	export tmpIsOutStdRLDecrPassed
 		1
-		
+
 	% construct InstanceFound [statement]
-		% ifExpSTMT [getIfStmtOSRLZeroWFWLSize RDS3 MD intVarID]	
-		
+		% ifExpSTMT [getIfStmtOSRLZeroWFWLSize RDS3 MD intVarID]
+
 	by
-		'MUTATED 
-		EX '; 
+		'MUTATED
+		EX ';
 end rule
 
 rule getIfStmtOSRLZeroWFWLSize
 	replace [if_statement]
-		'if '( EX2 [expression] ')     
+		'if '( EX2 [expression] ')
 			ifExpSTMT2 [statement]
-		OEC [opt else_clause] 		
-		
+		OEC [opt else_clause]
+
 	import arrListIdCollection [repeat id]
 	construct InstanceFound [expression]
-		EX2 [isOSRLZeroWFWLSizeGTZero EX2 each arrListIdCollection] 
-		
-	import tmpIsOSRLZeroWFWLSizeGTZeroPassed [number]	
-	where 
+		EX2 [isOSRLZeroWFWLSizeGTZero EX2 each arrListIdCollection]
+
+	import tmpIsOSRLZeroWFWLSizeGTZeroPassed [number]
+	where
 		tmpIsOSRLZeroWFWLSizeGTZeroPassed [> 0]
 	export tmpIsOSRLZeroWFWLSizeGTZeroPassed
 		0
-		
+
 	import usedThreadIdCollectionWL [repeat id]
 	construct InstanceFound2 [statement]
-		ifExpSTMT2 [isWLThAssignedWaitingTh each usedThreadIdCollectionWL]	
+		ifExpSTMT2 [isWLThAssignedWaitingTh each usedThreadIdCollectionWL]
 		 [isWLThNotifyAll]
-		 
-	import tmpIsWLThAssignedWaitingThPassed [number]	
-	where 
+
+	import tmpIsWLThAssignedWaitingThPassed [number]
+	where
 		tmpIsWLThAssignedWaitingThPassed [> 0]
 	export tmpIsWLThAssignedWaitingThPassed
 		0
-		
-	import tmpIsWLThNotifyAllPassed [number]	
-	where 
+
+	import tmpIsWLThNotifyAllPassed [number]
+	where
 		tmpIsWLThNotifyAllPassed [> 0]
 	export tmpIsWLThNotifyAllPassed
 		0
-		
+
 	import tmpGetIfStmtOSRLZeroWFWLSizePassed [number]
-	export tmpGetIfStmtOSRLZeroWFWLSizePassed 
+	export tmpGetIfStmtOSRLZeroWFWLSizePassed
 		1
-		 
+
 	by
-		'MUTATED 
-		'if '( EX2 ')     
+		'MUTATED
+		'if '( EX2 ')
 		'{
-			ifExpSTMT2 
+			ifExpSTMT2
 		'}
-		OEC 		
+		OEC
 end rule
 
 function isOSRLZeroWFWLSizeGTZero EX2 [expression] arrListID [id]
 	replace [expression]
 		EX2
-		
+
 	construct eqOp [equality_op]
 		'==
 	construct numZero [number]
@@ -2000,28 +2001,28 @@ function isOSRLZeroWFWLSizeGTZero EX2 [expression] arrListID [id]
 		'>
 	construct idSize [id]
 		'size
-		
+
 	import tmpDoneIntVarID [id]
 	where all
 		EX2 [matchesVarID tmpDoneIntVarID] [matchesEqOp eqOp] [hasNumber numZero] [matchesVarID arrListID] [matchesVarID idSize] [matchesRelOp gtRelOp]
 
 	import tmpDoneArrListID [id]
-	export tmpDoneArrListID 
+	export tmpDoneArrListID
 		arrListID
-		
+
 	import tmpIsOSRLZeroWFWLSizeGTZeroPassed [number]
-	export tmpIsOSRLZeroWFWLSizeGTZeroPassed 
+	export tmpIsOSRLZeroWFWLSizeGTZeroPassed
 		1
 	% import usedThreadIdCollectionWL [repeat id]
 	% construct InstanceFound [statement]
-		% ifExpSTMT2 [isWLThAssignedWaitingTh RDS3 ifExpSTMT2 MD intVarID arrListID each usedThreadIdCollectionWL]	
+		% ifExpSTMT2 [isWLThAssignedWaitingTh RDS3 ifExpSTMT2 MD intVarID arrListID each usedThreadIdCollectionWL]
 	by
 		EX2
 end function
 
 rule isWLThAssignedWaitingTh usedThreadID [id]
 	replace [expression_statement]
-		EX [expression] '; 
+		EX [expression] ';
 	construct assignOp [assignment_operator]
 		'=
 	construct threadID2 [id]
@@ -2032,110 +2033,110 @@ rule isWLThAssignedWaitingTh usedThreadID [id]
 		'0
 	deconstruct EX
 		AE [assignment_expression]
-		
+
 	import tmpDoneArrListID [id]
 	where all
 		AE [matchesVarID usedThreadID] [matchesAssignOp assignOp] [matchesVarID threadID2] [matchesVarID tmpDoneArrListID] [matchesVarID idGet] [hasNumber numZero]
 
 	import tmpDoneUsedThreadID [id]
-	export tmpDoneUsedThreadID 
+	export tmpDoneUsedThreadID
 		usedThreadID
 	% construct InstanceFound [statement]
-		% ifExpSTMT2 [isWLThNotifyAll RDS3 MD intVarID arrListID usedThreadID]	
+		% ifExpSTMT2 [isWLThNotifyAll RDS3 MD intVarID arrListID usedThreadID]
 	import tmpIsWLThAssignedWaitingThPassed [number]
-	export tmpIsWLThAssignedWaitingThPassed 
+	export tmpIsWLThAssignedWaitingThPassed
 		1
- 
+
 	by
-		'MUTATED 
-		EX '; 
+		'MUTATED
+		EX ';
 end rule
 
-rule isWLThNotifyAll 
+rule isWLThNotifyAll
 	replace [expression_statement]
-		EX [expression] '; 
+		EX [expression] ';
 	construct idNotifyAll [id]
 		'notifyAll
 	deconstruct EX
 		AE [assignment_expression]
-		
+
 	import tmpDoneUsedThreadID [id]
 	where all
-		AE [matchesVarID tmpDoneUsedThreadID] [matchesVarID idNotifyAll] 
-		
+		AE [matchesVarID tmpDoneUsedThreadID] [matchesVarID idNotifyAll]
+
 	import tmpIsWLThNotifyAllPassed [number]
-	export tmpIsWLThNotifyAllPassed 
+	export tmpIsWLThNotifyAllPassed
 		1
 
 	% construct InstanceFound [repeat declaration_or_statement]
-		% RDS3 [getIfStmtDone2 MD intVarID arrListID usedThreadID]	
- 
+		% RDS3 [getIfStmtDone2 MD intVarID arrListID usedThreadID]
+
 	by
-		'MUTATED 
-		EX '; 
+		'MUTATED
+		EX ';
 end rule
 
-rule getIfStmtDone2 MD [method_declarator] 
+rule getIfStmtDone2 MD [method_declarator]
 	replace [if_statement]
-		'if '( EX [expression] ')     
+		'if '( EX [expression] ')
 			ifExpSTMT [statement]
-		OEC [opt else_clause] 		
-		
+		OEC [opt else_clause]
+
 	construct threadID2 [id]
 		'Thread
 	construct threadID3 [id]
 		'currentThread
 	construct eqOp [equality_op]
 		'==
-		
+
 	import tmpDoneUsedThreadID [id]
 	where all
 		EX [matchesVarID threadID2] [matchesVarID threadID3] [matchesEqOp eqOp] [matchesVarID tmpDoneUsedThreadID]
-		
-	construct TransformedIfExpSTMT [statement]
-		ifExpSTMT [getIfStmtOSRLZeroWFWLSize2 MD]	
 
-	import tmpGetIfStmtOSRLZeroWFWLSize2Passed [number]	
-	where 
+	construct TransformedIfExpSTMT [statement]
+		ifExpSTMT [getIfStmtOSRLZeroWFWLSize2 MD]
+
+	import tmpGetIfStmtOSRLZeroWFWLSize2Passed [number]
+	where
 		tmpGetIfStmtOSRLZeroWFWLSize2Passed [> 0]
 	export tmpGetIfStmtOSRLZeroWFWLSize2Passed
 		0
-		
+
 	by
-		'MUTATED 
-		'if '( EX ')     
+		'MUTATED
+		'if '( EX ')
 		'{
-			TransformedIfExpSTMT 
+			TransformedIfExpSTMT
 		'}
-		OEC 		
+		OEC
 end rule
 
-rule getIfStmtOSRLZeroWFWLSize2 MD [method_declarator] 
+rule getIfStmtOSRLZeroWFWLSize2 MD [method_declarator]
 	replace [if_statement]
-		'if '( EX2 [expression] ')     
+		'if '( EX2 [expression] ')
 			ifExpSTMT2 [statement]
-		OEC [opt else_clause] 		
+		OEC [opt else_clause]
 
 	construct InstanceFound [expression]
-		EX2 [isOSRLZeroWFWLSizeGTZero2 EX2] 
-		
-	import tmpisOSRLZeroWFWLSizeGTZero2Passed [number]	
-	where 
+		EX2 [isOSRLZeroWFWLSizeGTZero2 EX2]
+
+	import tmpisOSRLZeroWFWLSizeGTZero2Passed [number]
+	where
 		tmpisOSRLZeroWFWLSizeGTZero2Passed [> 0]
 	export tmpisOSRLZeroWFWLSizeGTZero2Passed
 		0
-		
-	construct InstanceFound2 [statement]
-		ifExpSTMT2 [isWLThAssignedWaitingTh2] [isWLThNotifyAll2]	
 
-	import tmpisWLThAssignedWaitingTh2Passed [number]	
-	where 
+	construct InstanceFound2 [statement]
+		ifExpSTMT2 [isWLThAssignedWaitingTh2] [isWLThNotifyAll2]
+
+	import tmpisWLThAssignedWaitingTh2Passed [number]
+	where
 		tmpisWLThAssignedWaitingTh2Passed [> 0]
 	export tmpisWLThAssignedWaitingTh2Passed
 		0
-		
-	import tmpisWLThNotifyAll2Passed [number]	
-	where 
+
+	import tmpisWLThNotifyAll2Passed [number]
+	where
 		tmpisWLThNotifyAll2Passed [> 0]
 	export tmpisWLThNotifyAll2Passed
 		0
@@ -2143,36 +2144,36 @@ rule getIfStmtOSRLZeroWFWLSize2 MD [method_declarator]
 	import usedIntIdCollectionWaitRL [repeat id]
 	construct TransformedOEC [opt else_clause]
 		OEC [getWLAssignNull] [getIfWaitForRLThGTZero MD each usedIntIdCollectionWaitRL]
-		
-	import tmpgetWLAssignNullPassed [number]	
-	where 
+
+	import tmpgetWLAssignNullPassed [number]
+	where
 		tmpgetWLAssignNullPassed [> 0]
 	export tmpgetWLAssignNullPassed
 		0
-		
-	import tmpgetIfWaitForRLThGTZero [number]	
-	where 
+
+	import tmpgetIfWaitForRLThGTZero [number]
+	where
 		tmpgetIfWaitForRLThGTZero [> 0]
 	export tmpgetIfWaitForRLThGTZero
 		0
-		
+
 	import tmpGetIfStmtOSRLZeroWFWLSize2Passed [number]
-	export tmpGetIfStmtOSRLZeroWFWLSize2Passed 
+	export tmpGetIfStmtOSRLZeroWFWLSize2Passed
 		1
 
 	by
-		'MUTATED 
-		'if '( EX2 ')     
+		'MUTATED
+		'if '( EX2 ')
 		'{
-			ifExpSTMT2 
+			ifExpSTMT2
 		'}
-		TransformedOEC 		
+		TransformedOEC
 end rule
 
-function isOSRLZeroWFWLSizeGTZero2 EX2 [expression]  
+function isOSRLZeroWFWLSizeGTZero2 EX2 [expression]
 	replace [expression]
 		EX2
-		
+
 	construct eqOp [equality_op]
 		'==
 	construct numZero [number]
@@ -2181,25 +2182,25 @@ function isOSRLZeroWFWLSizeGTZero2 EX2 [expression]
 		'>
 	construct idSize [id]
 		'size
-		
+
 	import tmpDoneIntVarID [id]
 	import tmpDoneArrListID [id]
 	where all
 		EX2 [matchesVarID tmpDoneIntVarID] [matchesEqOp eqOp] [hasNumber numZero] [matchesVarID tmpDoneArrListID] [matchesVarID idSize] [matchesRelOp gtRelOp]
-		
+
 	import tmpisOSRLZeroWFWLSizeGTZero2Passed [number]
-	export tmpisOSRLZeroWFWLSizeGTZero2Passed 
+	export tmpisOSRLZeroWFWLSizeGTZero2Passed
 		1
-	
+
 	% construct InstanceFound [statement]
-		% ifExpSTMT2 [isWLThAssignedWaitingTh2 ifExpSTMT2 MD arrListID usedThreadID OEC]	
+		% ifExpSTMT2 [isWLThAssignedWaitingTh2 ifExpSTMT2 MD arrListID usedThreadID OEC]
 	by
 		EX2
 end function
 
-rule isWLThAssignedWaitingTh2 
+rule isWLThAssignedWaitingTh2
 	replace [expression_statement]
-		EX [expression] '; 
+		EX [expression] ';
 	construct assignOp [assignment_operator]
 		'=
 	construct threadID2 [id]
@@ -2210,26 +2211,26 @@ rule isWLThAssignedWaitingTh2
 		'0
 	deconstruct EX
 		AE [assignment_expression]
-		
+
 	import tmpDoneUsedThreadID [id]
 	import tmpDoneArrListID [id]
 	where all
 		AE [matchesVarID tmpDoneUsedThreadID] [matchesAssignOp assignOp] [matchesVarID threadID2] [matchesVarID tmpDoneArrListID] [matchesVarID idGet] [hasNumber numZero]
 
 	% construct InstanceFound [statement]
-		% ifExpSTMT2 [isWLThNotifyAll2 MD arrListID usedThreadID OEC]	
+		% ifExpSTMT2 [isWLThNotifyAll2 MD arrListID usedThreadID OEC]
  	import tmpisWLThAssignedWaitingTh2Passed [number]
-	export tmpisWLThAssignedWaitingTh2Passed 
+	export tmpisWLThAssignedWaitingTh2Passed
 		1
 
 	by
-		'MUTATED 
-		EX '; 
+		'MUTATED
+		EX ';
 end rule
 
-rule isWLThNotifyAll2 
+rule isWLThNotifyAll2
 	replace [expression_statement]
-		EX [expression] '; 
+		EX [expression] ';
 	construct idNotifyAll [id]
 		'notifyAll
 	deconstruct EX
@@ -2237,112 +2238,112 @@ rule isWLThNotifyAll2
 
 	import tmpDoneUsedThreadID [id]
 	where all
-		AE [matchesVarID tmpDoneUsedThreadID] [matchesVarID idNotifyAll] 
+		AE [matchesVarID tmpDoneUsedThreadID] [matchesVarID idNotifyAll]
 
 	% construct InstanceFound [opt else_clause]
-		% OEC [getWLAssignNull MD arrListID usedThreadID OEC]	
+		% OEC [getWLAssignNull MD arrListID usedThreadID OEC]
   	import tmpisWLThNotifyAll2Passed [number]
-	export tmpisWLThNotifyAll2Passed 
+	export tmpisWLThNotifyAll2Passed
 		1
 
 	by
-		'MUTATED 
-		EX '; 
+		'MUTATED
+		EX ';
 end rule
 
-rule getWLAssignNull 
+rule getWLAssignNull
 	replace [expression_statement]
-		EX [expression] '; 
+		EX [expression] ';
 	deconstruct EX
 		AE [assignment_expression]
 	construct assignOp [assignment_operator]
 		'=
 	construct theNull [null_literal]
-		'null		
-		
+		'null
+
 	import tmpDoneUsedThreadID [id]
 	where all
 		EX [matchesVarID tmpDoneUsedThreadID] [matchesAssignOp assignOp] [hasNull theNull]
-		
+
 	% import usedIntIdCollectionWaitRL [repeat id]
 	% construct InstanceFound [opt else_clause]
-		% OEC [getIfWaitForRLThGTZero MD each usedIntIdCollectionWaitRL]	
+		% OEC [getIfWaitForRLThGTZero MD each usedIntIdCollectionWaitRL]
    	import tmpgetWLAssignNullPassed [number]
-	export tmpgetWLAssignNullPassed 
+	export tmpgetWLAssignNullPassed
 		1
 
 	by
-		'MUTATED 
-		EX '; 
+		'MUTATED
+		EX ';
 end rule
 
 rule getIfWaitForRLThGTZero MD [method_declarator] intVarID [id]
 	replace [if_statement]
-		'if '( EX [expression] ')     
+		'if '( EX [expression] ')
 			ifExpSTMT [statement]
-		OEC [opt else_clause] 		
-		
+		OEC [opt else_clause]
+
 	construct numZero [number]
 		'0
 	construct gtRelOp [relational_op]
 		'>
-		
+
 	where all
 		EX [matchesVarID intVarID] [matchesRelOp gtRelOp] [hasNumber numZero]
 
 	construct TransformedIfExpSTMT [statement]
-		ifExpSTMT [isNotifyAll MD] 
+		ifExpSTMT [isNotifyAll MD]
 
-	import tmpRole3Passed [number]	
-	where 
+	import tmpRole3Passed [number]
+	where
 		tmpRole3Passed [> 0]
-		
+
    	import tmpgetIfWaitForRLThGTZero [number]
-	export tmpgetIfWaitForRLThGTZero 
+	export tmpgetIfWaitForRLThGTZero
 		1
 
 	by
-		'MUTATED 
-		'if '( EX ')     
+		'MUTATED
+		'if '( EX ')
 		'{
-			TransformedIfExpSTMT 
+			TransformedIfExpSTMT
 		'}
-		OEC 		
+		OEC
 end rule
 
 % //*** ReadWriteLockPattern:  Role = 3a(NotifyAll to wake up other waiting threads.);
-rule isNotifyAll MD [method_declarator] 
+rule isNotifyAll MD [method_declarator]
 	replace [expression_statement]
-		EX [expression] '; 
+		EX [expression] ';
 	construct idNotifyAll [id]
 		'notifyAll
 	deconstruct EX
 		AE [assignment_expression]
 	where all
-		AE [matchesVarID idNotifyAll] 
-		
+		AE [matchesVarID idNotifyAll]
+
 	deconstruct MD
-	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]    
+	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]
 	deconstruct MN
 		DN [declared_name]
 	deconstruct DN
-	   methodID [id] OGP [opt generic_parameter]    
-		
+	   methodID [id] OGP [opt generic_parameter]
+
 	construct PlusOne [number]
 		1
-		
+
 	import DoneMethodIDs [repeat id]
 	construct newDoneMethodIDs [repeat id]
 		DoneMethodIDs [. methodID]
 	export DoneMethodIDs
-		newDoneMethodIDs		
-		
+		newDoneMethodIDs
+
 	import CountDoneMethodIDs [number]
 	construct NewCounta [number]
 		CountDoneMethodIDs [+ PlusOne]
 	export CountDoneMethodIDs
-		NewCounta		 
-		
+		NewCounta
+
 	import CountRLMethodIDs [number]
 	import CountWLMethodIDs [number]
 	construct numZero [number]
@@ -2354,27 +2355,27 @@ rule isNotifyAll MD [method_declarator]
 		CountWLMethodIDs [hasNumber numZero]
 	where not
 		CountDoneMethodIDs [hasNumber numZero]
-				
+
 	import Counter [number]
 	construct NewCount [number]
 		Counter [+ PlusOne]
 	export Counter
-		NewCount		
-				
+		NewCount
+
 	import tmpRole3Passed [number]
 	construct NewCountb [number]
 		tmpRole3Passed [+ PlusOne]
 	export tmpRole3Passed
-		NewCountb		
-		
+		NewCountb
+
 	construct ReadWriteLockAnnotation3apt1 [stringlit]
 		"@ReadWriteLockPatternAnnotation(patternInstanceID="
 	construct ReadWriteLockAnnotation3apt2 [stringlit]
-		", roleID=3a, roleDescription='NotifyAll to wake up other waiting threads.')"	
-	
+		", roleID=3a, roleDescription='NotifyAll to wake up other waiting threads.')"
+
 	by
-		'MUTATED /* ReadWriteLockAnnotation3apt1 [+ CountDoneMethodIDs] [+ ReadWriteLockAnnotation3apt2] */ 
-		EX '; 
+		'MUTATED /* ReadWriteLockAnnotation3apt1 [+ CountDoneMethodIDs] [+ ReadWriteLockAnnotation3apt2] */
+		EX ';
 end rule
 
 % Function to check if it is a variable of a specific type.
@@ -2449,11 +2450,10 @@ function hasNumber theNumber [number]
 		theNumber
 end function
 
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+

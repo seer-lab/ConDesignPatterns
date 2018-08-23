@@ -2,7 +2,8 @@
 % Martin Mwebesa
 % UOIT, April 20, 2011
 
-include "Java.Grm"
+% include "Java.Grm"
+include "../grammar/java5.grm"
 % include "JavaCommentOverrides.Grm"
 
 define labelM
@@ -48,20 +49,20 @@ end define
 
 redefine while_statement
 	[while_statement2]
-    | 'while '( [expression] ') 
+    | 'while '( [expression] ')
 	'{
-        [statement]     
+        [statement]
 	'}
- 	| [attr labelM] 
-	'while '( [expression] ') 
+ 	| [attr labelM]
+	'while '( [expression] ')
 	'{
-        [statement]     
+        [statement]
 	'}
 end redefine
 
 define while_statement2
-    'while '( [expression] ') 
-        [statement]     
+    'while '( [expression] ')
+        [statement]
 end define
 
 redefine do_statement
@@ -70,24 +71,24 @@ redefine do_statement
 	'{
         [statement]
 	'}
-    'while '( [expression] ') ';  
- 	| [attr labelM] 
+    'while '( [expression] ') ';
+ 	| [attr labelM]
     'do
 	'{
         [statement]
 	'}
-    'while '( [expression] ') ';  
+    'while '( [expression] ') ';
 end redefine
 
 define do_statement2
     'do
         [statement]
-    'while '( [expression] ') ';  
+    'while '( [expression] ') ';
 end define
 
 redefine expression_statement
  	[expression_statement2]
-	| [attr labelM] 
+	| [attr labelM]
 	[expression] ';
 end redefine
 
@@ -97,10 +98,10 @@ end define
 
 redefine synchronized_statement
  	[synchronized_statement2]
-	| [attr labelM] 
+	| [attr labelM]
     'synchronized '( [expression] ')
         [statement]                  [NL]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] 
+	| [attr labelM] [NL] /* [stringlit] */ [NL]
     'synchronized '( [expression] ')
         [statement]                  [NL]
 end define
@@ -112,7 +113,7 @@ end define
 
 redefine return_statement
  	[return_statement2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] 
+	| [attr labelM] [NL] /* [stringlit] */ [NL]
     'return [opt expression] ';      [NL]
 end redefine
 
@@ -143,14 +144,14 @@ function main
 	export methIDsUsingLockObj [repeat id]
 		_
 	replace [program]
-        P [program]		
+        P [program]
 	construct TransformedProgram [stringlit]
 		"TransformedForLockObjPatt.java"
 	by
-		P [findLockObjectPattern] 
+		P [findLockObjectPattern]
 		[printOutput] [printOutput1] [printOutput2] [printOutput3] [printLockObjectIDs] [printLockObjectMethIDs] [printMethIDsUsingLockObj]
 		[fput TransformedProgram]
-		% P [findLockObjectPattern] 
+		% P [findLockObjectPattern]
 		% [printPatternNotFound] [printOutput] [printOutput1] [printOutput2] [printOutput3] [printLockObjectIDs] [printLockObjectMethIDs] [printMethIDsUsingLockObj]
 		% [fput TransformedProgram]
 end function
@@ -159,251 +160,251 @@ end function
 function printPatternNotFound
 	replace [program]
 		P [program]
-	
+
 	import Counter [number]
-	
+
 	where
 		Counter [= 0]
-	
+
 	construct InstanceFound [stringlit]
 		"*** No instances of Lock Object Pattern found. "
-	
+
 	construct InstanceFoundPrint [id]
 		_ [unquote InstanceFound] [print]
-	
-	by 
+
+	by
 		P
 end function
 
 % Function print out the number of Lock Object design pattern instances found.
 function printOutput
 	replace [program]
-		P [program]	
-		
+		P [program]
+
 	import alreadyPrintedOutput [number]
-	import Counter [number]	
-	import CountRole1 [number]	
-	import CountGetLockObjectMethIDs [number]	
-	import CountMethIDsUsingLockObjs [number]	
-	
+	import Counter [number]
+	import CountRole1 [number]
+	import CountGetLockObjectMethIDs [number]
+	import CountMethIDsUsingLockObjs [number]
+
 	where
-		Counter [> 0]	
+		Counter [> 0]
 	where
-		Counter [= CountRole1]	
+		Counter [= CountRole1]
 	where
-		Counter [= CountGetLockObjectMethIDs]	
+		Counter [= CountGetLockObjectMethIDs]
 	where
-		Counter [= CountMethIDsUsingLockObjs]	
-		
+		Counter [= CountMethIDsUsingLockObjs]
+
 	export alreadyPrintedOutput
 		1
 
 	construct InstanceFound [stringlit]
-		"** Complete instances of Lock Object Pattern found = "	
+		"** Complete instances of Lock Object Pattern found = "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ Counter] [print]	
-	by 
+		_ [unquote InstanceFound] [+ Counter] [print]
+	by
 		P
 end function
 
 % Function print out the number of Lock Object design pattern instances found.
 function printOutput1
 	replace [program]
-		P [program]	
-		
+		P [program]
+
 	import alreadyPrintedOutput [number]
-	import Counter [number]	
-	import CountRole1 [number]	
-	import CountGetLockObjectMethIDs [number]	
-	import CountMethIDsUsingLockObjs [number]	
-	
-	where 
-		alreadyPrintedOutput [= 0]		
+	import Counter [number]
+	import CountRole1 [number]
+	import CountGetLockObjectMethIDs [number]
+	import CountMethIDsUsingLockObjs [number]
+
 	where
-		CountRole1 [< Counter] [= Counter]	
+		alreadyPrintedOutput [= 0]
 	where
-		CountRole1 [< CountGetLockObjectMethIDs] [= CountGetLockObjectMethIDs]	
+		CountRole1 [< Counter] [= Counter]
 	where
-		CountRole1 [< CountMethIDsUsingLockObjs] [= CountMethIDsUsingLockObjs]	
-		
+		CountRole1 [< CountGetLockObjectMethIDs] [= CountGetLockObjectMethIDs]
+	where
+		CountRole1 [< CountMethIDsUsingLockObjs] [= CountMethIDsUsingLockObjs]
+
 	export alreadyPrintedOutput
 		1
 
 	construct InstanceFound [stringlit]
-		"** Complete instances of Lock Object Pattern found = "	
+		"** Complete instances of Lock Object Pattern found = "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ Counter] [print]	
-	by 
+		_ [unquote InstanceFound] [+ Counter] [print]
+	by
 		P
 end function
 
 % Function print out the number of Lock Object design pattern instances found.
 function printOutput2
 	replace [program]
-		P [program]	
-		
+		P [program]
+
 	import alreadyPrintedOutput [number]
-	import Counter [number]	
-	import CountRole1 [number]	
-	import CountGetLockObjectMethIDs [number]	
-	import CountMethIDsUsingLockObjs [number]	
-	
-	where 
-		alreadyPrintedOutput [= 0]		
+	import Counter [number]
+	import CountRole1 [number]
+	import CountGetLockObjectMethIDs [number]
+	import CountMethIDsUsingLockObjs [number]
+
 	where
-		CountGetLockObjectMethIDs [< Counter] [= Counter]	
+		alreadyPrintedOutput [= 0]
 	where
-		CountGetLockObjectMethIDs [< CountRole1] [= CountRole1]	
+		CountGetLockObjectMethIDs [< Counter] [= Counter]
 	where
-		CountGetLockObjectMethIDs [< CountMethIDsUsingLockObjs] [= CountMethIDsUsingLockObjs]	
-		
+		CountGetLockObjectMethIDs [< CountRole1] [= CountRole1]
+	where
+		CountGetLockObjectMethIDs [< CountMethIDsUsingLockObjs] [= CountMethIDsUsingLockObjs]
+
 	export alreadyPrintedOutput
 		1
 
 	construct InstanceFound [stringlit]
-		"** Complete instances of Lock Object Pattern found = "	
+		"** Complete instances of Lock Object Pattern found = "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ Counter] [print]	
-	by 
+		_ [unquote InstanceFound] [+ Counter] [print]
+	by
 		P
 end function
 
 % Function print out the number of Lock Object design pattern instances found.
 function printOutput3
 	replace [program]
-		P [program]	
-		
+		P [program]
+
 	import alreadyPrintedOutput [number]
-	import Counter [number]	
-	import CountRole1 [number]	
-	import CountGetLockObjectMethIDs [number]	
-	import CountMethIDsUsingLockObjs [number]	
-	
-	where 
-		alreadyPrintedOutput [= 0]		
+	import Counter [number]
+	import CountRole1 [number]
+	import CountGetLockObjectMethIDs [number]
+	import CountMethIDsUsingLockObjs [number]
+
 	where
-		CountMethIDsUsingLockObjs [< Counter] [= Counter]	
+		alreadyPrintedOutput [= 0]
 	where
-		CountMethIDsUsingLockObjs [< CountGetLockObjectMethIDs] [= CountGetLockObjectMethIDs]	
+		CountMethIDsUsingLockObjs [< Counter] [= Counter]
 	where
-		CountMethIDsUsingLockObjs [< CountRole1] [= CountRole1]	
-		
+		CountMethIDsUsingLockObjs [< CountGetLockObjectMethIDs] [= CountGetLockObjectMethIDs]
+	where
+		CountMethIDsUsingLockObjs [< CountRole1] [= CountRole1]
+
 	export alreadyPrintedOutput
 		1
 
 	construct InstanceFound [stringlit]
-		"** Complete instances of Lock Object Pattern found = "	
+		"** Complete instances of Lock Object Pattern found = "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ Counter] [print]	
-	by 
+		_ [unquote InstanceFound] [+ Counter] [print]
+	by
 		P
 end function
 
 % Function to print out the potential lock object ids - Role 1.
 function printLockObjectIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import objectIDCollection [repeat id]
-	% import Counter [number]	
+	% import Counter [number]
 	% where
-		% Counter [> 0]	
-	import CountRole1 [number]	
+		% Counter [> 0]
+	import CountRole1 [number]
 	where
-		CountRole1 [> 0]	
+		CountRole1 [> 0]
 	construct InstanceFound [stringlit]
-		"** ROLE 1:  Lock objects. "	
+		"** ROLE 1:  Lock objects. "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintLockObjIDs each objectIDCollection]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the lock object IDs in the function "printLockObjectIDs".
 function thePrintLockObjIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
 % Function to print out the lock object methods that return the lock object.
 % The number of these methods should equal the number of instances printed out in the "printOutput" function.
 function printLockObjectMethIDs
 	replace [program]
-		P [program]	
+		P [program]
 	import getLockObjectMethIDs [repeat id]
-	% import Counter [number]	
+	% import Counter [number]
 	% where
-		% Counter [> 0]	
-	import CountGetLockObjectMethIDs [number]	
+		% Counter [> 0]
+	import CountGetLockObjectMethIDs [number]
 	where
-		CountGetLockObjectMethIDs [> 0]	
+		CountGetLockObjectMethIDs [> 0]
 	construct InstanceFound [stringlit]
-		"** ROLE 2:  Lock object methods - methods returning the lock object. "	
+		"** ROLE 2:  Lock object methods - methods returning the lock object. "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintLockObjMethIDs each getLockObjectMethIDs]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the method names in the function "printLockObjectMethIDs".
 function thePrintLockObjMethIDs theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
 % Function to print out the names of the methods that actually used the lock object.
 % The number of these methods should equal the number of instances printed out in the "printOutput" function.
 function printMethIDsUsingLockObj
 	replace [program]
-		P [program]	
+		P [program]
 	import methIDsUsingLockObj [repeat id]
-	% import Counter [number]	
+	% import Counter [number]
 	% where
-		% Counter [> 0]	
-	import CountMethIDsUsingLockObjs [number]	
+		% Counter [> 0]
+	import CountMethIDsUsingLockObjs [number]
 	where
-		CountMethIDsUsingLockObjs [> 0]	
+		CountMethIDsUsingLockObjs [> 0]
 	construct InstanceFound [stringlit]
-		"** ROLE 3:  Method instances where the lock object is actually used:  "	
+		"** ROLE 3:  Method instances where the lock object is actually used:  "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [print]	
+		_ [unquote InstanceFound] [print]
 	construct InstanceFoundPrint2 [program]
 		_ [thePrintMethIDsUsingLockObj each methIDsUsingLockObj]
-	by 
+	by
 		P
 end function
 
 % Function to aid in the printing of the method names in the function "printInterruptMethIDs".
 function thePrintMethIDsUsingLockObj theID [id]
 	construct InstanceFound [stringlit]
-		"   "	
+		"   "
 	construct InstanceFoundPrint [id]
-		_ [unquote InstanceFound] [+ theID] [print]	
+		_ [unquote InstanceFound] [+ theID] [print]
 	replace [program]
 		P [program]
 	by
-		P	
+		P
 end function
 
 
 % //************************************************************************************************//
 % //*** Lock Object pattern:                                                                     ***//
-% //*** This design pattern is a refinement of the Single Threaded Executio design pattern.      ***//  
+% //*** This design pattern is a refinement of the Single Threaded Executio design pattern.      ***//
 % //*** It enables a single thread to have exclusive access to multiple objects.                 ***//
 % //*** To avoid a thread having to obtain a lock on every single object it needs                ***//
 % //*** (consuming lots of overhead), the solution offered by this design pattern is to          ***//
@@ -419,11 +420,11 @@ end function
 	% replace [class_declaration]
 	    % CH [class_header] CB [class_body]
 	% construct ObjectInstancesFound [class_body]
-		% CB [findObjectInstances] 
+		% CB [findObjectInstances]
 	% construct GetLockObjectMethodsFound [class_body]
-		% CB [findGetLockObjectMethods] 
+		% CB [findGetLockObjectMethods]
 	% construct SynchCallsToGetLockObjMethsFound [class_body]
-		% CB [findSynchCallsToGetLockObjMeths] 
+		% CB [findSynchCallsToGetLockObjMeths]
 	% by
 		% 'MUTATED CH CB
 % end rule
@@ -437,13 +438,13 @@ rule findLockObjectPattern
 end rule
 
 
-% //***LockObjectPattern:  Role = 1(Creation of static object in a class - lock object.);  
+% //***LockObjectPattern:  Role = 1(Creation of static object in a class - lock object.);
 rule findObjectInstances
 	construct  VARTYPE [type_specifier]
 		'Object
 	replace [variable_declaration]
 		RM [repeat modifier] TS [type_specifier] VDS [variable_declarators] ';
-	where 
+	where
 		 TS [isVarOfType VARTYPE]
 	deconstruct VDS
 		LVD [list variable_declarator+]
@@ -452,179 +453,179 @@ rule findObjectInstances
 	deconstruct VN
 		DN [declared_name] RD [repeat dimension]
 	deconstruct DN
-		objectID [id] OGP [opt generic_parameter]    
+		objectID [id] OGP [opt generic_parameter]
 	import objectIDCollection [repeat id]
 	construct newIDCollection [repeat id]
 		objectIDCollection [. objectID]
 	export objectIDCollection
 		newIDCollection
-		
+
 	import CountRole1 [number]
 	construct PlusOne [number]
 		1
 	construct NewCount [number]
 		CountRole1 [+ PlusOne]
 	export CountRole1
-		NewCount		 
-		
+		NewCount
+
 	construct LockObjectAnnotation1pt1 [stringlit]
 		"@LockObjectPatternAnnotation(patternInstanceID="
 	construct LockObjectAnnotation1pt2 [stringlit]
 		", roleID=1, roleDescription='Creation of static object in a class - lock object.')"
-		
+
 	by
-		'MUTATED /* LockObjectAnnotation1pt1 [+ CountRole1] [+ LockObjectAnnotation1pt2] */ RM TS VDS '; 
+		'MUTATED /* LockObjectAnnotation1pt1 [+ CountRole1] [+ LockObjectAnnotation1pt2] */ RM TS VDS ';
 end rule
 
 
-% //***LockObjectPattern:  Role = 2(Creation of static method in the same class are Role 1 - getLockObject(). 
-% //								** Contains Role 2a.);   
+% //***LockObjectPattern:  Role = 2(Creation of static method in the same class are Role 1 - getLockObject().
+% //								** Contains Role 2a.);
 rule findGetLockObjectMethods
-	replace [method_declaration] 
-		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]	
+	replace [method_declaration]
+		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]
 	deconstruct MB
-        BL2 [block]  		
+        BL2 [block]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}	
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
 	import objectIDCollection [repeat id]
 	construct TransformedRDS3 [repeat declaration_or_statement]
 		RDS3 [isReturnLockObj MD each objectIDCollection]
-		
+
 	import tmpRole2Passed [number]
 	where
 		tmpRole2Passed [> 0]
-		
-	construct TransformedBL2 [block] 
-		'{                                        
-			TransformedRDS3   
-		'}	
+
+	construct TransformedBL2 [block]
+		'{
+			TransformedRDS3
+		'}
 	construct TransformedMB [method_body]
-        TransformedBL2  		 
-		
+        TransformedBL2
+
 	construct LockObjectAnnotation2pt1 [stringlit]
 		"@LockObjectPatternAnnotation(patternInstanceID="
 	construct LockObjectAnnotation2pt2 [stringlit]
-		", roleID=2, roleDescription='Creation of static method in the same class as Role 1 - getLockObject().')"	
-		
+		", roleID=2, roleDescription='Creation of static method in the same class as Role 1 - getLockObject().')"
+
 	import CountGetLockObjectMethIDs [number]
-		
+
 	export tmpRole2Passed
 		0
 
 	by
-		'MUTATED /* LockObjectAnnotation2pt1 [+ CountGetLockObjectMethIDs] [+ LockObjectAnnotation2pt2] */ RM TS MD OT TransformedMB 
+		'MUTATED /* LockObjectAnnotation2pt1 [+ CountGetLockObjectMethIDs] [+ LockObjectAnnotation2pt2] */ RM TS MD OT TransformedMB
 end rule
 
-% //***LockObjectPattern:  Role = 2a(Return of lock object, Role 1.);  
+% //***LockObjectPattern:  Role = 2a(Return of lock object, Role 1.);
 rule isReturnLockObj MD [method_declarator] objectID [id]
 	replace [return_statement]
 		'return OE [opt expression] ';
-		
+
 	where all
-		OE [matchesVarID objectID]     
-		
+		OE [matchesVarID objectID]
+
 	deconstruct MD
-	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]    
+	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]
 	deconstruct MN
 		DN [declared_name]
 	deconstruct DN
-	   methodID [id] OGP [opt generic_parameter]    		 
-		
+	   methodID [id] OGP [opt generic_parameter]
+
 	import getLockObjectMethIDs [repeat id]
 	construct newMethodIDs [repeat id]
 		getLockObjectMethIDs [. methodID]
 	export getLockObjectMethIDs
 		newMethodIDs
-		
+
 	import CountGetLockObjectMethIDs [number]
 	construct PlusOne [number]
 		1
 	construct NewCount [number]
 		CountGetLockObjectMethIDs [+ PlusOne]
 	export CountGetLockObjectMethIDs
-		NewCount		 
-		
+		NewCount
+
 	import tmpRole2Passed [number]
 	construct NewCountb [number]
 		tmpRole2Passed [+ PlusOne]
 	export tmpRole2Passed
-		NewCountb		
-		
+		NewCountb
+
 	construct LockObjectAnnotation2apt1 [stringlit]
 		"@LockObjectPatternAnnotation(patternInstanceID="
 	construct LockObjectAnnotation2apt2 [stringlit]
-		", roleID=2a, roleDescription='Return of lock object, Role 1.')"	
-		
+		", roleID=2a, roleDescription='Return of lock object, Role 1.')"
+
 	by
 		'MUTATED /* LockObjectAnnotation2apt1 [+ CountGetLockObjectMethIDs] [+ LockObjectAnnotation2apt2] */
 		'return OE ';
-		
+
 end rule
 
 
 % //***LockObjectPattern:  Role = 3(Synchronized calls to method Role 2.);
 rule findSynchCallsToGetLockObjMeths
-	replace [method_declaration] 
-		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]	
+	replace [method_declaration]
+		RM [repeat modifier] TS [type_specifier] MD [method_declarator] OT [opt throws] MB [method_body]
 	deconstruct MB
-        BL2 [block]  		
+        BL2 [block]
 	deconstruct BL2
-		'{                                        
-			RDS3 [repeat declaration_or_statement]   
-		'}	
+		'{
+			RDS3 [repeat declaration_or_statement]
+		'}
 	import getLockObjectMethIDs [repeat id]
 	construct TransformedRDS3 [repeat declaration_or_statement]
 		RDS3 [isCallToGetLockObjMeth MD each getLockObjectMethIDs]
-		
+
 	import tmpRole3Passed [number]
 	where
 		tmpRole3Passed [> 0]
 
-	construct TransformedBL2 [block] 
-		'{                                        
-			TransformedRDS3   
-		'}	
+	construct TransformedBL2 [block]
+		'{
+			TransformedRDS3
+		'}
 	construct TransformedMB [method_body]
-        TransformedBL2  		 
-		
+        TransformedBL2
+
 	export tmpRole3Passed
 		0
 
 	by
-		'MUTATED RM TS MD OT TransformedMB 
+		'MUTATED RM TS MD OT TransformedMB
 end rule
 
 rule isCallToGetLockObjMeth MD [method_declarator] getLockObjectMethID [id]
-	replace [synchronized_statement] 
+	replace [synchronized_statement]
 		'synchronized '( EX [expression] ')
-			STMT [statement]   
-	where 
-		EX [matchesVarID getLockObjectMethID] 		
-		
+			STMT [statement]
+	where
+		EX [matchesVarID getLockObjectMethID]
+
 	deconstruct MD
-	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]    
+	    MN [method_name] '( LFP [list formal_parameter] ') RD [repeat dimension]
 	deconstruct MN
 		DN [declared_name]
 	deconstruct DN
-	   methodID [id] OGP [opt generic_parameter]    		 
-		
+	   methodID [id] OGP [opt generic_parameter]
+
 	import methIDsUsingLockObj [repeat id]
 	construct newMethodIDs [repeat id]
 		methIDsUsingLockObj [. methodID]
 	export methIDsUsingLockObj
 		newMethodIDs
-		
+
 	construct PlusOne [number]
 		1
 	import CountMethIDsUsingLockObjs [number]
 	construct NewCount [number]
 		CountMethIDsUsingLockObjs [+ PlusOne]
 	export CountMethIDsUsingLockObjs
-		NewCount			
-				 		 
-		
+		NewCount
+
+
 	import CountGetLockObjectMethIDs [number]
 	construct numZero [number]
 		'0
@@ -632,28 +633,28 @@ rule isCallToGetLockObjMeth MD [method_declarator] getLockObjectMethID [id]
 		CountMethIDsUsingLockObjs [hasNumber numZero]
 	where not
 		CountGetLockObjectMethIDs [hasNumber numZero]
-			
+
 	import Counter [number]
 	construct NewCountb [number]
 		Counter [+ PlusOne]
 	export Counter
-		NewCountb		
-		
+		NewCountb
+
 	import tmpRole3Passed [number]
 	construct NewCountc [number]
 		tmpRole3Passed [+ PlusOne]
 	export tmpRole3Passed
-		NewCountc		
-		
+		NewCountc
+
 	construct LockObjectAnnotation3pt1 [stringlit]
 		"@LockObjectPatternAnnotation(patternInstanceID="
 	construct LockObjectAnnotation3pt2 [stringlit]
-		", roleID=3, roleDescription='Synchronized calls to method Role 2.')"	
-		
+		", roleID=3, roleDescription='Synchronized calls to method Role 2.')"
+
 	by
 		'MUTATED /* LockObjectAnnotation3pt1 [+ CountMethIDsUsingLockObjs] [+ LockObjectAnnotation3pt2] */
 		'synchronized '( EX ')
-			STMT                  
+			STMT
 end rule
 
 
