@@ -11,9 +11,9 @@ public class ChangerThread extends Thread {
     public void run() {
         try {
             for (int i = 0; true; i++) {
-                data.change("No." + i);             //修改资料
-                Thread.sleep(random.nextInt(1000)); // 模拟去做别的事情
-                data.save();                        // 明确的要求存档
+                data.change("No." + i);
+                Thread.sleep(random.nextInt(1000));
+                data.save();
             }
         } catch (IOException e) {
             e.printStackTrace();

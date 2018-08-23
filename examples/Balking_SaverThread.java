@@ -9,8 +9,8 @@ public class SaverThread extends Thread {
     public void run() {
         try {
             while (true) {
-                data.save();            // 存储资料
-                Thread.sleep(1000);     // 休息约1秒
+                data.save();
+                Thread.sleep(1000);
             }
         } catch (IOException e) {
             e.printStackTrace();
