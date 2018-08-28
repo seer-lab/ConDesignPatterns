@@ -1,0 +1,5 @@
+% Defines and re-defines that apply to all TXL rules go here.
+
+define labelM
+	'MUTATED
+end define
