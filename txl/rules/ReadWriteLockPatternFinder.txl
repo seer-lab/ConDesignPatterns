@@ -3,8 +3,8 @@
 % UOIT, February 25, 2011
 
 % include "Java.Grm"
-include "../grammar/java5.grm"
 % include "JavaCommentOverrides.Grm"
+include "../helper.txl"
 
 define labelM
 	'MUTATED
@@ -21,7 +21,7 @@ end define
 redefine class_declaration
 	[class_declaration2]
     | [attr labelM] [class_header] [class_body]
-    | [attr labelM] [NL] /* [stringlit] */ [NL] [class_header] [class_body]
+    | [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] [class_header] [class_body]
 end redefine
 
 define class_declaration2
@@ -31,7 +31,7 @@ end define
 redefine method_declaration
 	[method_declaration2]
 	| [attr labelM] [method_declaration2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] [method_declaration2]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] [method_declaration2]
 end redefine
 
 define method_declaration2
@@ -41,7 +41,7 @@ end define
 redefine variable_declaration
 	[variable_declaration2]
     | [attr labelM] [repeat modifier] [type_specifier] [variable_declarators] '; [NL]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] [repeat modifier] [type_specifier] [variable_declarators] '; [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] [repeat modifier] [type_specifier] [variable_declarators] '; [NL]
 end redefine
 
 define variable_declaration2
@@ -53,7 +53,7 @@ redefine synchronized_statement
 	| [attr labelM]
     'synchronized '( [expression] ')
         [statement]                  [NL]
-	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
     'synchronized '( [expression] ')
         [statement]                  [NL]
 end define
@@ -72,7 +72,7 @@ redefine if_statement
 	'if '( [expression] ')
 		[statement]
     [opt else_clause]      [NL]
-	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
 	'if '( [expression] ')
 		[statement]
     [opt else_clause]      [NL]
@@ -108,15 +108,15 @@ redefine while_statement
 	'{
         [statement]
 	'}
- 	| [attr labelM] [NL] /* [stringlit] */ [NL]
+ 	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
 	'while '( [expression] ')
 	'{
 		[statement]
 	'}
- 	| [attr labelM] [NL] /* [stringlit] */ [NL]
+ 	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
 	'while '( [expression] ')
 	'{
-		[NL] /* [stringlit] */ [NL]
+		[NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
 		[statement]
 	'}
 end redefine
@@ -139,16 +139,16 @@ redefine do_statement
         [statement]
 	'}
     'while '( [expression] ') ';
- 	| [attr labelM] [NL] /* [stringlit] */ [NL]
+ 	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
     'do
 	'{
         [statement]
 	'}
     'while '( [expression] ') ';
- 	| [attr labelM] [NL] /* [stringlit] */ [NL]
+ 	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
     'do
 	'{
-		[NL] /* [stringlit] */ [NL]
+		[NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
         [statement]
 	'}
     'while '( [expression] ') ';
@@ -164,7 +164,7 @@ redefine expression_statement
  	[expression_statement2]
 	| [attr labelM]
 	[expression] ';
-	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
 	[expression] ';
 end redefine
 
@@ -174,7 +174,7 @@ end define
 
 redefine return_statement
  	[return_statement2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
     'return [opt expression] ';      [NL]
 end redefine
 
@@ -184,7 +184,7 @@ end define
 
 % redefine return_statement
  	% [return_statement2]
-	% | [attr labelM] [NL] /* [stringlit] */ [NL]
+	% | [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
     % 'return [opt expression] ';      [NL]
 % end redefine
 

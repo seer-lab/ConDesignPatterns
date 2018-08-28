@@ -3,7 +3,8 @@
 % UOIT, February 6, 2011
 
 % include "Java.Grm"
-include "../grammar/java5.grm"
+% include "JavaCommentOverrides.Grm"
+include "../helper.txl"
 
 define labelM
 	'MUTATED
@@ -25,7 +26,7 @@ end define
 redefine method_declaration
 	[method_declaration2]
 	| [attr labelM] [method_declaration2]
-	| [attr labelM] [NL] /*[stringlit]*/ [method_declaration2]
+	| [attr labelM] [NL] [SPOFF] /* [SPON][stringlit] [SPOFF] */ [SPON] [method_declaration2]
 end redefine
 
 define method_declaration2

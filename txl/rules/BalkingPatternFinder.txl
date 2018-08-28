@@ -3,12 +3,8 @@
 % UOIT, February 12, 2011
 
 % include "Java.Grm"
-include "../grammar/java5.grm"
 % include "JavaCommentOverrides.Grm"
-
-define labelM
-	'MUTATED
-end define
+include "../helper.txl"
 
 redefine annotation
 	[annotation2]
@@ -26,7 +22,7 @@ end define
 redefine method_declaration
 	[method_declaration2]
 	| [attr labelM] [NL] [method_declaration2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] [method_declaration2]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] [method_declaration2]
 end redefine
 
 define method_declaration2
@@ -64,7 +60,7 @@ redefine if_statement
 	'if '( [expression] ')
 		[statement]
     [opt else_clause]      [NL]
-	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
 	'if '( [expression] ')
 		[statement]
     [opt else_clause]      [NL]
@@ -82,7 +78,7 @@ redefine else_clause
 		[statement]
 	| [attr labelM]
 	'else
-		[NL] /* [stringlit] */ [NL]
+		[NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
 		[statement]
 end redefine
 
@@ -94,7 +90,7 @@ end define
 redefine expression
 	[expression2]
 	| [attr labelM] [NL] [expression2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] [expression2]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] [expression2]
 end redefine
 
 define expression2
@@ -103,7 +99,7 @@ end define
 
 redefine return_statement
 	[return_statement2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] 'return [opt expression] ';      [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] 'return [opt expression] ';      [NL]
 end redefine
 
 define return_statement2

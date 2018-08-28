@@ -3,8 +3,8 @@
 % UOIT, April 20, 2011
 
 % include "Java.Grm"
-include "../grammar/java5.grm"
 % include "JavaCommentOverrides.Grm"
+include "../helper.txl"
 
 define labelM
 	'MUTATED
@@ -30,7 +30,7 @@ end define
 redefine method_declaration
 	[method_declaration2]
 	| [attr labelM] [method_declaration2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL] [method_declaration2]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] [method_declaration2]
 end redefine
 
 define method_declaration2
@@ -40,7 +40,7 @@ end define
 redefine variable_declaration
 	[variable_declaration2]
     | [attr labelM] [repeat modifier] [type_specifier] [variable_declarators] '; [NL]
-    | [attr labelM] [NL] /* [stringlit] */ [NL] [repeat modifier] [type_specifier] [variable_declarators] '; [NL]
+    | [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL] [repeat modifier] [type_specifier] [variable_declarators] '; [NL]
 end redefine
 
 define variable_declaration2
@@ -101,7 +101,7 @@ redefine synchronized_statement
 	| [attr labelM]
     'synchronized '( [expression] ')
         [statement]                  [NL]
-	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
     'synchronized '( [expression] ')
         [statement]                  [NL]
 end define
@@ -113,7 +113,7 @@ end define
 
 redefine return_statement
  	[return_statement2]
-	| [attr labelM] [NL] /* [stringlit] */ [NL]
+	| [attr labelM] [NL] [SPOFF] /* [SPON] [stringlit] [SPOFF] */ [SPON] [NL]
     'return [opt expression] ';      [NL]
 end redefine
 
