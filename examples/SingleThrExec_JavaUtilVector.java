@@ -1,32 +1,32 @@
-/*Overview Package Class Source Tree Index About Java Doc By Examples 
- Frames | No Frames  
+/*Overview Package Class Source Tree Index About Java Doc By Examples
+ Frames | No Frames
 A Special Java Document API, methods and interface have many details examples
- 
+
 
 Source for java.util.Vector
-    
+
      * @(#)Vector.java    1.96 04/02/19
      *
      * Copyright 2004 Sun Microsystems, Inc. All rights reserved.
      * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
      */
-    
+
     package java.util;
-    
+
    /**
-    * The <code>Vector</code> class implements a growable array of 
-    * objects. Like an array, it contains components that can be 
-    * accessed using an integer index. However, the size of a 
-    * <code>Vector</code> can grow or shrink as needed to accommodate 
+    * The <code>Vector</code> class implements a growable array of
+    * objects. Like an array, it contains components that can be
+    * accessed using an integer index. However, the size of a
+    * <code>Vector</code> can grow or shrink as needed to accommodate
     * adding and removing items after the <code>Vector</code> has been created.<p>
     *
-    * Each vector tries to optimize storage management by maintaining a 
-    * <code>capacity</code> and a <code>capacityIncrement</code>. The 
-    * <code>capacity</code> is always at least as large as the vector 
-    * size; it is usually larger because as components are added to the 
-    * vector, the vector's storage increases in chunks the size of 
-    * <code>capacityIncrement</code>. An application can increase the 
-    * capacity of a vector before inserting a large number of 
+    * Each vector tries to optimize storage management by maintaining a
+    * <code>capacity</code> and a <code>capacityIncrement</code>. The
+    * <code>capacity</code> is always at least as large as the vector
+    * size; it is usually larger because as components are added to the
+    * vector, the vector's storage increases in chunks the size of
+    * <code>capacityIncrement</code>. An application can increase the
+    * capacity of a vector before inserting a large number of
     * components; this reduces the amount of incremental reallocation. <p>
     *
     * As of the Java 2 platform v1.2, this class has been retrofitted to
@@ -46,12 +46,12 @@ Source for java.util.Vector
     * <p>Note that the fail-fast behavior of an iterator cannot be guaranteed
     * as it is, generally speaking, impossible to make any hard guarantees in the
     * presence of unsynchronized concurrent modification.  Fail-fast iterators
-    * throw <tt>ConcurrentModificationException</tt> on a best-effort basis. 
+    * throw <tt>ConcurrentModificationException</tt> on a best-effort basis.
     * Therefore, it would be wrong to write a program that depended on this
     * exception for its correctness:  <i>the fail-fast behavior of iterators
     * should be used only to detect bugs.</i><p>
     *
-    * This class is a member of the 
+    * This class is a member of the
     * <a href="{@docRoot}/../guide/collections/index.html">
     * Java Collections Framework</a>.
     *
@@ -70,7 +70,7 @@ Source for java.util.Vector
     {
       /**
        * The array buffer into which the components of the vector are
-       * stored. The capacity of the vector is the length of this array buffer, 
+       * stored. The capacity of the vector is the length of this array buffer,
        * and is at least large enough to contain all the vector's elements.<p>
        *
        * Any array elements following the last element in the Vector are null.
@@ -78,32 +78,32 @@ Source for java.util.Vector
        * @serial
        */
       protected Object[] elementData;
-  
+
       /**
-       * The number of valid components in this <tt>Vector</tt> object. 
-       * Components <tt>elementData[0]</tt> through 
+       * The number of valid components in this <tt>Vector</tt> object.
+       * Components <tt>elementData[0]</tt> through
        * <tt>elementData[elementCount-1]</tt> are the actual items.
        *
        * @serial
        */
       protected int elementCount;
-  
+
       /**
-       * The amount by which the capacity of the vector is automatically 
-       * incremented when its size becomes greater than its capacity.  If 
+       * The amount by which the capacity of the vector is automatically
+       * incremented when its size becomes greater than its capacity.  If
        * the capacity increment is less than or equal to zero, the capacity
        * of the vector is doubled each time it needs to grow.
        *
        * @serial
        */
       protected int capacityIncrement;
-  
+
       /** use serialVersionUID from JDK 1.0.2 for interoperability */
       private static final long serialVersionUID = -2767605614048989439L;
-  
+
       /**
        * Constructs an empty vector with the specified initial capacity and
-      * capacity increment. 
+      * capacity increment.
       *
       * @param   initialCapacity     the initial capacity of the vector.
       * @param   capacityIncrement   the amount by which the capacity is
@@ -119,9 +119,9 @@ Source for java.util.Vector
      this.elementData = new Object[initialCapacity];
      this.capacityIncrement = capacityIncrement;
      }
- 
+
      /**
-      * Constructs an empty vector with the specified initial capacity and 
+      * Constructs an empty vector with the specified initial capacity and
       * with its capacity increment equal to zero.
       *
       * @param   initialCapacity   the initial capacity of the vector.
@@ -131,16 +131,16 @@ Source for java.util.Vector
        public Vector(int initialCapacity) {
      this(initialCapacity, 0);
      }
- 
+
      /**
-      * Constructs an empty vector so that its internal data array 
-      * has size <tt>10</tt> and its standard capacity increment is 
-      * zero. 
+      * Constructs an empty vector so that its internal data array
+      * has size <tt>10</tt> and its standard capacity increment is
+      * zero.
       */
        public Vector() {
      this(10);
      }
- 
+
      /**
       * Constructs a vector containing the elements of the specified
       * collection, in the order they are returned by the collection's
@@ -155,15 +155,15 @@ Source for java.util.Vector
          elementCount = c.size();
          // 10% for growth
          elementData = new Object[
-                       (int)Math.min((elementCount*110L)/100,Integer.MAX_VALUE)]; 
+                       (int)Math.min((elementCount*110L)/100,Integer.MAX_VALUE)];
          c.toArray(elementData);
      }
- 
+
      /**
-      * Copies the components of this vector into the specified array. The 
-      * item at index <tt>k</tt> in this vector is copied into component 
-      * <tt>k</tt> of <tt>anArray</tt>. The array must be big enough to hold 
-      * all the objects in this vector, else an 
+      * Copies the components of this vector into the specified array. The
+      * item at index <tt>k</tt> in this vector is copied into component
+      * <tt>k</tt> of <tt>anArray</tt>. The array must be big enough to hold
+      * all the objects in this vector, else an
       * <tt>IndexOutOfBoundsException</tt> is thrown.
       *
       * @param   anArray   the array into which the components get copied.
@@ -172,14 +172,14 @@ Source for java.util.Vector
        public synchronized void copyInto(Object[] anArray) {
      System.arraycopy(elementData, 0, anArray, 0, elementCount);
      }
- 
+
      /**
-      * Trims the capacity of this vector to be the vector's current 
-      * size. If the capacity of this vector is larger than its current 
-      * size, then the capacity is changed to equal the size by replacing 
-      * its internal data array, kept in the field <tt>elementData</tt>, 
-      * with a smaller one. An application can use this operation to 
-      * minimize the storage of a vector. 
+      * Trims the capacity of this vector to be the vector's current
+      * size. If the capacity of this vector is larger than its current
+      * size, then the capacity is changed to equal the size by replacing
+      * its internal data array, kept in the field <tt>elementData</tt>,
+      * with a smaller one. An application can use this operation to
+      * minimize the storage of a vector.
       */
        public synchronized void trimToSize() {
      modCount++;
@@ -190,10 +190,10 @@ Source for java.util.Vector
          System.arraycopy(oldData, 0, elementData, 0, elementCount);
      }
      }
- 
+
      /**
-      * Increases the capacity of this vector, if necessary, to ensure 
-      * that it can hold at least the number of components specified by 
+      * Increases the capacity of this vector, if necessary, to ensure
+      * that it can hold at least the number of components specified by
       * the minimum capacity argument.
       *
       * <p>If the current capacity of this vector is less than
@@ -212,15 +212,15 @@ Source for java.util.Vector
      modCount++;
      ensureCapacityHelper(minCapacity);
      }
-     
+
      /**
       * This implements the unsynchronized semantics of ensureCapacity.
-      * Synchronized methods in this class can internally call this 
-      * method for ensuring capacity without incurring the cost of an 
+      * Synchronized methods in this class can internally call this
+      * method for ensuring capacity without incurring the cost of an
       * extra synchronization.
       *
       * @see java.util.Vector#ensureCapacity(int)
-      */ 
+      */
        private void ensureCapacityHelper(int minCapacity) {
      int oldCapacity = elementData.length;
        if (minCapacity > oldCapacity) {
@@ -234,11 +234,11 @@ Source for java.util.Vector
          System.arraycopy(oldData, 0, elementData, 0, elementCount);
      }
      }
- 
+
      /**
-      * Sets the size of this vector. If the new size is greater than the 
-      * current size, new <code>null</code> items are added to the end of 
-      * the vector. If the new size is less than the current size, all 
+      * Sets the size of this vector. If the new size is greater than the
+      * current size, new <code>null</code> items are added to the end of
+      * the vector. If the new size is less than the current size, all
       * components at index <code>newSize</code> and greater are discarded.
       *
       * @param   newSize   the new size of this vector.
@@ -255,18 +255,18 @@ Source for java.util.Vector
      }
      elementCount = newSize;
      }
- 
+
      /**
       * Returns the current capacity of this vector.
       *
-      * @return  the current capacity (the length of its internal 
-      *          data array, kept in the field <tt>elementData</tt> 
+      * @return  the current capacity (the length of its internal
+      *          data array, kept in the field <tt>elementData</tt>
       *          of this vector).
       */
        public synchronized int capacity() {
      return elementData.length;
      }
- 
+
      /**
       * Returns the number of components in this vector.
       *
@@ -275,23 +275,23 @@ Source for java.util.Vector
        public synchronized int size() {
      return elementCount;
      }
- 
+
      /**
       * Tests if this vector has no components.
       *
-      * @return  <code>true</code> if and only if this vector has 
+      * @return  <code>true</code> if and only if this vector has
       *          no components, that is, its size is zero;
       *          <code>false</code> otherwise.
       */
        public synchronized boolean isEmpty() {
      return elementCount == 0;
      }
- 
+
      /**
-      * Returns an enumeration of the components of this vector. The 
-      * returned <tt>Enumeration</tt> object will generate all items in 
-      * this vector. The first item generated is the item at index <tt>0</tt>, 
-      * then the item at index <tt>1</tt>, and so on. 
+      * Returns an enumeration of the components of this vector. The
+      * returned <tt>Enumeration</tt> object will generate all items in
+      * this vector. The first item generated is the item at index <tt>0</tt>,
+      * then the item at index <tt>1</tt>, and so on.
       *
       * @return  an enumeration of the components of this vector.
       * @see     Enumeration
@@ -300,11 +300,11 @@ Source for java.util.Vector
        public Enumeration<E> elements() {
        return new Enumeration<E>() {
          int count = 0;
- 
+
            public boolean hasMoreElements() {
          return count < elementCount;
          }
- 
+
            public E nextElement() {
            synchronized (Vector.this) {
                if (count < elementCount) {
@@ -315,46 +315,46 @@ Source for java.util.Vector
          }
      };
      }
- 
+
      /**
       * Tests if the specified object is a component in this vector.
       *
       * @param   elem   an object.
-      * @return  <code>true</code> if and only if the specified object 
-      * is the same as a component in this vector, as determined by the 
+      * @return  <code>true</code> if and only if the specified object
+      * is the same as a component in this vector, as determined by the
       * <tt>equals</tt> method; <code>false</code> otherwise.
       */
        public boolean contains(Object elem) {
      return indexOf(elem, 0) >= 0;
      }
- 
+
      /**
-      * Searches for the first occurence of the given argument, testing 
-      * for equality using the <code>equals</code> method. 
+      * Searches for the first occurence of the given argument, testing
+      * for equality using the <code>equals</code> method.
       *
       * @param   elem   an object.
       * @return  the index of the first occurrence of the argument in this
-      *          vector, that is, the smallest value <tt>k</tt> such that 
-      *          <tt>elem.equals(elementData[k])</tt> is <tt>true</tt>; 
+      *          vector, that is, the smallest value <tt>k</tt> such that
+      *          <tt>elem.equals(elementData[k])</tt> is <tt>true</tt>;
       *          returns <code>-1</code> if the object is not found.
       * @see     Object#equals(Object)
       */
        public int indexOf(Object elem) {
      return indexOf(elem, 0);
      }
- 
+
      /**
-      * Searches for the first occurence of the given argument, beginning 
-      * the search at <code>index</code>, and testing for equality using 
-      * the <code>equals</code> method. 
+      * Searches for the first occurence of the given argument, beginning
+      * the search at <code>index</code>, and testing for equality using
+      * the <code>equals</code> method.
       *
       * @param   elem    an object.
       * @param   index   the non-negative index to start searching from.
       * @return  the index of the first occurrence of the object argument in
       *          this vector at position <code>index</code> or later in the
-      *          vector, that is, the smallest value <tt>k</tt> such that 
-      *          <tt>elem.equals(elementData[k]) && (k &gt;= index)</tt> is 
-      *          <tt>true</tt>; returns <code>-1</code> if the object is not 
+      *          vector, that is, the smallest value <tt>k</tt> such that
+      *          <tt>elem.equals(elementData[k]) && (k &gt;= index)</tt> is
+      *          <tt>true</tt>; returns <code>-1</code> if the object is not
       *          found. (Returns <code>-1</code> if <tt>index</tt> &gt;= the
       *          current size of this <tt>Vector</tt>.)
       * @exception  IndexOutOfBoundsException  if <tt>index</tt> is negative.
@@ -372,31 +372,31 @@ Source for java.util.Vector
      }
      return -1;
      }
- 
+
      /**
       * Returns the index of the last occurrence of the specified object in
       * this vector.
       *
       * @param   elem   the desired component.
       * @return  the index of the last occurrence of the specified object in
-      *          this vector, that is, the largest value <tt>k</tt> such that 
-      *          <tt>elem.equals(elementData[k])</tt> is <tt>true</tt>; 
+      *          this vector, that is, the largest value <tt>k</tt> such that
+      *          <tt>elem.equals(elementData[k])</tt> is <tt>true</tt>;
       *          returns <code>-1</code> if the object is not found.
       */
        public synchronized int lastIndexOf(Object elem) {
      return lastIndexOf(elem, elementCount-1);
      }
- 
+
      /**
-      * Searches backwards for the specified object, starting from the 
-      * specified index, and returns an index to it. 
+      * Searches backwards for the specified object, starting from the
+      * specified index, and returns an index to it.
       *
       * @param  elem    the desired component.
       * @param  index   the index to start searching from.
       * @return the index of the last occurrence of the specified object in this
       *          vector at position less than or equal to <code>index</code> in
-      *          the vector, that is, the largest value <tt>k</tt> such that 
-      *          <tt>elem.equals(elementData[k]) && (k &lt;= index)</tt> is 
+      *          the vector, that is, the largest value <tt>k</tt> such that
+      *          <tt>elem.equals(elementData[k]) && (k &lt;= index)</tt> is
       *          <tt>true</tt>; <code>-1</code> if the object is not found.
       *          (Returns <code>-1</code> if <tt>index</tt> is negative.)
       * @exception  IndexOutOfBoundsException  if <tt>index</tt> is greater
@@ -405,7 +405,7 @@ Source for java.util.Vector
        public synchronized int lastIndexOf(Object elem, int index) {
          if (index >= elementCount)
              throw new IndexOutOfBoundsException(index + " >= "+ elementCount);
- 
+
        if (elem == null) {
          for (int i = index; i >= 0; i--)
          if (elementData[i]==null)
@@ -417,7 +417,7 @@ Source for java.util.Vector
      }
      return -1;
      }
- 
+
      /**
       * Returns the component at the specified index.<p>
       *
@@ -426,8 +426,8 @@ Source for java.util.Vector
       *
       * @param      index   an index into this vector.
       * @return     the component at the specified index.
-      * @exception  ArrayIndexOutOfBoundsException  if the <tt>index</tt> 
-      *             is negative or not less than the current size of this 
+      * @exception  ArrayIndexOutOfBoundsException  if the <tt>index</tt>
+      *             is negative or not less than the current size of this
       *             <tt>Vector</tt> object.
       *             given.
       * @see       #get(int)
@@ -437,12 +437,12 @@ Source for java.util.Vector
        if (index >= elementCount) {
          throw new ArrayIndexOutOfBoundsException(index + " >= " + elementCount);
      }
- 
+
          return (E)elementData[index];
      }
- 
+
      /**
-      * Returns the first component (the item at index <tt>0</tt>) of 
+      * Returns the first component (the item at index <tt>0</tt>) of
       * this vector.
       *
       * @return     the first component of this vector.
@@ -454,7 +454,7 @@ Source for java.util.Vector
      }
      return (E)elementData[0];
      }
- 
+
      /**
       * Returns the last component of the vector.
       *
@@ -468,13 +468,13 @@ Source for java.util.Vector
      }
      return (E)elementData[elementCount - 1];
      }
- 
+
      /**
-      * Sets the component at the specified <code>index</code> of this 
-      * vector to be the specified object. The previous component at that 
+      * Sets the component at the specified <code>index</code> of this
+      * vector to be the specified object. The previous component at that
       * position is discarded.<p>
       *
-      * The index must be a value greater than or equal to <code>0</code> 
+      * The index must be a value greater than or equal to <code>0</code>
       * and less than the current size of the vector. <p>
       *
       * This method is identical in functionality to the set method
@@ -492,20 +492,20 @@ Source for java.util.Vector
       */
        public synchronized void setElementAt(E obj, int index) {
        if (index >= elementCount) {
-         throw new ArrayIndexOutOfBoundsException(index + " >= " + 
+         throw new ArrayIndexOutOfBoundsException(index + " >= " +
                               elementCount);
      }
      elementData[index] = obj;
      }
- 
+
      /**
-      * Deletes the component at the specified index. Each component in 
-      * this vector with an index greater or equal to the specified 
-      * <code>index</code> is shifted downward to have an index one 
-      * smaller than the value it had previously. The size of this vector 
+      * Deletes the component at the specified index. Each component in
+      * this vector with an index greater or equal to the specified
+      * <code>index</code> is shifted downward to have an index one
+      * smaller than the value it had previously. The size of this vector
       * is decreased by <tt>1</tt>.<p>
       *
-      * The index must be a value greater than or equal to <code>0</code> 
+      * The index must be a value greater than or equal to <code>0</code>
       * and less than the current size of the vector. <p>
       *
       * This method is identical in functionality to the remove method
@@ -521,7 +521,7 @@ Source for java.util.Vector
        public synchronized void removeElementAt(int index) {
      modCount++;
        if (index >= elementCount) {
-         throw new ArrayIndexOutOfBoundsException(index + " >= " + 
+         throw new ArrayIndexOutOfBoundsException(index + " >= " +
                               elementCount);
      }
        else if (index < 0) {
@@ -534,15 +534,15 @@ Source for java.util.Vector
      elementCount--;
      elementData[elementCount] = null; /* to let gc do its work */
      }
- 
+
      /**
-      * Inserts the specified object as a component in this vector at the 
-      * specified <code>index</code>. Each component in this vector with 
-      * an index greater or equal to the specified <code>index</code> is 
-      * shifted upward to have an index one greater than the value it had 
+      * Inserts the specified object as a component in this vector at the
+      * specified <code>index</code>. Each component in this vector with
+      * an index greater or equal to the specified <code>index</code> is
+      * shifted upward to have an index one greater than the value it had
       * previously. <p>
       *
-      * The index must be a value greater than or equal to <code>0</code> 
+      * The index must be a value greater than or equal to <code>0</code>
       * and less than or equal to the current size of the vector. (If the
       * index is equal to the current size of the vector, the new element
       * is appended to the Vector.)<p>
@@ -569,10 +569,10 @@ Source for java.util.Vector
      elementData[index] = obj;
      elementCount++;
      }
- 
+
      /**
-      * Adds the specified component to the end of this vector, 
-      * increasing its size by one. The capacity of this vector is 
+      * Adds the specified component to the end of this vector,
+      * increasing its size by one. The capacity of this vector is
       * increased if its size becomes greater than its capacity. <p>
       *
       * This method is identical in functionality to the add(Object) method
@@ -587,15 +587,15 @@ Source for java.util.Vector
      ensureCapacityHelper(elementCount + 1);
      elementData[elementCount++] = obj;
      }
- 
+
      /**
-      * Removes the first (lowest-indexed) occurrence of the argument 
-      * from this vector. If the object is found in this vector, each 
-      * component in the vector with an index greater or equal to the 
-      * object's index is shifted downward to have an index one smaller 
+      * Removes the first (lowest-indexed) occurrence of the argument
+      * from this vector. If the object is found in this vector, each
+      * component in the vector with an index greater or equal to the
+      * object's index is shifted downward to have an index one smaller
       * than the value it had previously.<p>
       *
-      * This method is identical in functionality to the remove(Object) 
+      * This method is identical in functionality to the remove(Object)
       * method (which is part of the List interface).
       *
       * @param   obj   the component to be removed.
@@ -613,7 +613,7 @@ Source for java.util.Vector
      }
      return false;
      }
- 
+
      /**
       * Removes all components from this vector and sets its size to zero.<p>
       *
@@ -628,14 +628,14 @@ Source for java.util.Vector
      // Let gc do its work
      for (int i = 0; i < elementCount; i++)
          elementData[i] = null;
- 
+
      elementCount = 0;
      }
- 
+
      /**
       * Returns a clone of this vector. The copy will contain a
-      * reference to a clone of the internal data array, not a reference 
-      * to the original internal data array of this <tt>Vector</tt> object. 
+      * reference to a clone of the internal data array, not a reference
+      * to the original internal data array of this <tt>Vector</tt> object.
       *
       * @return  a clone of this vector.
       */
@@ -646,12 +646,12 @@ Source for java.util.Vector
          System.arraycopy(elementData, 0, v.elementData, 0, elementCount);
          v.modCount = 0;
          return v;
-     } catch (CloneNotSupportedException e) { 
+     } catch (CloneNotSupportedException e) {
          // this shouldn't happen, since we are Cloneable
          throw new InternalError();
      }
      }
- 
+
      /**
       * Returns an array containing all of the elements in this Vector
       * in the correct order.
@@ -663,7 +663,7 @@ Source for java.util.Vector
      System.arraycopy(elementData, 0, result, 0, elementCount);
      return result;
      }
- 
+
      /**
       * Returns an array containing all of the elements in this Vector in the
       * correct order; the runtime type of the returned array is that of the
@@ -692,17 +692,17 @@ Source for java.util.Vector
          if (a.length < elementCount)
              a = (T[])java.lang.reflect.Array.newInstance(
                                  a.getClass().getComponentType(), elementCount);
- 
+
      System.arraycopy(elementData, 0, a, 0, elementCount);
- 
+
          if (a.length > elementCount)
              a[elementCount] = null;
- 
+
          return a;
      }
- 
+
      // Positional Access Operations
- 
+
      /**
       * Returns the element at the specified position in this Vector.
       *
@@ -715,10 +715,10 @@ Source for java.util.Vector
        public synchronized E get(int index) {
      if (index >= elementCount)
          throw new ArrayIndexOutOfBoundsException(index);
- 
+
      return (E)elementData[index];
      }
- 
+
      /**
       * Replaces the element at the specified position in this Vector with the
       * specified element.
@@ -733,12 +733,12 @@ Source for java.util.Vector
        public synchronized E set(int index, E element) {
      if (index >= elementCount)
          throw new ArrayIndexOutOfBoundsException(index);
- 
+
      Object oldValue = elementData[index];
      elementData[index] = element;
      return (E)oldValue;
      }
- 
+
      /**
       * Appends the specified element to the end of this Vector.
       *
@@ -752,7 +752,7 @@ Source for java.util.Vector
      elementData[elementCount++] = o;
          return true;
      }
- 
+
      /**
       * Removes the first occurrence of the specified element in this Vector
       * If the Vector does not contain the element, it is unchanged.  More
@@ -767,7 +767,7 @@ Source for java.util.Vector
        public boolean remove(Object o) {
          return removeElement(o);
      }
- 
+
      /**
       * Inserts the specified element at the specified position in this Vector.
       * Shifts the element currently at that position (if any) and any
@@ -782,7 +782,7 @@ Source for java.util.Vector
        public void add(int index, E element) {
          insertElementAt(element, index);
      }
- 
+
      /**
       * Removes the element at the specified position in this Vector.
       * shifts any subsequent elements to the left (subtracts one from their
@@ -799,16 +799,16 @@ Source for java.util.Vector
      if (index >= elementCount)
          throw new ArrayIndexOutOfBoundsException(index);
      Object oldValue = elementData[index];
- 
+
      int numMoved = elementCount - index - 1;
      if (numMoved > 0)
          System.arraycopy(elementData, index+1, elementData, index,
                   numMoved);
      elementData[--elementCount] = null; // Let gc do its work
- 
+
      return (E)oldValue;
      }
- 
+
      /**
       * Removes all of the elements from this Vector.  The Vector will
       * be empty after this call returns (unless it throws an exception).
@@ -818,9 +818,9 @@ Source for java.util.Vector
        public void clear() {
          removeAllElements();
      }
- 
+
      // Bulk Operations
- 
+
      /**
       * Returns true if this Vector contains all of the elements in the
       * specified Collection.
@@ -834,7 +834,7 @@ Source for java.util.Vector
        public synchronized boolean containsAll(Collection<?> c) {
          return super.containsAll(c);
      }
- 
+
      /**
       * Appends all of the elements in the specified Collection to the end of
       * this Vector, in the order that they are returned by the specified
@@ -857,7 +857,7 @@ Source for java.util.Vector
          elementCount += numNew;
      return numNew != 0;
      }
- 
+
      /**
       * Removes from this Vector all of its elements that are contained in the
       * specified Collection.
@@ -870,11 +870,11 @@ Source for java.util.Vector
        public synchronized boolean removeAll(Collection<?> c) {
          return super.removeAll(c);
      }
- 
+
      /**
       * Retains only the elements in this Vector that are contained in the
       * specified Collection.  In other words, removes from this Vector all
-      * of its elements that are not contained in the specified Collection. 
+      * of its elements that are not contained in the specified Collection.
       *
       * @param c a collection of elements to be retained in this Vector
       *          (all other elements are removed)
@@ -885,12 +885,12 @@ Source for java.util.Vector
        public synchronized boolean retainAll(Collection<?> c)  {
          return super.retainAll(c);
      }
- 
+
      /**
       * Inserts all of the elements in the specified Collection into this
       * Vector at the specified position.  Shifts the element currently at
       * that position (if any) and any subsequent elements to the right
-      * (increases their indices).  The new elements will appear in the Vector  
+      * (increases their indices).  The new elements will appear in the Vector
       * in the order that they are returned by the specified Collection's
       * iterator.
       *
@@ -907,21 +907,21 @@ Source for java.util.Vector
      modCount++;
      if (index < 0 || index > elementCount)
          throw new ArrayIndexOutOfBoundsException(index);
- 
+
          Object[] a = c.toArray();
      int numNew = a.length;
      ensureCapacityHelper(elementCount + numNew);
- 
+
      int numMoved = elementCount - index;
      if (numMoved > 0)
          System.arraycopy(elementData, index, elementData, index + numNew,
                   numMoved);
- 
+
          System.arraycopy(a, 0, elementData, index, numNew);
      elementCount += numNew;
      return numNew != 0;
      }
- 
+
      /**
       * Compares the specified Object with this Vector for equality.  Returns
       * true if and only if the specified Object is also a List, both Lists
@@ -937,14 +937,14 @@ Source for java.util.Vector
        public synchronized boolean equals(Object o) {
          return super.equals(o);
      }
- 
+
      /**
       * Returns the hash code value for this Vector.
       */
        public synchronized int hashCode() {
          return super.hashCode();
      }
- 
+
      /**
       * Returns a string representation of this Vector, containing
       * the String representation of each element.
@@ -952,7 +952,7 @@ Source for java.util.Vector
        public synchronized String toString() {
          return super.toString();
      }
- 
+
      /**
       * Returns a view of the portion of this List between fromIndex,
       * inclusive, and toIndex, exclusive.  (If fromIndex and ToIndex are
@@ -991,7 +991,7 @@ Source for java.util.Vector
          return Collections.synchronizedList(super.subList(fromIndex, toIndex),
                                              this);
      }
- 
+
      /**
       * Removes from this List all of the elements whose index is between
       * fromIndex, inclusive and toIndex, exclusive.  Shifts any succeeding
@@ -1007,13 +1007,13 @@ Source for java.util.Vector
      int numMoved = elementCount - toIndex;
          System.arraycopy(elementData, toIndex, elementData, fromIndex,
                           numMoved);
- 
+
      // Let gc do its work
      int newElementCount = elementCount - (toIndex-fromIndex);
      while (elementCount != newElementCount)
          elementData[--elementCount] = null;
      }
- 
+
      /**
       * Save the state of the <tt>Vector</tt> instance to a stream (that
       * is, serialize it).  This method is present merely for synchronization.
@@ -1025,7 +1025,6 @@ Source for java.util.Vector
      s.defaultWriteObject();
      }
  }
-//Overview Package Class Source Tree Index About Java API(Doc) 
+//Overview Package Class Source Tree Index About Java API(Doc)
 
- 
-  
+

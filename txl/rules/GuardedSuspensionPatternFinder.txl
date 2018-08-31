@@ -6,10 +6,6 @@
 % include "JavaCommentOverrides.Grm"
 include "../helper.txl"
 
-define labelM
-	'MUTATED
-end define
-
 redefine annotation
 	[annotation2]
 end redefine

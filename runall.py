@@ -18,6 +18,6 @@ for example_filename in os.listdir(EXAMPLES_DIR):
 
         txl_filename_basic = os.path.splitext(txl_filename)[0].replace("Finder", "").replace("Pattern", "")
 
-        call(["txl", os.path.join(EXAMPLES_DIR, example_filename), "-o", os.path.join(CURR_OUT_DIR, example_filename_root) + "_" + txl_filename_basic.upper() + ".java" , os.path.join(TXL_RULES_DIR, txl_filename)])
+        call(["txl", "-q", os.path.join(EXAMPLES_DIR, example_filename), "-o", os.path.join(CURR_OUT_DIR, example_filename_root) + "_" + txl_filename_basic.upper() + ".java" , os.path.join(TXL_RULES_DIR, txl_filename)])
 
 call("rm TransformedFor*.java", shell=True)

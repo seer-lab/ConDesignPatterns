@@ -20,7 +20,7 @@ public class Data {
         changed = true;
     }
 
-    /* "@BalkingPatternAnnotation(patternInstanceID=1, roleID=1, roleDescription='Ensuring method is synchronized -
+    /* "@BalkingPatternAnnotation(patternInstanceID=1, roleID=1, roleDescription='Ensuring method is synchronized - 
       guarded')"*/
     public synchronized void save () throws IOException {
 
