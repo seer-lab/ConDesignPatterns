@@ -24,7 +24,7 @@
           */
 
          package java.awt;
- 
+
          import java.io.PrintStream;
          import java.io.PrintWriter;
          import java.util.Vector;
@@ -62,7 +62,7 @@
          import javax.accessibility.*;
          import java.util.logging.*;
          import java.applet.Applet;
- 
+
          import sun.security.action.GetPropertyAction;
          import sun.awt.AppContext;
          import sun.awt.ConstrainableGraphics;
@@ -75,7 +75,7 @@
          import sun.awt.im.CompositionArea;
          import sun.java2d.SunGraphics2D;
          import sun.awt.RequestFocusController;
- 
+
          /**
           * A <em>component</em> is an object having a graphical representation
           * that can be displayed on the screen and that can interact with the
@@ -99,19 +99,19 @@
           *    import java.awt.*;
           *    import java.awt.event.*;
           *    import java.io.Serializable;
-          *    
+          *
           *    class MyApp implements ActionListener, Serializable
           *    {
           *        BigObjectThatShouldNotBeSerializedWithAButton bigOne;
           *        Button aButton = new Button();
-          *      
+          *
           *        MyApp()
           *        {
           *            // Oops, now aButton has a listener with a reference
           *            // to bigOne!
           *            aButton.addActionListener(this);
           *        }
-          *    
+          *
           *        public void actionPerformed(ActionEvent e)
           *        {
           *            System.out.println("Hello There");
@@ -122,8 +122,8 @@
           * will cause <code>MyApp</code> and everything it refers to
           * to be serialized as well.  The problem is that the listener
           * is serializable by coincidence, not by design.  To separate
-          * the decisions about <code>MyApp</code> and the 
-          * <code>ActionListener</code> being serializable one can use a 
+          * the decisions about <code>MyApp</code> and the
+          * <code>ActionListener</code> being serializable one can use a
           * nested class, as in the following example:
           * <pre>
           *    import java.awt.*;
@@ -142,7 +142,7 @@
           *                 System.out.println("Hello There");
           *             }
           *         }
-          * 
+          *
           *         MyApp()
           *         {
           *             aButton.addActionListener(new MyActionListener());
@@ -168,33 +168,33 @@
           */
          public abstract class Component implements  ImageObserver,
                  MenuContainer, Serializable {
- 
+
              private static final Logger focusLog = Logger
                      .getLogger("java.awt.focus.Component");
              private static final Logger log = Logger
                      .getLogger("java.awt.Component");
              /**
               * The peer of the component. The peer implements the component's
-              * behavior. The peer is set when the <code>Component</code> is 
+              * behavior. The peer is set when the <code>Component</code> is
               * added to a container that also is a peer.
               * @see #addNotify
               * @see #removeNotify
               */
              transient ComponentPeer peer;
- 
+
              /**
               * The parent of the object. It may be <code>null</code>
               * for top-level components.
               * @see #getParent
               */
              transient Container parent;
- 
+
              /**
               * The <code>AppContext</code> of the component. Applets/Plugin may
               * change the AppContext.
               */
              transient AppContext appContext;
- 
+
              /**
               * The x position of the component in the parent's coordinate system.
               *
@@ -202,7 +202,7 @@
               * @see #getLocation
               */
              int x;
- 
+
              /**
               * The y position of the component in the parent's coordinate system.
               *
@@ -210,7 +210,7 @@
               * @see #getLocation
               */
              int y;
- 
+
              /**
               * The width of the component.
               *
@@ -218,7 +218,7 @@
               * @see #getSize
               */
              int width;
- 
+
              /**
               * The height of the component.
               *
@@ -226,7 +226,7 @@
               * @see #getSize
               */
              int height;
- 
+
              /**
               * The foreground color for this component.
               * <code>foreground</code> can be <code>null</code>.
@@ -236,7 +236,7 @@
               * @see #setForeground
               */
              Color foreground;
- 
+
              /**
               * The background color for this component.
               * <code>background</code> can be <code>null</code>.
@@ -246,7 +246,7 @@
               * @see #setBackground
               */
              Color background;
- 
+
              /**
               * The font used by this component.
               * The <code>font</code> can be <code>null</code>.
@@ -256,13 +256,13 @@
               * @see #setFont
               */
              Font font;
- 
+
              /**
-              * The font which the peer is currently using. 
+              * The font which the peer is currently using.
               * (<code>null</code> if no peer exists.)
               */
              Font peerFont;
- 
+
              /**
               * The cursor displayed when pointer is over this component.
               * This value can be <code>null</code>.
@@ -272,7 +272,7 @@
               * @see #setCursor
               */
              Cursor cursor;
- 
+
              /**
               * The locale for the component.
               *
@@ -281,7 +281,7 @@
               * @see #setLocale
               */
              Locale locale;
- 
+
              /**
               * A reference to a <code>GraphicsConfiguration</code> object
               * used to describe the characteristics of a graphics
@@ -294,7 +294,7 @@
               * @see #getGraphicsConfiguration
               */
              transient GraphicsConfiguration graphicsConfig = null;
- 
+
              /**
               * A reference to a <code>BufferStrategy</code> object
               * used to manipulate the buffers on this component.
@@ -304,7 +304,7 @@
               * @see #getBufferStrategy()
               */
              transient BufferStrategy bufferStrategy = null;
- 
+
              /**
               * True when the object should ignore all repaint events.
               *
@@ -314,7 +314,7 @@
               * @see #getIgnoreRepaint
               */
              boolean ignoreRepaint = false;
- 
+
              /**
               * True when the object is visible. An object that is not
               * visible is not drawn on the screen.
@@ -324,7 +324,7 @@
               * @see #setVisible
               */
              boolean visible = true;
- 
+
              /**
               * True when the object is enabled. An object that is not
               * enabled does not interact with the user.
@@ -334,7 +334,7 @@
               * @see #setEnabled
               */
              boolean enabled = true;
- 
+
              /**
               * True when the object is valid. An invalid object needs to
               * be layed out. This flag is set to false when the object
@@ -346,23 +346,23 @@
               * @see #invalidate
               */
              volatile boolean valid = false;
- 
+
              /**
               * The <code>DropTarget</code> associated with this component.
               *
               * @since 1.2
-              * @serial 
+              * @serial
               * @see #setDropTarget
               * @see #getDropTarget
               */
              DropTarget dropTarget;
- 
+
              /**
               * @serial
               * @see #add
               */
              Vector popups;
- 
+
              /**
               * A component's name.
               * This field can be <code>null</code>.
@@ -372,7 +372,7 @@
               * @see #setName(String)
               */
              private String name;
- 
+
              /**
               * A bool to determine whether the name has
               * been set explicitly. <code>nameExplicitlySet</code> will
@@ -384,7 +384,7 @@
               * @see #setName(String)
               */
              private boolean nameExplicitlySet = false;
- 
+
              /**
               * Indicates whether this Component can be focused.
               *
@@ -394,11 +394,11 @@
               * @since 1.4
               */
              private boolean focusable = true;
- 
+
              private static final int FOCUS_TRAVERSABLE_UNKNOWN = 0;
              private static final int FOCUS_TRAVERSABLE_DEFAULT = 1;
              private static final int FOCUS_TRAVERSABLE_SET = 2;
- 
+
              /**
               * Tracks whether this Component is relying on default focus travesability.
               *
@@ -406,7 +406,7 @@
               * @since 1.4
               */
              private int isFocusTraversableOverridden = FOCUS_TRAVERSABLE_UNKNOWN;
- 
+
              /**
               * The focus traversal keys. These keys will generate focus traversal
               * behavior for Components for which focus traversal keys are enabled. If a
@@ -421,11 +421,11 @@
               * @since 1.4
               */
              Set[] focusTraversalKeys;
- 
+
              private static final String[] focusTraversalKeyPropertyNames = {
                      "forwardFocusTraversalKeys", "backwardFocusTraversalKeys",
                      "upCycleFocusTraversalKeys", "downCycleFocusTraversalKeys" };
- 
+
              /**
               * Indicates whether focus traversal keys are enabled for this Component.
               * Components for which focus traversal keys are disabled receive key
@@ -439,17 +439,17 @@
               * @since 1.4
               */
              private boolean focusTraversalKeysEnabled = true;
- 
+
              /**
               * The locking object for AWT component-tree and layout operations.
               *
               * @see #getTreeLock
               */
              static final Object LOCK = new AWTTreeLock();
- 
+
              static class AWTTreeLock {
              }
- 
+
              /**
               * Minimum size.
               * (This field perhaps should have been transient).
@@ -457,12 +457,12 @@
               * @serial
               */
              Dimension minSize;
- 
+
              /**
               * Whether or not setMinimumSize has been invoked with a non-null value.
               */
              boolean minSizeSet;
- 
+
              /**
               * Preferred size.
               * (This field perhaps should have been transient).
@@ -470,31 +470,31 @@
               * @serial
               */
              Dimension prefSize;
- 
+
              /**
               * Whether or not setPreferredSize has been invoked with a non-null value.
               */
              boolean prefSizeSet;
- 
+
              /**
               * Maximum size
               *
               * @serial
               */
              Dimension maxSize;
- 
+
              /**
               * Whether or not setMaximumSize has been invoked with a non-null value.
               */
              boolean maxSizeSet;
- 
+
              /**
               * The orientation for this component.
               * @see #getComponentOrientation
               * @see #setComponentOrientation
               */
              transient ComponentOrientation componentOrientation = ComponentOrientation.UNKNOWN;
- 
+
              /**
               * <code>newEventsOnly</code> will be true if the event is
               * one of the event types enabled for the component.
@@ -516,9 +516,9 @@
              transient MouseMotionListener mouseMotionListener;
              transient MouseWheelListener mouseWheelListener;
              transient InputMethodListener inputMethodListener;
- 
+
              transient RuntimeException windowClosingException = null;
- 
+
              /** Internal, constants for serialization */
              final static String actionListenerK = "actionL";
              final static String adjustmentListenerK = "adjustmentL";
@@ -538,9 +538,9 @@
              final static String hierarchyBoundsListenerK = "hierarchyBoundsL";
              final static String windowStateListenerK = "windowStateL";
              final static String windowFocusListenerK = "windowFocusL";
- 
+
              /**
-              * The <code>eventMask</code> is ONLY set by subclasses via 
+              * The <code>eventMask</code> is ONLY set by subclasses via
               * <code>enableEvents</code>.
               * The mask should NOT be set when listeners are registered
               * so that we can distinguish the difference between when
@@ -554,10 +554,10 @@
               * @see AWTEvent
               */
              long eventMask = AWTEvent.INPUT_METHODS_ENABLED_MASK;
- 
+
              private static final DebugHelper dbg = DebugHelper
                      .create(Component.class);
- 
+
              /**
               * Static properties for incremental drawing.
               * @see #imageUpdate
@@ -571,25 +571,25 @@
                  if (!GraphicsEnvironment.isHeadless()) {
                      initIDs();
                  }
- 
+
                  String s = (String) java.security.AccessController
                          .doPrivileged(new GetPropertyAction(
                                  "awt.image.incrementaldraw"));
                  isInc = (s == null || s.equals("true"));
- 
+
                  s = (String) java.security.AccessController
                          .doPrivileged(new GetPropertyAction(
                                  "awt.image.redrawrate"));
                  incRate = (s != null) ? Integer.parseInt(s) : 100;
              }
- 
+
              /**
-              * Ease-of-use constant for <code>getAlignmentY()</code>.  
+              * Ease-of-use constant for <code>getAlignmentY()</code>.
               * Specifies an alignment to the top of the component.
               * @see     #getAlignmentY
               */
              public static final float TOP_ALIGNMENT = 0.0f;
- 
+
              /**
               * Ease-of-use constant for <code>getAlignmentY</code> and
               * <code>getAlignmentX</code>. Specifies an alignment to
@@ -598,33 +598,33 @@
               * @see     #getAlignmentY
               */
              public static final float CENTER_ALIGNMENT = 0.5f;
- 
+
              /**
-              * Ease-of-use constant for <code>getAlignmentY</code>.  
+              * Ease-of-use constant for <code>getAlignmentY</code>.
               * Specifies an alignment to the bottom of the component.
               * @see     #getAlignmentY
               */
              public static final float BOTTOM_ALIGNMENT = 1.0f;
- 
+
              /**
-              * Ease-of-use constant for <code>getAlignmentX</code>. 
+              * Ease-of-use constant for <code>getAlignmentX</code>.
               * Specifies an alignment to the left side of the component.
               * @see     #getAlignmentX
               */
              public static final float LEFT_ALIGNMENT = 0.0f;
- 
+
              /**
               * Ease-of-use constant for <code>getAlignmentX</code>.
               * Specifies an alignment to the right side of the component.
               * @see     #getAlignmentX
               */
              public static final float RIGHT_ALIGNMENT = 1.0f;
- 
+
              /*
               * JDK 1.1 serialVersionUID
               */
              private static final long serialVersionUID = -7644114512714619750L;
- 
+
              /**
               * If any <code>PropertyChangeListeners</code> have been registered,
               * the <code>changeSupport</code> field describes them.
@@ -636,17 +636,17 @@
               * @see #firePropertyChange
               */
              private PropertyChangeSupport changeSupport;
- 
+
              boolean isPacked = false;
- 
+
              /**
               * Pseudoparameter for direct Geometry API (setLocation, setBounds setSize
               * to signal setBounds what's changing. Should be used under TreeLock.
-              * This is only needed due to the inability to change the cross-calling 
+              * This is only needed due to the inability to change the cross-calling
               * order of public and deprecated methods.
               */
              private int boundsOp = ComponentPeer.DEFAULT_OPERATION;
- 
+
              /**
               * Enumeration of the common ways the baseline of a component can
               * change as the size changes.  The baseline resize behavior is
@@ -675,7 +675,7 @@
                   * baseline type of <code>CONSTANT_ASCENT</code>.
                   */
                  CONSTANT_ASCENT,
- 
+
                  /**
                   * Indicates the baseline remains fixed relative to the height
                   * and does not change as the width is varied.  That is, for
@@ -686,7 +686,7 @@
                   * baseline type of <code>CONSTANT_DESCENT</code>.
                   */
                  CONSTANT_DESCENT,
- 
+
                  /**
                   * Indicates the baseline remains a fixed distance from
                   * the center of the component.  That is, for any height H the
@@ -725,7 +725,7 @@
                   * </pre>
                   */
                  CENTER_OFFSET,
- 
+
                  /**
                   * Indicates the baseline resize behavior can not be expressed using
                   * any of the other constants.  This may also indicate the baseline
@@ -734,7 +734,7 @@
                   */
                  OTHER
              }
- 
+
              /**
               * Should only be used in subclass getBounds to check that part of bounds
               * is actualy changing
@@ -743,7 +743,7 @@
                  assert Thread.holdsLock(getTreeLock());
                  return boundsOp;
              }
- 
+
              void setBoundsOp(int op) {
                  assert Thread.holdsLock(getTreeLock());
                  if (op == ComponentPeer.RESET_OPERATION) {
@@ -752,7 +752,7 @@
                      boundsOp = op;
                  }
              }
- 
+
              /**
               * Constructs a new component. Class <code>Component</code> can be
               * extended directly to create a lightweight component that does not
@@ -763,11 +763,11 @@
              protected Component() {
                  appContext = AppContext.getAppContext();
              }
- 
+
              void initializeFocusTraversalKeys() {
                  focusTraversalKeys = new Set[3];
              }
- 
+
              /**
               * Constructs a name for this component.  Called by <code>getName</code>
               * when the name is <code>null</code>.
@@ -777,7 +777,7 @@
                  // that doesn't set its name should return null from
                  // getName()
              }
- 
+
              /**
               * Gets the name of the component.
               * @return this component's name
@@ -793,10 +793,10 @@
                  }
                  return name;
              }
- 
+
              /**
               * Sets the name of the component to the specified string.
-              * @param name  the string that is to be this 
+              * @param name  the string that is to be this
               *           component's name
               * @see #getName
               * @since JDK1.1
@@ -810,7 +810,7 @@
                  }
                  firePropertyChange("name", oldName, name);
              }
- 
+
              /**
               * Gets the parent of this component.
               * @return the parent container of this component
@@ -819,15 +819,15 @@
              public Container getParent() {
                  return getParent_NoClientCode();
              }
- 
+
              // NOTE: This method may be called by privileged threads.
-             //       This functionality is implemented in a package-private method 
-             //       to insure that it cannot be overridden by client subclasses. 
+             //       This functionality is implemented in a package-private method
+             //       to insure that it cannot be overridden by client subclasses.
              //       DO NOT INVOKE CLIENT CODE ON THIS THREAD!
              final Container getParent_NoClientCode() {
                  return parent;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * programs should not directly manipulate peers;
@@ -837,7 +837,7 @@
              public ComponentPeer getPeer() {
                  return peer;
              }
- 
+
              /**
               * Associate a <code>DropTarget</code> with this component.
               * The <code>Component</code> will receive drops only if it
@@ -846,31 +846,31 @@
               * @see #isEnabled
               * @param dt The DropTarget
               */
- 
+
              public synchronized void setDropTarget(DropTarget dt) {
                  if (dt == dropTarget
                          || (dropTarget != null && dropTarget.equals(dt)))
                      return;
- 
+
                  DropTarget old;
- 
+
                  if ((old = dropTarget) != null) {
                      if (peer != null)
                          dropTarget.removeNotify(peer);
- 
+
                      DropTarget t = dropTarget;
- 
+
                      dropTarget = null;
- 
+
                      try {
                          t.setComponent(null);
                      } catch (IllegalArgumentException iae) {
                          // ignore it.
                      }
                  }
- 
+
                  // if we have a new one, and we have a peer, add it!
- 
+
                  if ((dropTarget = dt) != null) {
                      try {
                          dropTarget.setComponent(this );
@@ -889,22 +889,22 @@
                      }
                  }
              }
- 
+
              /**
-              * Gets the <code>DropTarget</code> associated with this 
+              * Gets the <code>DropTarget</code> associated with this
               * <code>Component</code>.
               */
- 
+
              public synchronized DropTarget getDropTarget() {
                  return dropTarget;
              }
- 
+
              /**
               * Gets the <code>GraphicsConfiguration</code> associated with this
               * <code>Component</code>.
               * If the <code>Component</code> has not been assigned a specific
               * <code>GraphicsConfiguration</code>,
-              * the <code>GraphicsConfiguration</code> of the 
+              * the <code>GraphicsConfiguration</code> of the
               * <code>Component</code> object's top-level container is
               * returned.
               * If the <code>Component</code> has been created, but not yet added
@@ -925,7 +925,7 @@
                      return gc;
                  }
              }
- 
+
              final GraphicsConfiguration getGraphicsConfiguration_NoClientCode() {
                  GraphicsConfiguration gc = this .graphicsConfig;
                  Component par = this .parent;
@@ -935,7 +935,7 @@
                  }
                  return gc;
              }
- 
+
              /**
               * Resets this <code>Component</code>'s
               * <code>GraphicsConfiguration</code> back to a default
@@ -947,13 +947,13 @@
                      graphicsConfig = null;
                  }
              }
- 
+
              /*
               * Not called on Component, but needed for Canvas and Window
               */
              void setGCFromPeer() {
                  synchronized (getTreeLock()) {
-                     if (peer != null) { // can't imagine how this will be false, 
+                     if (peer != null) { // can't imagine how this will be false,
                          // but just in case
                          graphicsConfig = peer.getGraphicsConfiguration();
                      } else {
@@ -961,7 +961,7 @@
                      }
                  }
              }
- 
+
              /**
               * Checks that this component's <code>GraphicsDevice</code>
               * <code>idString</code> matches the string argument.
@@ -975,7 +975,7 @@
                      }
                  }
              }
- 
+
              /**
               * Gets this component's locking object (the object that owns the thread
               * sychronization monitor) for AWT component-tree and layout
@@ -985,7 +985,7 @@
              public final Object getTreeLock() {
                  return LOCK;
              }
- 
+
              /**
               * Gets the toolkit of this component. Note that
               * the frame that contains a component controls which
@@ -997,7 +997,7 @@
              public Toolkit getToolkit() {
                  return getToolkitImpl();
              }
- 
+
              /*
               * This is called by the native code, so client code can't
               * be called on the toolkit thread.
@@ -1013,13 +1013,13 @@
                  }
                  return Toolkit.getDefaultToolkit();
              }
- 
+
              /**
               * Determines whether this component is valid. A component is valid
               * when it is correctly sized and positioned within its parent
-              * container and all its children are also valid. 
+              * container and all its children are also valid.
               * In order to account for peers' size requirements, components are invalidated
-              * before they are first shown on the screen. By the time the parent container 
+              * before they are first shown on the screen. By the time the parent container
               * is fully realized, all its components will be valid.
               * @return <code>true</code> if the component is valid, <code>false</code>
               * otherwise
@@ -1030,23 +1030,23 @@
              public boolean isValid() {
                  return (peer != null) && valid;
              }
- 
+
              /**
-              * Determines whether this component is displayable. A component is 
+              * Determines whether this component is displayable. A component is
               * displayable when it is connected to a native screen resource.
               * <p>
               * A component is made displayable either when it is added to
               * a displayable containment hierarchy or when its containment
               * hierarchy is made displayable.
-              * A containment hierarchy is made displayable when its ancestor 
+              * A containment hierarchy is made displayable when its ancestor
               * window is either packed or made visible.
               * <p>
               * A component is made undisplayable either when it is removed from
               * a displayable containment hierarchy or when its containment hierarchy
-              * is made undisplayable.  A containment hierarchy is made 
+              * is made undisplayable.  A containment hierarchy is made
               * undisplayable when its ancestor window is disposed.
               *
-              * @return <code>true</code> if the component is displayable, 
+              * @return <code>true</code> if the component is displayable,
               * <code>false</code> otherwise
               * @see Container#add(Component)
               * @see Window#pack
@@ -1058,11 +1058,11 @@
              public boolean isDisplayable() {
                  return getPeer() != null;
              }
- 
+
              /**
               * Determines whether this component should be visible when its
-              * parent is visible. Components are 
-              * initially visible, with the exception of top level components such 
+              * parent is visible. Components are
+              * initially visible, with the exception of top level components such
               * as <code>Frame</code> objects.
               * @return <code>true</code> if the component is visible,
               * <code>false</code> otherwise
@@ -1072,11 +1072,11 @@
              public boolean isVisible() {
                  return isVisible_NoClientCode();
              }
- 
+
              final boolean isVisible_NoClientCode() {
                  return visible;
              }
- 
+
              /**
               * Determines whether this component will be displayed on the screen.
               * @return <code>true</code> if the component and all of its ancestors
@@ -1087,7 +1087,7 @@
                  return visible
                          && (parent == null || parent.isRecursivelyVisible());
              }
- 
+
              /**
               * Translates absolute coordinates into coordinates in the coordinate
               * space of this component.
@@ -1097,10 +1097,10 @@
                  return new Point(absolute.x - compCoords.x, absolute.y
                          - compCoords.y);
              }
- 
+
              /**
               * Assuming that mouse location is stored in PointerInfo passed
-              * to this method, it finds a Component that is in the same 
+              * to this method, it finds a Component that is in the same
               * Window as this Component and is located under the mouse pointer.
               * If no such Component exists, null is returned.
               * NOTE: this method should be called under the protection of
@@ -1124,7 +1124,7 @@
                          INCLUDE_DISABLED);
                  return inTheSameWindow;
              }
- 
+
              /**
               * Returns the position of the mouse pointer in this <code>Component</code>'s
               * coordinate space if the <code>Component</code> is directly under the mouse
@@ -1156,14 +1156,14 @@
                  if (GraphicsEnvironment.isHeadless()) {
                      throw new HeadlessException();
                  }
- 
+
                  PointerInfo pi = (PointerInfo) java.security.AccessController
                          .doPrivileged(new java.security.PrivilegedAction() {
                              public Object run() {
                                  return MouseInfo.getPointerInfo();
                              }
                          });
- 
+
                  synchronized (getTreeLock()) {
                      Component inTheSameWindow = findUnderMouseInWindow(pi);
                      if (!isSameOrAncestorOf(inTheSameWindow, true)) {
@@ -1172,14 +1172,14 @@
                      return pointRelativeToComponent(pi.getLocation());
                  }
              }
- 
+
              /**
               * Overridden in Container. Must be called under TreeLock.
               */
              boolean isSameOrAncestorOf(Component comp, boolean allowChildren) {
                  return comp == this ;
              }
- 
+
              /**
               * Determines whether this component is showing on screen. This means
               * that the component must be visible, and it must be in a container
@@ -1205,7 +1205,7 @@
                  }
                  return false;
              }
- 
+
              /**
               * Determines whether this component is enabled. An enabled component
               * can respond to user input and generate events. Components are
@@ -1219,7 +1219,7 @@
              public boolean isEnabled() {
                  return isEnabledImpl();
              }
- 
+
              /*
               * This is called by the native code, so client code can't
               * be called on the toolkit thread.
@@ -1227,7 +1227,7 @@
              final boolean isEnabledImpl() {
                  return enabled;
              }
- 
+
              /**
               * Enables or disables this component, depending on the value of the
               * parameter <code>b</code>. An enabled component can respond to user
@@ -1239,7 +1239,7 @@
               * in this container from receiving any input events.  But disabling a
               * lightweight container affects only this container.
               *
-              * @param     b   If <code>true</code>, this component is 
+              * @param     b   If <code>true</code>, this component is
               *            enabled; otherwise this component is disabled
               * @see #isEnabled
               * @see #isLightweight
@@ -1248,7 +1248,7 @@
              public void setEnabled(boolean b) {
                  enable(b);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setEnabled(boolean)</code>.
@@ -1273,7 +1273,7 @@
                      }
                  }
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setEnabled(boolean)</code>.
@@ -1286,7 +1286,7 @@
                      disable();
                  }
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setEnabled(boolean)</code>.
@@ -1319,19 +1319,19 @@
                      }
                  }
              }
- 
+
              /**
               * Returns true if this component is painted to an offscreen image
               * ("buffer") that's copied to the screen later.  Component
               * subclasses that support double buffering should override this
               * method to return true if double buffering is enabled.
-              * 
+              *
               * @return false by default
               */
              public boolean isDoubleBuffered() {
                  return false;
              }
- 
+
              /**
               * Enables or disables input method support for this component. If input
               * method support is enabled and the component also processes key events,
@@ -1348,7 +1348,7 @@
                  if (enable) {
                      if ((eventMask & AWTEvent.INPUT_METHODS_ENABLED_MASK) != 0)
                          return;
- 
+
                      // If this component already has focus, then activate the
                      // input method by dispatching a synthesized focus gained
                      // event.
@@ -1360,7 +1360,7 @@
                              inputContext.dispatchEvent(focusGainedEvent);
                          }
                      }
- 
+
                      eventMask |= AWTEvent.INPUT_METHODS_ENABLED_MASK;
                  } else {
                      if ((eventMask & AWTEvent.INPUT_METHODS_ENABLED_MASK) != 0) {
@@ -1373,7 +1373,7 @@
                      eventMask &= ~AWTEvent.INPUT_METHODS_ENABLED_MASK;
                  }
              }
- 
+
              /**
               * Shows or hides this component depending on the value of parameter
               * <code>b</code>.
@@ -1385,7 +1385,7 @@
              public void setVisible(boolean b) {
                  show(b);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setVisible(boolean)</code>.
@@ -1410,7 +1410,7 @@
                              }
                              updateCursorImmediately();
                          }
- 
+
                          if (componentListener != null
                                  || (eventMask & AWTEvent.COMPONENT_EVENT_MASK) != 0
                                  || Toolkit
@@ -1426,7 +1426,7 @@
                      }
                  }
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setVisible(boolean)</code>.
@@ -1439,19 +1439,19 @@
                      hide();
                  }
              }
- 
+
              boolean containsFocus() {
                  return isFocusOwner();
              }
- 
+
              void clearMostRecentFocusOwnerOnHide() {
                  KeyboardFocusManager.clearMostRecentFocusOwner(this );
              }
- 
+
              void clearCurrentFocusCycleRootOnHide() {
                  /* do nothing */
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setVisible(boolean)</code>.
@@ -1459,7 +1459,7 @@
              @Deprecated
              public void hide() {
                  isPacked = false;
- 
+
                  if (visible) {
                      clearCurrentFocusCycleRootOnHide();
                      clearMostRecentFocusOwnerOnHide();
@@ -1498,7 +1498,7 @@
                      }
                  }
              }
- 
+
              /**
               * Gets the foreground color of this component.
               * @return this component's foreground color; if this component does
@@ -1517,10 +1517,10 @@
                  Container parent = this .parent;
                  return (parent != null) ? parent.getForeground() : null;
              }
- 
+
              /**
               * Sets the foreground color of this component.
-              * @param c the color to become this component's 
+              * @param c the color to become this component's
               *          foreground color; if this parameter is <code>null</code>
               *          then this component will inherit
               *          the foreground color of its parent
@@ -1541,7 +1541,7 @@
                  // any registered listeners.  (Cheap if there are none.)
                  firePropertyChange("foreground", oldColor, c);
              }
- 
+
              /**
               * Returns whether the foreground color has been explicitly set for this
               * Component. If this method returns <code>false</code>, this Component is
@@ -1554,7 +1554,7 @@
              public boolean isForegroundSet() {
                  return (foreground != null);
              }
- 
+
              /**
               * Gets the background color of this component.
               * @return this component's background color; if this component does
@@ -1571,12 +1571,12 @@
                  Container parent = this .parent;
                  return (parent != null) ? parent.getBackground() : null;
              }
- 
+
              /**
               * Sets the background color of this component.
               * <p>
               * The background color affects each component differently and the
-              * parts of the component that are affected by the background color 
+              * parts of the component that are affected by the background color
               * may differ between operating systems.
               *
               * @param c the color to become this component's color;
@@ -1601,7 +1601,7 @@
                  // any registered listeners.  (Cheap if there are none.)
                  firePropertyChange("background", oldColor, c);
              }
- 
+
              /**
               * Returns whether the background color has been explicitly set for this
               * Component. If this method returns <code>false</code>, this Component is
@@ -1614,7 +1614,7 @@
              public boolean isBackgroundSet() {
                  return (background != null);
              }
- 
+
              /**
               * Gets the font of this component.
               * @return this component's font; if a font has not been set
@@ -1625,10 +1625,10 @@
              public Font getFont() {
                  return getFont_NoClientCode();
              }
- 
+
              // NOTE: This method may be called by privileged threads.
-             //       This functionality is implemented in a package-private method 
-             //       to insure that it cannot be overridden by client subclasses. 
+             //       This functionality is implemented in a package-private method
+             //       to insure that it cannot be overridden by client subclasses.
              //       DO NOT INVOKE CLIENT CODE ON THIS THREAD!
              final Font getFont_NoClientCode() {
                  Font font = this .font;
@@ -1638,7 +1638,7 @@
                  Container parent = this .parent;
                  return (parent != null) ? parent.getFont_NoClientCode() : null;
              }
- 
+
              /**
               * Sets the font of this component.
               * @param f the font to become this component's font;
@@ -1668,7 +1668,7 @@
                  // This is a bound property, so report the change to
                  // any registered listeners.  (Cheap if there are none.)
                  firePropertyChange("font", oldFont, newFont);
- 
+
                  // This could change the preferred size of the Component.
                  // Fix for 6213660. Should compare old and new fonts and do not
                  // call invalidate() if they are equal.
@@ -1677,7 +1677,7 @@
                      invalidate();
                  }
              }
- 
+
              /**
               * Returns whether the font has been explicitly set for this Component. If
               * this method returns <code>false</code>, this Component is inheriting its
@@ -1690,7 +1690,7 @@
              public boolean isFontSet() {
                  return (font != null);
              }
- 
+
              /**
               * Gets the locale of this component.
               * @return this component's locale; if this component does not
@@ -1708,7 +1708,7 @@
                      return locale;
                  }
                  Container parent = this .parent;
- 
+
                  if (parent == null) {
                      throw new IllegalComponentStateException(
                              "This component must have a parent in order to determine its locale");
@@ -1716,7 +1716,7 @@
                      return parent.getLocale();
                  }
              }
- 
+
              /**
               * Sets the locale of this component.  This is a bound property.
               * @param l the locale to become this component's locale
@@ -1726,17 +1726,17 @@
              public void setLocale(Locale l) {
                  Locale oldValue = locale;
                  locale = l;
- 
+
                  // This is a bound property, so report the change to
                  // any registered listeners.  (Cheap if there are none.)
                  firePropertyChange("locale", oldValue, l);
- 
+
                  // This could change the preferred size of the Component.
                  if (valid) {
                      invalidate();
                  }
              }
- 
+
              /**
               * Gets the instance of <code>ColorModel</code> used to display
               * the component on the output device.
@@ -1755,7 +1755,7 @@
                  } // else
                  return getToolkit().getColorModel();
              }
- 
+
              /**
               * Gets the location of this component in the form of a
               * point specifying the component's top-left corner.
@@ -1764,9 +1764,9 @@
               * Due to the asynchronous nature of native event handling, this
               * method can return outdated values (for instance, after several calls
               * of <code>setLocation()</code> in rapid succession).  For this
-              * reason, the recommended method of obtaining a component's position is 
+              * reason, the recommended method of obtaining a component's position is
               * within <code>java.awt.event.ComponentListener.componentMoved()</code>,
-              * which is called after the operating system has finished moving the 
+              * which is called after the operating system has finished moving the
               * component.
               * </p>
               * @return an instance of <code>Point</code> representing
@@ -1779,7 +1779,7 @@
              public Point getLocation() {
                  return location();
              }
- 
+
              /**
               * Gets the location of this component in the form of a point
               * specifying the component's top-left corner in the screen's
@@ -1797,13 +1797,13 @@
                      return getLocationOnScreen_NoTreeLock();
                  }
              }
- 
-             /* 
+
+             /*
               * a package private version of getLocationOnScreen
               * used by GlobalCursormanager to update cursor
               */
              final Point getLocationOnScreen_NoTreeLock() {
- 
+
                  if (peer != null && isShowing()) {
                      if (peer instanceof  LightweightPeer) {
                          // lightweight component location needs to be translated
@@ -1824,7 +1824,7 @@
                              "component must be showing on the screen to determine its location");
                  }
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>getLocation()</code>.
@@ -1833,18 +1833,18 @@
              public Point location() {
                  return location_NoClientCode();
              }
- 
+
              private Point location_NoClientCode() {
                  return new Point(x, y);
              }
- 
+
              /**
               * Moves this component to a new location. The top-left corner of
               * the new location is specified by the <code>x</code> and <code>y</code>
               * parameters in the coordinate space of this component's parent.
-              * @param x the <i>x</i>-coordinate of the new location's 
+              * @param x the <i>x</i>-coordinate of the new location's
               *          top-left corner in the parent's coordinate space
-              * @param y the <i>y</i>-coordinate of the new location's 
+              * @param y the <i>y</i>-coordinate of the new location's
               *          top-left corner in the parent's coordinate space
               * @see #getLocation
               * @see #setBounds
@@ -1853,7 +1853,7 @@
              public void setLocation(int x, int y) {
                  move(x, y);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setLocation(int, int)</code>.
@@ -1865,13 +1865,13 @@
                      setBounds(x, y, width, height);
                  }
              }
- 
+
              /**
               * Moves this component to a new location. The top-left corner of
               * the new location is specified by point <code>p</code>. Point
               * <code>p</code> is given in the parent's coordinate space.
-              * @param p the point defining the top-left corner 
-              *          of the new location, given in the coordinate space of this 
+              * @param p the point defining the top-left corner
+              *          of the new location, given in the coordinate space of this
               *          component's parent
               * @see #getLocation
               * @see #setBounds
@@ -1880,7 +1880,7 @@
              public void setLocation(Point p) {
                  setLocation(p.x, p.y);
              }
- 
+
              /**
               * Returns the size of this component in the form of a
               * <code>Dimension</code> object. The <code>height</code>
@@ -1896,7 +1896,7 @@
              public Dimension getSize() {
                  return size();
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>getSize()</code>.
@@ -1905,7 +1905,7 @@
              public Dimension size() {
                  return new Dimension(width, height);
              }
- 
+
              /**
               * Resizes this component so that it has width <code>width</code>
               * and height <code>height</code>.
@@ -1918,7 +1918,7 @@
              public void setSize(int width, int height) {
                  resize(width, height);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setSize(int, int)</code>.
@@ -1930,11 +1930,11 @@
                      setBounds(x, y, width, height);
                  }
              }
- 
+
              /**
               * Resizes this component so that it has width <code>d.width</code>
               * and height <code>d.height</code>.
-              * @param d the dimension specifying the new size 
+              * @param d the dimension specifying the new size
               *          of this component
               * @see #setSize
               * @see #setBounds
@@ -1943,7 +1943,7 @@
              public void setSize(Dimension d) {
                  resize(d);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setSize(Dimension)</code>.
@@ -1952,7 +1952,7 @@
              public void resize(Dimension d) {
                  setSize(d.width, d.height);
              }
- 
+
              /**
               * Gets the bounds of this component in the form of a
               * <code>Rectangle</code> object. The bounds specify this
@@ -1966,7 +1966,7 @@
              public Rectangle getBounds() {
                  return bounds();
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>getBounds()</code>.
@@ -1975,7 +1975,7 @@
              public Rectangle bounds() {
                  return new Rectangle(x, y, width, height);
              }
- 
+
              /**
               * Moves and resizes this component. The new location of the top-left
               * corner is specified by <code>x</code> and <code>y</code>, and the
@@ -1983,7 +1983,7 @@
               * @param x the new <i>x</i>-coordinate of this component
               * @param y the new <i>y</i>-coordinate of this component
               * @param width the new <code>width</code> of this component
-              * @param height the new <code>height</code> of this 
+              * @param height the new <code>height</code> of this
               *          component
               * @see #getBounds
               * @see #setLocation(int, int)
@@ -1995,7 +1995,7 @@
              public void setBounds(int x, int y, int width, int height) {
                  reshape(x, y, width, height);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>setBounds(int, int, int, int)</code>.
@@ -2019,11 +2019,11 @@
                          this .y = y;
                          this .width = width;
                          this .height = height;
- 
+
                          if (resized) {
                              isPacked = false;
                          }
- 
+
                          boolean needNotify = true;
                          if (peer != null) {
                              // LightwightPeer is an empty stub so can skip peer.reshape
@@ -2058,7 +2058,7 @@
                      }
                  }
              }
- 
+
              private void repaintParentIfNeeded(int oldX, int oldY,
                      int oldWidth, int oldHeight) {
                  if (parent != null && peer instanceof  LightweightPeer
@@ -2069,7 +2069,7 @@
                      repaint();
                  }
              }
- 
+
              private void reshapeNativePeer(int x, int y, int width, int height,
                      int op) {
                  // native peer might be offset by more than direct
@@ -2083,7 +2083,7 @@
                  }
                  peer.setBounds(nativeX, nativeY, width, height, op);
              }
- 
+
              private void notifyNewBounds(boolean resized, boolean moved) {
                  if (componentListener != null
                          || (eventMask & AWTEvent.COMPONENT_EVENT_MASK) != 0
@@ -2105,7 +2105,7 @@
                          boolean enabledOnToolkit = Toolkit
                                  .enabledOnToolkit(AWTEvent.HIERARCHY_BOUNDS_EVENT_MASK);
                          if (resized) {
- 
+
                              ((Container) this ).createChildHierarchyEvents(
                                      HierarchyEvent.ANCESTOR_RESIZED, 0,
                                      enabledOnToolkit);
@@ -2118,7 +2118,7 @@
                      }
                  }
              }
- 
+
              /**
               * Moves and resizes this component to conform to the new
               * bounding rectangle <code>r</code>. This component's new
@@ -2136,10 +2136,10 @@
              public void setBounds(Rectangle r) {
                  setBounds(r.x, r.y, r.width, r.height);
              }
- 
+
              /**
               * Returns the current x coordinate of the components origin.
-              * This method is preferable to writing 
+              * This method is preferable to writing
               * <code>component.getBounds().x</code>,
               * or <code>component.getLocation().x</code> because it doesn't
               * cause any heap allocations.
@@ -2150,10 +2150,10 @@
              public int getX() {
                  return x;
              }
- 
+
              /**
               * Returns the current y coordinate of the components origin.
-              * This method is preferable to writing 
+              * This method is preferable to writing
               * <code>component.getBounds().y</code>,
               * or <code>component.getLocation().y</code> because it
               * doesn't cause any heap allocations.
@@ -2164,10 +2164,10 @@
              public int getY() {
                  return y;
              }
- 
+
              /**
               * Returns the current width of this component.
-              * This method is preferable to writing 
+              * This method is preferable to writing
               * <code>component.getBounds().width</code>,
               * or <code>component.getSize().width</code> because it
               * doesn't cause any heap allocations.
@@ -2178,10 +2178,10 @@
              public int getWidth() {
                  return width;
              }
- 
+
              /**
               * Returns the current height of this component.
-              * This method is preferable to writing 
+              * This method is preferable to writing
               * <code>component.getBounds().height</code>,
               * or <code>component.getSize().height</code> because it
               * doesn't cause any heap allocations.
@@ -2192,15 +2192,15 @@
              public int getHeight() {
                  return height;
              }
- 
-             /** 
-              * Stores the bounds of this component into "return value" <b>rv</b> and 
+
+             /**
+              * Stores the bounds of this component into "return value" <b>rv</b> and
               * return <b>rv</b>.  If rv is <code>null</code> a new
               * <code>Rectangle</code> is allocated.
               * This version of <code>getBounds</code> is useful if the caller
               * wants to avoid allocating a new <code>Rectangle</code> object
               * on the heap.
-              * 
+              *
               * @param rv the return value, modified to the components bounds
               * @return rv
               */
@@ -2213,14 +2213,14 @@
                      return rv;
                  }
              }
- 
+
              /**
-              * Stores the width/height of this component into "return value" <b>rv</b> 
-              * and return <b>rv</b>.   If rv is <code>null</code> a new 
-              * <code>Dimension</code> object is allocated.  This version of 
+              * Stores the width/height of this component into "return value" <b>rv</b>
+              * and return <b>rv</b>.   If rv is <code>null</code> a new
+              * <code>Dimension</code> object is allocated.  This version of
               * <code>getSize</code> is useful if the caller wants to avoid
               * allocating a new <code>Dimension</code> object on the heap.
-              * 
+              *
               * @param rv the return value, modified to the components size
               * @return rv
               */
@@ -2232,15 +2232,15 @@
                      return rv;
                  }
              }
- 
+
              /**
-              * Stores the x,y origin of this component into "return value" <b>rv</b> 
-              * and return <b>rv</b>.   If rv is <code>null</code> a new 
+              * Stores the x,y origin of this component into "return value" <b>rv</b>
+              * and return <b>rv</b>.   If rv is <code>null</code> a new
               * <code>Point</code> is allocated.
-              * This version of <code>getLocation</code> is useful if the 
+              * This version of <code>getLocation</code> is useful if the
               * caller wants to avoid allocating a new <code>Point</code>
               * object on the heap.
-              * 
+              *
               * @param rv the return value, modified to the components location
               * @return rv
               */
@@ -2252,7 +2252,7 @@
                      return rv;
                  }
              }
- 
+
              /**
               * Returns true if this component is completely opaque, returns
               * false by default.
@@ -2279,7 +2279,7 @@
                      return !isLightweight();
                  }
              }
- 
+
              /**
               * A lightweight component doesn't have a native toolkit peer.
               * Subclasses of <code>Component</code> and <code>Container</code>,
@@ -2299,7 +2299,7 @@
              public boolean isLightweight() {
                  return getPeer() instanceof  LightweightPeer;
              }
- 
+
              /**
               * Sets the preferred size of this component to a constant
               * value.  Subsequent calls to <code>getPreferredSize</code> will always
@@ -2325,7 +2325,7 @@
                  prefSizeSet = (preferredSize != null);
                  firePropertyChange("preferredSize", old, preferredSize);
              }
- 
+
              /**
               * Returns true if the preferred size has been set to a
               * non-<code>null</code> value otherwise returns false.
@@ -2337,7 +2337,7 @@
              public boolean isPreferredSizeSet() {
                  return prefSizeSet;
              }
- 
+
              /**
               * Gets the preferred size of this component.
               * @return a dimension object indicating this component's preferred size
@@ -2347,7 +2347,7 @@
              public Dimension getPreferredSize() {
                  return preferredSize();
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>getPreferredSize()</code>.
@@ -2367,7 +2367,7 @@
                  }
                  return new Dimension(dim);
              }
- 
+
              /**
               * Sets the minimum size of this component to a constant
               * value.  Subsequent calls to <code>getMinimumSize</code> will always
@@ -2393,7 +2393,7 @@
                  minSizeSet = (minimumSize != null);
                  firePropertyChange("minimumSize", old, minimumSize);
              }
- 
+
              /**
               * Returns whether or not <code>setMinimumSize</code> has been
               * invoked with a non-null value.
@@ -2405,7 +2405,7 @@
              public boolean isMinimumSizeSet() {
                  return minSizeSet;
              }
- 
+
              /**
               * Gets the mininimum size of this component.
               * @return a dimension object indicating this component's minimum size
@@ -2415,7 +2415,7 @@
              public Dimension getMinimumSize() {
                  return minimumSize();
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>getMinimumSize()</code>.
@@ -2434,14 +2434,14 @@
                  }
                  return new Dimension(dim);
              }
- 
+
              /**
               * Sets the maximum size of this component to a constant
               * value.  Subsequent calls to <code>getMaximumSize</code> will always
               * return this value.  Setting the maximum size to <code>null</code>
               * restores the default behavior.
               *
-              * @param maximumSize a <code>Dimension</code> containing the 
+              * @param maximumSize a <code>Dimension</code> containing the
               *          desired maximum allowable size
               * @see #getMaximumSize
               * @see #isMaximumSizeSet
@@ -2461,7 +2461,7 @@
                  maxSizeSet = (maximumSize != null);
                  firePropertyChange("maximumSize", old, maximumSize);
              }
- 
+
              /**
               * Returns true if the maximum size has been set to a non-<code>null</code>
               * value otherwise returns false.
@@ -2473,7 +2473,7 @@
              public boolean isMaximumSizeSet() {
                  return maxSizeSet;
              }
- 
+
              /**
               * Gets the maximum size of this component.
               * @return a dimension object indicating this component's maximum size
@@ -2487,7 +2487,7 @@
                  }
                  return new Dimension(Short.MAX_VALUE, Short.MAX_VALUE);
              }
- 
+
              /**
               * Returns the alignment along the x axis.  This specifies how
               * the component would like to be aligned relative to other
@@ -2498,7 +2498,7 @@
              public float getAlignmentX() {
                  return CENTER_ALIGNMENT;
              }
- 
+
              /**
               * Returns the alignment along the y axis.  This specifies how
               * the component would like to be aligned relative to other
@@ -2509,7 +2509,7 @@
              public float getAlignmentY() {
                  return CENTER_ALIGNMENT;
              }
- 
+
              /**
               * Returns the baseline.  The baseline is measured from the top of
               * the component.  This method is primarily meant for
@@ -2541,7 +2541,7 @@
                  }
                  return -1;
              }
- 
+
              /**
               * Returns an enum indicating how the baseline of the component
               * changes as the size changes.  This method is primarily meant for
@@ -2566,7 +2566,7 @@
              public BaselineResizeBehavior getBaselineResizeBehavior() {
                  return BaselineResizeBehavior.OTHER;
              }
- 
+
              /**
               * Prompts the layout manager to lay out this component. This is
               * usually called when the component (more specifically, container)
@@ -2577,7 +2577,7 @@
              public void doLayout() {
                  layout();
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>doLayout()</code>.
@@ -2585,7 +2585,7 @@
              @Deprecated
              public void layout() {
              }
- 
+
              /**
               * Ensures that this component has a valid layout.  This method is
               * primarily intended to operate on instances of <code>Container</code>.
@@ -2611,7 +2611,7 @@
                      valid = true;
                  }
              }
- 
+
              /**
               * Invalidates this component.  This component and all parents
               * above it are marked as needing to be laid out.  This method can
@@ -2642,7 +2642,7 @@
                      }
                  }
              }
- 
+
              /**
               * Creates a graphics context for this component. This method will
               * return <code>null</code> if this component is currently not
@@ -2676,7 +2676,7 @@
                      return (peer != null) ? peer.getGraphics() : null;
                  }
              }
- 
+
              final Graphics getGraphics_NoClientCode() {
                  ComponentPeer peer = this .peer;
                  if (peer instanceof  LightweightPeer) {
@@ -2702,7 +2702,7 @@
                      return (peer != null) ? peer.getGraphics() : null;
                  }
              }
- 
+
              /**
               * Gets the font metrics for the specified font.
               * Warning: Since Font metrics are affected by the
@@ -2713,7 +2713,7 @@
               * used. Instead metrics can be obtained at rendering time by calling
               * {@link Graphics#getFontMetrics()} or text measurement APIs on the
               * {@link Font Font} class.
-              * @param font the font for which font metrics is to be 
+              * @param font the font for which font metrics is to be
               *          obtained
               * @return the font metrics for <code>font</code>
               * @see       #getFont
@@ -2731,7 +2731,7 @@
                  }
                  return sun.font.FontDesignMetrics.getMetrics(font);
              }
- 
+
              /**
               * Sets the cursor image to the specified cursor.  This cursor
               * image is displayed when the <code>contains</code> method for
@@ -2739,12 +2739,12 @@
               * this Component is visible, displayable, and enabled. Setting the
               * cursor of a <code>Container</code> causes that cursor to be displayed
               * within all of the container's subcomponents, except for those
-              * that have a non-<code>null</code> cursor. 
+              * that have a non-<code>null</code> cursor.
               * <p>
               * The method may have no visual effect if the Java platform
               * implementation and/or the native system do not support
               * changing the mouse cursor shape.
-              * @param cursor One of the constants defined 
+              * @param cursor One of the constants defined
               *          by the <code>Cursor</code> class;
               *          if this parameter is <code>null</code>
               *          then this component will inherit
@@ -2761,7 +2761,7 @@
                  this .cursor = cursor;
                  updateCursorImmediately();
              }
- 
+
              /**
               * Updates the cursor.  May not be invoked from the native
               * message pump.
@@ -2769,12 +2769,12 @@
              final void updateCursorImmediately() {
                  if (peer instanceof  LightweightPeer) {
                      Container nativeContainer = getNativeContainer();
- 
+
                      if (nativeContainer == null)
                          return;
- 
+
                      ComponentPeer cPeer = nativeContainer.getPeer();
- 
+
                      if (cPeer != null) {
                          cPeer.updateCursorImmediately();
                      }
@@ -2782,11 +2782,11 @@
                      peer.updateCursorImmediately();
                  }
              }
- 
+
              /**
               * Gets the cursor set in the component. If the component does
               * not have a cursor set, the cursor of its parent is returned.
-              * If no cursor is set in the entire hierarchy, 
+              * If no cursor is set in the entire hierarchy,
               * <code>Cursor.DEFAULT_CURSOR</code> is returned.
               * @see #setCursor
               * @since      JDK1.1
@@ -2794,7 +2794,7 @@
              public Cursor getCursor() {
                  return getCursor_NoClientCode();
              }
- 
+
              final Cursor getCursor_NoClientCode() {
                  Cursor cursor = this .cursor;
                  if (cursor != null) {
@@ -2807,7 +2807,7 @@
                      return Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
                  }
              }
- 
+
              /**
               * Returns whether the cursor has been explicitly set for this Component.
               * If this method returns <code>false</code>, this Component is inheriting
@@ -2820,34 +2820,34 @@
              public boolean isCursorSet() {
                  return (cursor != null);
              }
- 
+
              /**
-              * Paints this component.  
+              * Paints this component.
               * <p>
-              * This method is called when the contents of the component should 
+              * This method is called when the contents of the component should
               * be painted; such as when the component is first being shown or
-              * is damaged and in need of repair.  The clip rectangle in the 
-              * <code>Graphics</code> parameter is set to the area 
+              * is damaged and in need of repair.  The clip rectangle in the
+              * <code>Graphics</code> parameter is set to the area
               * which needs to be painted.
               * Subclasses of <code>Component</code> that override this
-              * method need not call <code>super.paint(g)</code>. 
+              * method need not call <code>super.paint(g)</code>.
               * <p>
               * For performance reasons, <code>Component</code>s with zero width
               * or height aren't considered to need painting when they are first shown,
-              * and also aren't considered to need repair. 
+              * and also aren't considered to need repair.
               * <p>
               * <b>Note</b>: For more information on the paint mechanisms utilitized
               * by AWT and Swing, including information on how to write the most
               * efficient painting code, see
               * <a href="http://java.sun.com/products/jfc/tsc/articles/painting/index.html">Painting in AWT and Swing</a>.
-              * 
+              *
               * @param g the graphics context to use for painting
               * @see       #update
               * @since     JDK1.0
               */
              public void paint(Graphics g) {
              }
- 
+
              /**
               * Updates this component.
               * <p>
@@ -2857,13 +2857,13 @@
               * the background is not cleared.
               * <p>
               * The <code>update</code> method of <code>Component</code>
-              * calls this component's <code>paint</code> method to redraw 
-              * this component.  This method is commonly overridden by subclasses 
-              * which need to do additional work in response to a call to 
-              * <code>repaint</code>.  
-              * Subclasses of Component that override this method should either 
-              * call <code>super.update(g)</code>, or call <code>paint(g)</code> 
-              * directly from their <code>update</code> method.  
+              * calls this component's <code>paint</code> method to redraw
+              * this component.  This method is commonly overridden by subclasses
+              * which need to do additional work in response to a call to
+              * <code>repaint</code>.
+              * Subclasses of Component that override this method should either
+              * call <code>super.update(g)</code>, or call <code>paint(g)</code>
+              * directly from their <code>update</code> method.
               * <p>
               * The origin of the graphics context, its
               * (<code>0</code>,&nbsp;<code>0</code>) coordinate point, is the
@@ -2875,7 +2875,7 @@
               * by AWT and Swing, including information on how to write the most
               * efficient painting code, see
               * <a href="http://java.sun.com/products/jfc/tsc/articles/painting/index.html">Painting in AWT and Swing</a>.
-              * 
+              *
               * @param g the specified context to use for updating
               * @see       #paint
               * @see       #repaint()
@@ -2884,7 +2884,7 @@
              public void update(Graphics g) {
                  paint(g);
              }
- 
+
              /**
               * Paints this component and all of its subcomponents.
               * <p>
@@ -2892,7 +2892,7 @@
               * (<code>0</code>,&nbsp;<code>0</code>) coordinate point, is the
               * top-left corner of this component. The clipping region of the
               * graphics context is the bounding rectangle of this component.
-              * 
+              *
               * @param     g   the graphics context to use for painting
               * @see       #paint
               * @since     JDK1.0
@@ -2909,7 +2909,7 @@
                                              | GraphicsCallback.HEAVYWEIGHTS);
                  }
              }
- 
+
              /**
               * Simulates the peer callbacks into java.awt for painting of
               * lightweight Components.
@@ -2919,13 +2919,13 @@
              void lightweightPaint(Graphics g) {
                  paint(g);
              }
- 
+
              /**
               * Paints all the heavyweight subcomponents.
               */
              void paintHeavyweightComponents(Graphics g) {
              }
- 
+
              /**
               * Repaints this component.
               * <p>
@@ -2939,7 +2939,7 @@
               * by AWT and Swing, including information on how to write the most
               * efficient painting code, see
               * <a href="http://java.sun.com/products/jfc/tsc/articles/painting/index.html">Painting in AWT and Swing</a>.
- 
+
               *
               * @see       #update(Graphics)
               * @since     JDK1.0
@@ -2947,7 +2947,7 @@
              public void repaint() {
                  repaint(0, 0, 0, width, height);
              }
- 
+
              /**
               * Repaints the component.  If this component is a lightweight
               * component, this results in a call to <code>paint</code>
@@ -2966,7 +2966,7 @@
              public void repaint(long tm) {
                  repaint(tm, 0, 0, width, height);
              }
- 
+
              /**
               * Repaints the specified rectangle of this component.
               * <p>
@@ -2990,7 +2990,7 @@
              public void repaint(int x, int y, int width, int height) {
                  repaint(0, x, y, width, height);
              }
- 
+
              /**
               * Repaints the specified rectangle of this component within
               * <code>tm</code> milliseconds.
@@ -3036,7 +3036,7 @@
                      }
                  }
              }
- 
+
              /**
               * Prints this component. Applications should override this method
               * for components that must do special processing before being
@@ -3056,7 +3056,7 @@
              public void print(Graphics g) {
                  paint(g);
              }
- 
+
              /**
               * Prints this component and all of its subcomponents.
               * <p>
@@ -3080,7 +3080,7 @@
                                              | GraphicsCallback.HEAVYWEIGHTS);
                  }
              }
- 
+
              /**
               * Simulates the peer callbacks into java.awt for printing of
               * lightweight Components.
@@ -3090,13 +3090,13 @@
              void lightweightPrint(Graphics g) {
                  print(g);
              }
- 
+
              /**
               * Prints all the heavyweight subcomponents.
               */
              void printHeavyweightComponents(Graphics g) {
              }
- 
+
              private Insets getInsets_NoClientCode() {
                  ComponentPeer peer = this .peer;
                  if (peer instanceof  ContainerPeer) {
@@ -3104,7 +3104,7 @@
                  }
                  return new Insets(0, 0, 0, 0);
              }
- 
+
              /**
               * Repaints the component when the image has changed.
               * This <code>imageUpdate</code> method of an <code>ImageObserver</code>
@@ -3142,7 +3142,7 @@
               * @param     h   the height
               * @return    <code>false</code> if the infoflags indicate that the
               *            image is completely loaded; <code>true</code> otherwise.
-              * 
+              *
               * @see     java.awt.image.ImageObserver
               * @see     Graphics#drawImage(Image, int, int, Color, java.awt.image.ImageObserver)
               * @see     Graphics#drawImage(Image, int, int, java.awt.image.ImageObserver)
@@ -3169,7 +3169,7 @@
                  }
                  return (infoflags & (ALLBITS | ABORT)) == 0;
              }
- 
+
              /**
               * Creates an image from the specified image producer.
               * @param     producer  the image producer
@@ -3183,7 +3183,7 @@
                  }
                  return getToolkit().createImage(producer);
              }
- 
+
              /**
               * Creates an off-screen drawable image
               *     to be used for double buffering.
@@ -3211,7 +3211,7 @@
                              : null;
                  }
              }
- 
+
              /**
               * Creates a volatile off-screen drawable image
               *     to be used for double buffering.
@@ -3240,7 +3240,7 @@
                              height) : null;
                  }
              }
- 
+
              /**
               * Creates a volatile off-screen drawable image, with the given capabilities.
               * The contents of this image may be lost at any time due
@@ -3261,7 +3261,7 @@
                  // REMIND : check caps
                  return createVolatileImage(width, height);
              }
- 
+
              /**
               * Prepares an image for rendering on this component.  The image
               * data is downloaded asynchronously in another thread and the
@@ -3277,7 +3277,7 @@
              public boolean prepareImage(Image image, ImageObserver observer) {
                  return prepareImage(image, -1, -1, observer);
              }
- 
+
              /**
               * Prepares an image for rendering on this component at the
               * specified width and height.
@@ -3291,7 +3291,7 @@
               * @param     height   the height of the desired screen representation
               * @param     observer   the <code>ImageObserver</code> object
               *            to be notified as the image is being prepared
-              * @return    <code>true</code> if the image has already been fully 
+              * @return    <code>true</code> if the image has already been fully
               *          prepared; <code>false</code> otherwise
               * @see       java.awt.image.ImageObserver
               * @since     JDK1.0
@@ -3309,7 +3309,7 @@
                              image, width, height, observer);
                  }
              }
- 
+
              /**
               * Returns the status of the construction of a screen representation
               * of the specified image.
@@ -3335,7 +3335,7 @@
              public int checkImage(Image image, ImageObserver observer) {
                  return checkImage(image, -1, -1, observer);
              }
- 
+
              /**
               * Returns the status of the construction of a screen representation
               * of the specified image.
@@ -3381,7 +3381,7 @@
                              width, height, observer);
                  }
              }
- 
+
              /**
               * Creates a new strategy for multi-buffering on this component.
               * Multi-buffering is useful for rendering performance.  This method
@@ -3440,7 +3440,7 @@
                  // strategy should always work)
                  throw new InternalError("Could not create a buffer strategy");
              }
- 
+
              /**
               * Creates a new strategy for multi-buffering on this component with the
               * required buffer capabilities.  This is useful, for example, if only
@@ -3491,7 +3491,7 @@
                      }
                  }
              }
- 
+
              /**
               * @return the buffer strategy used by this component
               * @see Window#createBufferStrategy
@@ -3501,9 +3501,9 @@
              BufferStrategy getBufferStrategy() {
                  return bufferStrategy;
              }
- 
+
              /**
-              * @return the back buffer currently used by this component's 
+              * @return the back buffer currently used by this component's
               * BufferStrategy.  If there is no BufferStrategy or no
               * back buffer, this method returns null.
               */
@@ -3519,7 +3519,7 @@
                  }
                  return null;
              }
- 
+
              /**
               * Inner class for flipping buffers on a component.  That component must
               * be a <code>Canvas</code> or <code>Window</code>.
@@ -3560,7 +3560,7 @@
                   */
                  int width;
                  int height;
- 
+
                  /**
                   * Creates a new flipping buffer strategy for this component.
                   * The component must be a <code>Canvas</code> or <code>Window</code>.
@@ -3584,7 +3584,7 @@
                      this .caps = caps;
                      createBuffers(numBuffers, caps);
                  }
- 
+
                  /**
                   * Creates one or more complex, flipping buffers with the given
                   * capabilities.
@@ -3613,11 +3613,11 @@
                          throw new IllegalArgumentException(
                                  "Page flipping capabilities must be specified");
                      }
- 
+
                      // save the current bounds
                      width = getWidth();
                      height = getHeight();
- 
+
                      if (drawBuffer == null) {
                          peer.createBuffers(numBuffers, caps);
                      } else {
@@ -3630,7 +3630,7 @@
                      }
                      updateInternalBuffers();
                  }
- 
+
                  /**
                   * Updates internal buffers (both volatile and non-volatile)
                   * by requesting the back-buffer from the peer.
@@ -3644,7 +3644,7 @@
                          drawVBuffer = null;
                      }
                  }
- 
+
                  /**
                   * @return direct access to the back buffer, as an image.
                   * @exception IllegalStateException if the buffers have not yet
@@ -3658,7 +3658,7 @@
                                  "Component must have a valid peer");
                      }
                  }
- 
+
                  /**
                   * Flipping moves the contents of the back buffer to the front buffer,
                   * either by copying or by moving the video pointer.
@@ -3678,7 +3678,7 @@
                                  "Component must have a valid peer");
                      }
                  }
- 
+
                  /**
                   * Destroys the buffers created through this object
                   */
@@ -3690,14 +3690,14 @@
                                  "Component must have a valid peer");
                      }
                  }
- 
+
                  /**
                   * @return the buffering capabilities of this strategy
                   */
                  public BufferCapabilities getCapabilities() {
                      return caps;
                  }
- 
+
                  /**
                   * @return the graphics on the drawing buffer.  This method may not
                   * be synchronized for performance reasons; use of this method by multiple
@@ -3708,17 +3708,17 @@
                      revalidate();
                      return drawBuffer.getGraphics();
                  }
- 
+
                  /**
                   * Restore the drawing buffer if it has been lost
                   */
                  protected void revalidate() {
                      revalidate(true);
                  }
- 
+
                  void revalidate(boolean checkSize) {
                      validatedContents = false;
- 
+
                      if (checkSize
                              && (getWidth() != width || getHeight() != height)) {
                          // component has been resized; recreate the backbuffers
@@ -3729,11 +3729,11 @@
                          }
                          validatedContents = true;
                      }
- 
+
                      // get the buffers from the peer every time since they
                      // might have been replaced in response to a display change event
                      updateInternalBuffers();
- 
+
                      // now validate the backbuffer
                      if (drawVBuffer != null) {
                          GraphicsConfiguration gc = getGraphicsConfiguration_NoClientCode();
@@ -3754,7 +3754,7 @@
                          }
                      }
                  }
- 
+
                  /**
                   * @return whether the drawing buffer was lost since the last call to
                   * <code>getDrawGraphics</code>
@@ -3765,7 +3765,7 @@
                      }
                      return drawVBuffer.contentsLost();
                  }
- 
+
                  /**
                   * @return whether the drawing buffer was recently restored from a lost
                   * state and reinitialized to the default background color (white)
@@ -3773,7 +3773,7 @@
                  public boolean contentsRestored() {
                      return validatedContents;
                  }
- 
+
                  /**
                   * Makes the next available buffer visible by either blitting or
                   * flipping.
@@ -3781,7 +3781,7 @@
                  public void show() {
                      flip(caps.getFlipContents());
                  }
- 
+
                  /**
                   * {@inheritDoc}
                   * @since 1.6
@@ -3794,9 +3794,9 @@
                          }
                      }
                  }
- 
+
              } // Inner class FlipBufferStrategy
- 
+
              /**
               * Inner class for blitting offscreen surfaces to a component.
               *
@@ -3804,7 +3804,7 @@
               * @since 1.4
               */
              protected class BltBufferStrategy extends BufferStrategy {
- 
+
                  /**
                   * The buffering capabilities
                   */
@@ -3823,13 +3823,13 @@
                   */
                  protected int width;
                  protected int height;
- 
+
                  /**
                   * Insets for the hosting Component.  The size of the back buffer
                   * is constrained by these.
                   */
                  private Insets insets;
- 
+
                  /**
                   * Creates a new blt buffer strategy around a component
                   * @param numBuffers number of buffers to create, including the
@@ -3841,7 +3841,7 @@
                      this .caps = caps;
                      createBackBuffers(numBuffers - 1);
                  }
- 
+
                  /**
                   * {@inheritDoc}
                   * @since 1.6
@@ -3859,7 +3859,7 @@
                          Component.this .bufferStrategy = null;
                      }
                  }
- 
+
                  /**
                   * Creates the back buffers
                   */
@@ -3873,7 +3873,7 @@
                          insets = getInsets_NoClientCode();
                          int iWidth = width - insets.left - insets.right;
                          int iHeight = height - insets.top - insets.bottom;
- 
+
                          // It is possible for the component's width and/or height
                          // to be 0 here.  Force the size of the backbuffers to
                          // be > 0 so that creating the image won't fail.
@@ -3890,7 +3890,7 @@
                                  }
                              }
                          }
- 
+
                          // create the backbuffers
                          for (int i = 0; i < numBuffers; i++) {
                              backBuffers[i] = createVolatileImage(iWidth,
@@ -3898,14 +3898,14 @@
                          }
                      }
                  }
- 
+
                  /**
                   * @return the buffering capabilities of this strategy
                   */
                  public BufferCapabilities getCapabilities() {
                      return caps;
                  }
- 
+
                  /**
                   * @return the draw graphics
                   */
@@ -3922,7 +3922,7 @@
                              + insets.top);
                      return g;
                  }
- 
+
                  /**
                   * @return direct access to the back buffer, as an image.
                   * If there is no back buffer, returns null.
@@ -3934,7 +3934,7 @@
                          return null;
                      }
                  }
- 
+
                  /**
                   * Makes the next available buffer visible.
                   */
@@ -3942,7 +3942,7 @@
                      showSubRegion(insets.left, insets.top,
                              width - insets.right, height - insets.bottom);
                  }
- 
+
                  /**
                   * Package-private method to present a specific rectangular area
                   * of this buffer.  This class currently shows only the entire
@@ -3983,21 +3983,21 @@
                          }
                      }
                  }
- 
+
                  /**
                   * Restore the drawing buffer if it has been lost
                   */
                  protected void revalidate() {
                      revalidate(true);
                  }
- 
+
                  void revalidate(boolean checkSize) {
                      validatedContents = false;
- 
+
                      if (backBuffers == null) {
                          return;
                      }
- 
+
                      if (checkSize) {
                          Insets insets = getInsets_NoClientCode();
                          if (getWidth() != width || getHeight() != height
@@ -4007,7 +4007,7 @@
                              validatedContents = true;
                          }
                      }
- 
+
                      // now validate the backbuffer
                      GraphicsConfiguration gc = getGraphicsConfiguration_NoClientCode();
                      int returnCode = backBuffers[backBuffers.length - 1]
@@ -4027,7 +4027,7 @@
                          validatedContents = true;
                      }
                  }
- 
+
                  /**
                   * @return whether the drawing buffer was lost since the last call to
                   * <code>getDrawGraphics</code>
@@ -4040,7 +4040,7 @@
                                  .contentsLost();
                      }
                  }
- 
+
                  /**
                   * @return whether the drawing buffer was recently restored from a lost
                   * state and reinitialized to the default background color (white)
@@ -4049,24 +4049,24 @@
                      return validatedContents;
                  }
              } // Inner class BltBufferStrategy
- 
+
              /**
-              * Private class to perform sub-region flipping.  
+              * Private class to perform sub-region flipping.
               * REMIND: this subclass currently punts on subregions and
               * flips the entire buffer.
               */
              private class FlipSubRegionBufferStrategy extends
                      FlipBufferStrategy implements  SubRegionShowable {
- 
+
                  protected FlipSubRegionBufferStrategy(int numBuffers,
                          BufferCapabilities caps) throws AWTException {
                      super (numBuffers, caps);
                  }
- 
+
                  public void show(int x1, int y1, int x2, int y2) {
                      show();
                  }
- 
+
                  // This is invoked by Swing on the toolkit thread.
                  public boolean validateAndShow(int x1, int y1, int x2, int y2) {
                      revalidate(false);
@@ -4077,7 +4077,7 @@
                      return false;
                  }
              }
- 
+
              /**
               * Private class to perform sub-region blitting.  Swing will use
               * this subclass via the SubRegionShowable interface in order to
@@ -4086,16 +4086,16 @@
               */
              private class BltSubRegionBufferStrategy extends BltBufferStrategy
                      implements  SubRegionShowable {
- 
+
                  protected BltSubRegionBufferStrategy(int numBuffers,
                          BufferCapabilities caps) {
                      super (numBuffers, caps);
                  }
- 
+
                  public void show(int x1, int y1, int x2, int y2) {
                      showSubRegion(x1, y1, x2, y2);
                  }
- 
+
                  // This method is called by Swing on the toolkit thread.
                  public boolean validateAndShow(int x1, int y1, int x2, int y2) {
                      revalidate(false);
@@ -4106,7 +4106,7 @@
                      return false;
                  }
              }
- 
+
              /**
               * Inner class for flipping buffers on a component.  That component must
               * be a <code>Canvas</code> or <code>Window</code>.
@@ -4117,34 +4117,34 @@
               * @since 1.4
               */
              private class SingleBufferStrategy extends BufferStrategy {
- 
+
                  private BufferCapabilities caps;
- 
+
                  public SingleBufferStrategy(BufferCapabilities caps) {
                      this .caps = caps;
                  }
- 
+
                  public BufferCapabilities getCapabilities() {
                      return caps;
                  }
- 
+
                  public Graphics getDrawGraphics() {
                      return getGraphics();
                  }
- 
+
                  public boolean contentsLost() {
                      return false;
                  }
- 
+
                  public boolean contentsRestored() {
                      return false;
                  }
- 
+
                  public void show() {
                      // Do nothing
                  }
              } // Inner class SingleBufferStrategy
- 
+
              /**
               * Sets whether or not paint messages received from the operating system
               * should be ignored.  This does not affect paint events generated in
@@ -4165,7 +4165,7 @@
              public void setIgnoreRepaint(boolean ignoreRepaint) {
                  this .ignoreRepaint = ignoreRepaint;
              }
- 
+
              /**
               * @return whether or not paint messages received from the operating system
               * should be ignored.
@@ -4176,7 +4176,7 @@
              public boolean getIgnoreRepaint() {
                  return ignoreRepaint;
              }
- 
+
              /**
               * Checks whether this component "contains" the specified point,
               * where <code>x</code> and <code>y</code> are defined to be
@@ -4189,7 +4189,7 @@
              public boolean contains(int x, int y) {
                  return inside(x, y);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by contains(int, int).
@@ -4198,7 +4198,7 @@
              public boolean inside(int x, int y) {
                  return (x >= 0) && (x < width) && (y >= 0) && (y < height);
              }
- 
+
              /**
               * Checks whether this component "contains" the specified point,
               * where the point's <i>x</i> and <i>y</i> coordinates are defined
@@ -4210,7 +4210,7 @@
              public boolean contains(Point p) {
                  return contains(p.x, p.y);
              }
- 
+
              /**
               * Determines if this component or one of its immediate
               * subcomponents contains the (<i>x</i>,&nbsp;<i>y</i>) location,
@@ -4235,7 +4235,7 @@
              public Component getComponentAt(int x, int y) {
                  return locate(x, y);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by getComponentAt(int, int).
@@ -4244,7 +4244,7 @@
              public Component locate(int x, int y) {
                  return contains(x, y) ? this  : null;
              }
- 
+
              /**
               * Returns the component or subcomponent that contains the
               * specified point.
@@ -4255,7 +4255,7 @@
              public Component getComponentAt(Point p) {
                  return getComponentAt(p.x, p.y);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by <code>dispatchEvent(AWTEvent e)</code>.
@@ -4264,7 +4264,7 @@
              public void deliverEvent(Event e) {
                  postEvent(e);
              }
- 
+
              /**
               * Dispatches an event to this component or one of its sub components.
               * Calls <code>processEvent</code> before returning for 1.1-style
@@ -4274,10 +4274,10 @@
              public final void dispatchEvent(AWTEvent e) {
                  dispatchEventImpl(e);
              }
- 
+
              void dispatchEventImpl(AWTEvent e) {
                  int id = e.getID();
- 
+
                  // Check that this component belongs to this app-context
                  AppContext compContext = appContext;
                  if (compContext != null
@@ -4285,26 +4285,26 @@
                      log.fine("Event " + e
                              + " is being dispatched on the wrong AppContext");
                  }
- 
+
                  if (log.isLoggable(Level.FINEST)) {
                      log.log(Level.FINEST, "{0}", e);
                  }
- 
+
                  /*
                   * 0. Set timestamp and modifiers of current event.
                   */
                  EventQueue.setCurrentEventAndMostRecentTime(e);
- 
+
                  /*
                   * 1. Pre-dispatchers. Do any necessary retargeting/reordering here
                   *    before we notify AWTEventListeners.
                   */
- 
+
                  if (e instanceof  SunDropTargetEvent) {
                      ((SunDropTargetEvent) e).dispatch();
                      return;
                  }
- 
+
                  if (!e.focusManagerIsDispatching) {
                      // Invoke the private focus retargeting method which provides
                      // lightweight Component support
@@ -4312,7 +4312,7 @@
                          e = KeyboardFocusManager.retargetFocusEvent(e);
                          e.isPosted = true;
                      }
- 
+
                      // Now, with the event properly targeted to a lightweight
                      // descendant if necessary, invoke the public focus retargeting
                      // and dispatching function
@@ -4334,13 +4334,13 @@
                          && (dispatchMouseWheelToAncestor((MouseWheelEvent) e))) {
                      return;
                  }
- 
+
                  /*
                   * 2. Allow the Toolkit to pass this to AWTEventListeners.
                   */
                  Toolkit toolkit = Toolkit.getDefaultToolkit();
                  toolkit.notifyAWTEventListeners(e);
- 
+
                  /*
                   * 3. If no one has consumed a key event, allow the
                   *    KeyboardFocusManager to process it.
@@ -4354,7 +4354,7 @@
                          }
                      }
                  }
- 
+
                  /*
                   * 4. Allow input methods to process the event
                   */
@@ -4372,7 +4372,7 @@
                              (e instanceof  InputEvent)
                              || (e instanceof  FocusEvent)) {
                          InputContext inputContext = getInputContext();
- 
+
                          if (inputContext != null) {
                              inputContext.dispatchEvent(e);
                              if (e.isConsumed()) {
@@ -4386,7 +4386,7 @@
                      }
                  } else {
                      // When non-clients get focus, we need to explicitly disable the native
-                     // input method. The native input method is actually not disabled when 
+                     // input method. The native input method is actually not disabled when
                      // the active/passive/peered clients loose focus.
                      if (id == FocusEvent.FOCUS_GAINED) {
                          InputContext inputContext = getInputContext();
@@ -4397,7 +4397,7 @@
                          }
                      }
                  }
- 
+
                  /*
                   * 5. Pre-process any special events before delivery
                   */
@@ -4406,10 +4406,10 @@
                  // peer's handleEvent() method so the background can be cleared
                  // selectively for non-native components on Windows only.
                  // - Fred.Ecks@Eng.sun.com, 5-8-98
- 
+
                  case KeyEvent.KEY_PRESSED:
                  case KeyEvent.KEY_RELEASED:
-                     Container p = (Container) ((this  instanceof  Container) ? this 
+                     Container p = (Container) ((this  instanceof  Container) ? this
                              : parent);
                      if (p != null) {
                          p.preProcessKeyEvent((KeyEvent) e);
@@ -4420,7 +4420,7 @@
                          }
                      }
                      break;
- 
+
                  case WindowEvent.WINDOW_CLOSING:
                      if (toolkit instanceof  WindowClosingListener) {
                          windowClosingException = ((WindowClosingListener) toolkit)
@@ -4430,11 +4430,11 @@
                          }
                      }
                      break;
- 
+
                  default:
                      break;
                  }
- 
+
                  /*
                   * 6. Deliver event for normal processing
                   */
@@ -4459,7 +4459,7 @@
                      if (olde != null) {
                          int key = olde.key;
                          int modifiers = olde.modifiers;
- 
+
                          postEvent(olde);
                          if (olde.isConsumed()) {
                              e.consume();
@@ -4485,7 +4485,7 @@
                          }
                      }
                  }
- 
+
                  /*
                   * 8. Special handling for 4061116 : Hook for browser to close modal
                   *    dialogs.
@@ -4499,18 +4499,18 @@
                          }
                      }
                  }
- 
+
                  /*
-                  * 9. Allow the peer to process the event. 
-                  * Except KeyEvents, they will be processed by peer after 
-                  * all KeyEventPostProcessors 
+                  * 9. Allow the peer to process the event.
+                  * Except KeyEvents, they will be processed by peer after
+                  * all KeyEventPostProcessors
                   * (see DefaultKeyboardFocusManager.dispatchKeyEvent())
                   */
                  if (!(e instanceof  KeyEvent)) {
                      ComponentPeer tpeer = peer;
                      if (e instanceof  FocusEvent
                              && (tpeer == null || tpeer instanceof  LightweightPeer)) {
-                         // if focus owner is lightweight then its native container 
+                         // if focus owner is lightweight then its native container
                          // processes event
                          Component source = (Component) e.getSource();
                          if (source != null) {
@@ -4525,7 +4525,7 @@
                      }
                  }
              } // dispatchEventImpl()
- 
+
              /*
               * If newEventsOnly is false, method is called so that ScrollPane can
               * override it and handle common-case mouse wheel scrolling.  NOP
@@ -4533,7 +4533,7 @@
               */
              void autoProcessMouseWheel(MouseWheelEvent e) {
              }
- 
+
              /*
               * Dispatch given MouseWheelEvent to the first ancestor for which
               * MouseWheelEvents are enabled.
@@ -4547,13 +4547,13 @@
                  // Component (e.getX()), and this Component's
                  // position relative to its parent.
                  MouseWheelEvent newMWE;
- 
+
                  if (dbg.on) {
                      dbg.println("Component.dispatchMouseWheelToAncestor");
                      dbg.println("orig event src is of "
                              + e.getSource().getClass());
                  }
- 
+
                  /* parent field for Window refers to the owning Window.
                   * MouseWheelEvents should NOT be propagated into owning Windows
                   */
@@ -4563,21 +4563,21 @@
                          // fix coordinates to be relative to new event source
                          newX += anc.getX();
                          newY += anc.getY();
- 
+
                          if (!(anc instanceof  Window)) {
                              anc = anc.getParent();
                          } else {
                              break;
                          }
                      }
- 
+
                      if (dbg.on)
                          dbg.println("new event src is " + anc.getClass());
- 
+
                      if (anc != null && anc.eventEnabled(e)) {
                          // Change event to be from new source, with new x,y
                          // For now, just create a new event - yucky
- 
+
                          newMWE = new MouseWheelEvent(
                                  anc, // new source
                                  e.getID(), e.getWhen(), e.getModifiers(),
@@ -4593,7 +4593,7 @@
                  }
                  return true;
              }
- 
+
              boolean checkWindowClosingException() {
                  if (windowClosingException != null) {
                      if (this  instanceof  Dialog) {
@@ -4607,7 +4607,7 @@
                  }
                  return false;
              }
- 
+
              boolean areInputMethodsEnabled() {
                  // in 1.2, we assume input method support is required for all
                  // components that handle key events, but components can turn off
@@ -4615,12 +4615,12 @@
                  return ((eventMask & AWTEvent.INPUT_METHODS_ENABLED_MASK) != 0)
                          && ((eventMask & AWTEvent.KEY_EVENT_MASK) != 0 || keyListener != null);
              }
- 
+
              // REMIND: remove when filtering is handled at lower level
              boolean eventEnabled(AWTEvent e) {
                  return eventTypeEnabled(e.id);
              }
- 
+
              boolean eventTypeEnabled(int type) {
                  switch (type) {
                  case ComponentEvent.COMPONENT_MOVED:
@@ -4721,7 +4721,7 @@
                  }
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by dispatchEvent(AWTEvent).
@@ -4729,12 +4729,12 @@
              @Deprecated
              public boolean postEvent(Event e) {
                  ComponentPeer peer = this .peer;
- 
+
                  if (handleEvent(e)) {
                      e.consume();
                      return true;
                  }
- 
+
                  Component parent = this .parent;
                  int eventx = e.x;
                  int eventy = e.y;
@@ -4750,9 +4750,9 @@
                  }
                  return false;
              }
- 
+
              // Event source interfaces
- 
+
              /**
               * Adds the specified component listener to receive component events from
               * this component.
@@ -4776,11 +4776,11 @@
                          l);
                  newEventsOnly = true;
              }
- 
+
              /**
               * Removes the specified component listener so that it no longer
-              * receives component events from this component. This method performs 
-              * no function, nor does it throw an exception, if the listener 
+              * receives component events from this component. This method performs
+              * no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -4800,7 +4800,7 @@
                  componentListener = AWTEventMulticaster.remove(
                          componentListener, l);
              }
- 
+
              /**
               * Returns an array of all the component listeners
               * registered on this component.
@@ -4816,7 +4816,7 @@
              public synchronized ComponentListener[] getComponentListeners() {
                  return (ComponentListener[]) (getListeners(ComponentListener.class));
              }
- 
+
              /**
               * Adds the specified focus listener to receive focus events from
               * this component when this component gains input focus.
@@ -4838,18 +4838,18 @@
                  }
                  focusListener = AWTEventMulticaster.add(focusListener, l);
                  newEventsOnly = true;
- 
+
                  // if this is a lightweight component, enable focus events
                  // in the native container.
                  if (peer instanceof  LightweightPeer) {
                      parent.proxyEnableEvents(AWTEvent.FOCUS_EVENT_MASK);
                  }
              }
- 
+
              /**
               * Removes the specified focus listener so that it no longer
-              * receives focus events from this component. This method performs 
-              * no function, nor does it throw an exception, if the listener 
+              * receives focus events from this component. This method performs
+              * no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -4869,7 +4869,7 @@
                  }
                  focusListener = AWTEventMulticaster.remove(focusListener, l);
              }
- 
+
              /**
               * Returns an array of all the focus listeners
               * registered on this component.
@@ -4885,7 +4885,7 @@
              public synchronized FocusListener[] getFocusListeners() {
                  return (FocusListener[]) (getListeners(FocusListener.class));
              }
- 
+
              /**
               * Adds the specified hierarchy listener to receive hierarchy changed
               * events from this component when the hierarchy to which this container
@@ -4921,11 +4921,11 @@
                      }
                  }
              }
- 
+
              /**
               * Removes the specified hierarchy listener so that it no longer
               * receives hierarchy changed events from this component. This method
-              * performs no function, nor does it throw an exception, if the listener 
+              * performs no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -4957,7 +4957,7 @@
                      }
                  }
              }
- 
+
              /**
               * Returns an array of all the hierarchy listeners
               * registered on this component.
@@ -4973,7 +4973,7 @@
              public synchronized HierarchyListener[] getHierarchyListeners() {
                  return (HierarchyListener[]) (getListeners(HierarchyListener.class));
              }
- 
+
              /**
               * Adds the specified hierarchy bounds listener to receive hierarchy
               * bounds events from this component when the hierarchy to which this
@@ -5009,11 +5009,11 @@
                      }
                  }
              }
- 
+
              /**
               * Removes the specified hierarchy bounds listener so that it no longer
               * receives hierarchy bounds events from this component. This method
-              * performs no function, nor does it throw an exception, if the listener 
+              * performs no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -5045,7 +5045,7 @@
                      }
                  }
              }
- 
+
              // Should only be called while holding the tree lock
              int numListening(long mask) {
                  if (dbg.on) {
@@ -5060,12 +5060,12 @@
                      return 0;
                  }
              }
- 
+
              // Should only be called while holding tree lock
              int countHierarchyMembers() {
                  return 1;
              }
- 
+
              // Should only be called while holding the tree lock
              int createHierarchyEvents(int id, Component changed,
                      Container changedParent, long changeFlags,
@@ -5103,7 +5103,7 @@
                  }
                  return 0;
              }
- 
+
              /**
               * Returns an array of all the hierarchy bounds listeners
               * registered on this component.
@@ -5119,10 +5119,10 @@
              public synchronized HierarchyBoundsListener[] getHierarchyBoundsListeners() {
                  return (HierarchyBoundsListener[]) (getListeners(HierarchyBoundsListener.class));
              }
- 
+
              /*
               * Should only be called while holding the tree lock.
-              * It's added only for overriding in java.awt.Window 
+              * It's added only for overriding in java.awt.Window
               * because parent in Window is owner.
               */
              void adjustListeningChildrenOnParent(long mask, int num) {
@@ -5130,7 +5130,7 @@
                      parent.adjustListeningChildren(mask, num);
                  }
              }
- 
+
              /**
               * Adds the specified key listener to receive key events from
               * this component.
@@ -5151,18 +5151,18 @@
                  }
                  keyListener = AWTEventMulticaster.add(keyListener, l);
                  newEventsOnly = true;
- 
+
                  // if this is a lightweight component, enable key events
                  // in the native container.
                  if (peer instanceof  LightweightPeer) {
                      parent.proxyEnableEvents(AWTEvent.KEY_EVENT_MASK);
                  }
              }
- 
+
              /**
               * Removes the specified key listener so that it no longer
-              * receives key events from this component. This method performs 
-              * no function, nor does it throw an exception, if the listener 
+              * receives key events from this component. This method performs
+              * no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -5182,7 +5182,7 @@
                  }
                  keyListener = AWTEventMulticaster.remove(keyListener, l);
              }
- 
+
              /**
               * Returns an array of all the key listeners
               * registered on this component.
@@ -5198,7 +5198,7 @@
              public synchronized KeyListener[] getKeyListeners() {
                  return (KeyListener[]) (getListeners(KeyListener.class));
              }
- 
+
              /**
               * Adds the specified mouse listener to receive mouse events from
               * this component.
@@ -5220,18 +5220,18 @@
                  }
                  mouseListener = AWTEventMulticaster.add(mouseListener, l);
                  newEventsOnly = true;
- 
+
                  // if this is a lightweight component, enable mouse events
                  // in the native container.
                  if (peer instanceof  LightweightPeer) {
                      parent.proxyEnableEvents(AWTEvent.MOUSE_EVENT_MASK);
                  }
              }
- 
+
              /**
               * Removes the specified mouse listener so that it no longer
-              * receives mouse events from this component. This method performs 
-              * no function, nor does it throw an exception, if the listener 
+              * receives mouse events from this component. This method performs
+              * no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -5251,7 +5251,7 @@
                  }
                  mouseListener = AWTEventMulticaster.remove(mouseListener, l);
              }
- 
+
              /**
               * Returns an array of all the mouse listeners
               * registered on this component.
@@ -5267,7 +5267,7 @@
              public synchronized MouseListener[] getMouseListeners() {
                  return (MouseListener[]) (getListeners(MouseListener.class));
              }
- 
+
              /**
               * Adds the specified mouse motion listener to receive mouse motion
               * events from this component.
@@ -5291,18 +5291,18 @@
                  mouseMotionListener = AWTEventMulticaster.add(
                          mouseMotionListener, l);
                  newEventsOnly = true;
- 
+
                  // if this is a lightweight component, enable mouse events
                  // in the native container.
                  if (peer instanceof  LightweightPeer) {
                      parent.proxyEnableEvents(AWTEvent.MOUSE_MOTION_EVENT_MASK);
                  }
              }
- 
+
              /**
               * Removes the specified mouse motion listener so that it no longer
-              * receives mouse motion events from this component. This method performs 
-              * no function, nor does it throw an exception, if the listener 
+              * receives mouse motion events from this component. This method performs
+              * no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -5324,7 +5324,7 @@
                  mouseMotionListener = AWTEventMulticaster.remove(
                          mouseMotionListener, l);
              }
- 
+
              /**
               * Returns an array of all the mouse motion listeners
               * registered on this component.
@@ -5340,7 +5340,7 @@
              public synchronized MouseMotionListener[] getMouseMotionListeners() {
                  return (MouseMotionListener[]) (getListeners(MouseMotionListener.class));
              }
- 
+
              /**
               * Adds the specified mouse wheel listener to receive mouse wheel events
               * from this component.  Containers also receive mouse wheel events from
@@ -5368,22 +5368,22 @@
                  mouseWheelListener = AWTEventMulticaster.add(
                          mouseWheelListener, l);
                  newEventsOnly = true;
- 
+
                  dbg
                          .println("Component.addMouseWheelListener(): newEventsOnly = "
                                  + newEventsOnly);
- 
+
                  // if this is a lightweight component, enable mouse events
                  // in the native container.
                  if (peer instanceof  LightweightPeer) {
                      parent.proxyEnableEvents(AWTEvent.MOUSE_WHEEL_EVENT_MASK);
                  }
              }
- 
+
              /**
               * Removes the specified mouse wheel listener so that it no longer
-              * receives mouse wheel events from this component. This method performs 
-              * no function, nor does it throw an exception, if the listener 
+              * receives mouse wheel events from this component. This method performs
+              * no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If l is null, no exception is thrown and no action is performed.
               * <p>Refer to <a href="doc-files/AWTThreadIssues.html#ListenersThreads"
@@ -5404,7 +5404,7 @@
                  mouseWheelListener = AWTEventMulticaster.remove(
                          mouseWheelListener, l);
              }
- 
+
              /**
               * Returns an array of all the mouse wheel listeners
               * registered on this component.
@@ -5420,7 +5420,7 @@
              public synchronized MouseWheelListener[] getMouseWheelListeners() {
                  return (MouseWheelListener[]) (getListeners(MouseWheelListener.class));
              }
- 
+
              /**
               * Adds the specified input method listener to receive
               * input method events from this component. A component will
@@ -5449,11 +5449,11 @@
                          inputMethodListener, l);
                  newEventsOnly = true;
              }
- 
+
              /**
-              * Removes the specified input method listener so that it no longer 
-              * receives input method events from this component. This method performs 
-              * no function, nor does it throw an exception, if the listener 
+              * Removes the specified input method listener so that it no longer
+              * receives input method events from this component. This method performs
+              * no function, nor does it throw an exception, if the listener
               * specified by the argument was not previously added to this component.
               * If listener <code>l</code> is <code>null</code>,
               * no exception is thrown and no action is performed.
@@ -5475,7 +5475,7 @@
                  inputMethodListener = AWTEventMulticaster.remove(
                          inputMethodListener, l);
              }
- 
+
              /**
               * Returns an array of all the input method listeners
               * registered on this component.
@@ -5491,7 +5491,7 @@
              public synchronized InputMethodListener[] getInputMethodListeners() {
                  return (InputMethodListener[]) (getListeners(InputMethodListener.class));
              }
- 
+
              /**
               * Returns an array of all the objects currently registered
               * as <code><em>Foo</em>Listener</code>s
@@ -5561,12 +5561,12 @@
                  }
                  return AWTEventMulticaster.getListeners(l, listenerType);
              }
- 
+
              /**
               * Gets the input method request handler which supports
               * requests from input methods for this component. A component
               * that supports on-the-spot text input must override this
-              * method to return an <code>InputMethodRequests</code> instance. 
+              * method to return an <code>InputMethodRequests</code> instance.
               * At the same time, it also has to handle input method events.
               *
               * @return the input method request handler for this component,
@@ -5577,7 +5577,7 @@
              public InputMethodRequests getInputMethodRequests() {
                  return null;
              }
- 
+
              /**
               * Gets the input context used by this component for handling
               * the communication with input methods when text is entered
@@ -5597,7 +5597,7 @@
                      return parent.getInputContext();
                  }
              }
- 
+
              /**
               * Enables the events defined by the specified event mask parameter
               * to be delivered to this component.
@@ -5631,7 +5631,7 @@
                      eventMask |= eventsToEnable;
                      newEventsOnly = true;
                  }
- 
+
                  // if this is a lightweight component, enable mouse events
                  // in the native container.
                  if (peer instanceof  LightweightPeer) {
@@ -5643,7 +5643,7 @@
                      }
                  }
              }
- 
+
              /**
               * Disables the events defined by the specified event mask parameter
               * from being delivered to this component.
@@ -5672,22 +5672,22 @@
                      }
                  }
              }
- 
+
              transient EventQueueItem[] eventCache;
- 
+
              /**
               * @see #isCoalescingEnabled
               * @see #checkCoalescing
               */
              transient private boolean coalescingEnabled = checkCoalescing();
- 
+
              /**
               * Weak map of known coalesceEvent overriders.
               * Value indicates whether overriden.
               * Bootstrap classes are not included.
               */
              private static final Map<Class<?>, Boolean> coalesceMap = new java.util.WeakHashMap<Class<?>, Boolean>();
- 
+
              /**
               * Indicates whether this class overrides coalesceEvents.
               * It is assumed that all classes that are loaded from the bootstrap
@@ -5707,7 +5707,7 @@
                      if (value != null) {
                          return value;
                      }
- 
+
                      // Need to check non-bootstraps.
                      Boolean enabled = java.security.AccessController
                              .doPrivileged(new java.security.PrivilegedAction<Boolean>() {
@@ -5719,13 +5719,13 @@
                      return enabled;
                  }
              }
- 
+
              /**
               * Parameter types of coalesceEvents(AWTEvent,AWTEVent).
               */
              private static final Class[] coalesceEventsParams = {
                      AWTEvent.class, AWTEvent.class };
- 
+
              /**
               * Indicates whether a class or its superclasses override coalesceEvents.
               * Must be called with lock on coalesceMap and privileged.
@@ -5734,7 +5734,7 @@
              //private static boolean isCoalesceEventsOverriden(Class<?> clazz) {
              private static boolean isCoalesceEventsOverriden(Class clazz) {
                  assert Thread.holdsLock(coalesceMap);
- 
+
                  // First check superclass - we may not need to bother ourselves.
                  //Class<?> super class = clazz.getSuperclass();
                  Class superclass = clazz.getSuperclass();
@@ -5755,7 +5755,7 @@
                          return true;
                      }
                  }
- 
+
                  try {
                      // Throws if not overriden.
                      clazz.getDeclaredMethod("coalesceEvents",
@@ -5766,14 +5766,14 @@
                      return false;
                  }
              }
- 
+
              /**
               * Indicates whether coalesceEvents may do something.
               */
              final boolean isCoalescingEnabled() {
                  return coalescingEnabled;
              }
- 
+
              /**
               * Potentially coalesce an event being posted with an existing
               * event.  This method is called by <code>EventQueue.postEvent</code>
@@ -5781,8 +5781,8 @@
               * the queue (both events must have this component as their source).
               * This method either returns a coalesced event which replaces
               * the existing event (and the new event is then discarded), or
-              * <code>null</code> to indicate that no combining should be done 
-              * (add the second event to the end of the queue).  Either event 
+              * <code>null</code> to indicate that no combining should be done
+              * (add the second event to the end of the queue).  Either event
               * parameter may be modified and returned, as the other one is discarded
               * unless <code>null</code> is returned.
               * <p>
@@ -5790,21 +5790,21 @@
               * two event types: mouse move (and drag) events,
               * and paint (and update) events.
               * For mouse move events the last event is always returned, causing
-              * intermediate moves to be discarded.  For paint events, the new 
+              * intermediate moves to be discarded.  For paint events, the new
               * event is coalesced into a complex <code>RepaintArea</code> in the peer.
-              * The new <code>AWTEvent</code> is always returned.  
+              * The new <code>AWTEvent</code> is always returned.
               *
               * @param  existingEvent  the event already on the <code>EventQueue</code>
-              * @param  newEvent       the event being posted to the 
+              * @param  newEvent       the event being posted to the
               *          <code>EventQueue</code>
-              * @return a coalesced event, or <code>null</code> indicating that no 
+              * @return a coalesced event, or <code>null</code> indicating that no
               *          coalescing was done
               */
              protected AWTEvent coalesceEvents(AWTEvent existingEvent,
                      AWTEvent newEvent) {
                  return null;
              }
- 
+
              /**
               * Processes events occurring on this component. By default this
               * method calls the appropriate
@@ -5828,7 +5828,7 @@
              protected void processEvent(AWTEvent e) {
                  if (e instanceof  FocusEvent) {
                      processFocusEvent((FocusEvent) e);
- 
+
                  } else if (e instanceof  MouseEvent) {
                      switch (e.getID()) {
                      case MouseEvent.MOUSE_PRESSED:
@@ -5846,10 +5846,10 @@
                          processMouseWheelEvent((MouseWheelEvent) e);
                          break;
                      }
- 
+
                  } else if (e instanceof  KeyEvent) {
                      processKeyEvent((KeyEvent) e);
- 
+
                  } else if (e instanceof  ComponentEvent) {
                      processComponentEvent((ComponentEvent) e);
                  } else if (e instanceof  InputMethodEvent) {
@@ -5866,7 +5866,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes component events occurring on this component by
               * dispatching them to any registered
@@ -5911,7 +5911,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes focus events occurring on this component by
               * dispatching them to any registered
@@ -5968,7 +5968,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes key events occurring on this component by
               * dispatching them to any registered
@@ -6037,7 +6037,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes mouse events occurring on this component by
               * dispatching them to any registered
@@ -6085,7 +6085,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes mouse motion events occurring on this component by
               * dispatching them to any registered
@@ -6124,7 +6124,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes mouse wheel events occurring on this component by
               * dispatching them to any registered
@@ -6164,11 +6164,11 @@
                      }
                  }
              }
- 
+
              boolean postsOldMouseEvents() {
                  return false;
              }
- 
+
              /**
               * Processes input method events occurring on this component by
               * dispatching them to any registered
@@ -6207,7 +6207,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes hierarchy events occurring on this component by
               * dispatching them to any registered
@@ -6243,7 +6243,7 @@
                      }
                  }
              }
- 
+
              /**
               * Processes hierarchy bounds events occurring on this component by
               * dispatching them to any registered
@@ -6282,7 +6282,7 @@
                      }
                  }
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1
               * replaced by processEvent(AWTEvent).
@@ -6292,30 +6292,30 @@
                  switch (evt.id) {
                  case Event.MOUSE_ENTER:
                      return mouseEnter(evt, evt.x, evt.y);
- 
+
                  case Event.MOUSE_EXIT:
                      return mouseExit(evt, evt.x, evt.y);
- 
+
                  case Event.MOUSE_MOVE:
                      return mouseMove(evt, evt.x, evt.y);
- 
+
                  case Event.MOUSE_DOWN:
                      return mouseDown(evt, evt.x, evt.y);
- 
+
                  case Event.MOUSE_DRAG:
                      return mouseDrag(evt, evt.x, evt.y);
- 
+
                  case Event.MOUSE_UP:
                      return mouseUp(evt, evt.x, evt.y);
- 
+
                  case Event.KEY_PRESS:
                  case Event.KEY_ACTION:
                      return keyDown(evt, evt.key);
- 
+
                  case Event.KEY_RELEASE:
                  case Event.KEY_ACTION_RELEASE:
                      return keyUp(evt, evt.key);
- 
+
                  case Event.ACTION_EVENT:
                      return action(evt, evt.arg);
                  case Event.GOT_FOCUS:
@@ -6325,7 +6325,7 @@
                  }
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processMouseEvent(MouseEvent).
@@ -6334,7 +6334,7 @@
              public boolean mouseDown(Event evt, int x, int y) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processMouseMotionEvent(MouseEvent).
@@ -6343,7 +6343,7 @@
              public boolean mouseDrag(Event evt, int x, int y) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processMouseEvent(MouseEvent).
@@ -6352,7 +6352,7 @@
              public boolean mouseUp(Event evt, int x, int y) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processMouseMotionEvent(MouseEvent).
@@ -6361,7 +6361,7 @@
              public boolean mouseMove(Event evt, int x, int y) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processMouseEvent(MouseEvent).
@@ -6370,7 +6370,7 @@
              public boolean mouseEnter(Event evt, int x, int y) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processMouseEvent(MouseEvent).
@@ -6379,7 +6379,7 @@
              public boolean mouseExit(Event evt, int x, int y) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processKeyEvent(KeyEvent).
@@ -6388,7 +6388,7 @@
              public boolean keyDown(Event evt, int key) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processKeyEvent(KeyEvent).
@@ -6397,7 +6397,7 @@
              public boolean keyUp(Event evt, int key) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * should register this component as ActionListener on component
@@ -6407,10 +6407,10 @@
              public boolean action(Event evt, Object what) {
                  return false;
              }
- 
+
              /**
               * Makes this <code>Component</code> displayable by connecting it to a
-              * native screen resource.  
+              * native screen resource.
               * This method is called internally by the toolkit and should
               * not be called directly by programs.
               * @see       #isDisplayable
@@ -6427,7 +6427,7 @@
                              this .peer = peer = getToolkit().createComponent(
                                      this );
                          }
- 
+
                          // This is a lightweight component which means it won't be
                          // able to get window-related events by itself.  If any
                          // have been enabled, then the nearest native container must
@@ -6468,18 +6468,18 @@
                          }
                      }
                      invalidate();
- 
+
                      int npopups = (popups != null ? popups.size() : 0);
                      for (int i = 0; i < npopups; i++) {
                          PopupMenu popup = (PopupMenu) popups.elementAt(i);
                          popup.addNotify();
                      }
- 
+
                      if (dropTarget != null)
                          dropTarget.addNotify(peer);
- 
+
                      peerFont = getFont();
- 
+
                      // Update stacking order
                      if (parent != null && parent.peer != null) {
                          ContainerPeer parentContPeer = (ContainerPeer) parent.peer;
@@ -6497,7 +6497,7 @@
                              parentContPeer.restack();
                          }
                      }
- 
+
                      if (hierarchyListener != null
                              || (eventMask & AWTEvent.HIERARCHY_EVENT_MASK) != 0
                              || Toolkit
@@ -6514,10 +6514,10 @@
                      }
                  }
              }
- 
-             /** 
+
+             /**
               * Makes this <code>Component</code> undisplayable by destroying it native
-              * screen resource. 
+              * screen resource.
               * <p>
               * This method is called by the toolkit internally and should
               * not be called directly by programs. Code overriding
@@ -6535,7 +6535,7 @@
                      KeyboardFocusManager.getCurrentKeyboardFocusManager()
                              .setGlobalPermanentFocusOwner(null);
                  }
- 
+
                  synchronized (getTreeLock()) {
                      if (isFocusOwner()
                              && KeyboardFocusManager
@@ -6544,7 +6544,7 @@
                          KeyboardFocusManager.getCurrentKeyboardFocusManager()
                                  .clearGlobalFocusOwner();
                      }
- 
+
                      int npopups = (popups != null ? popups.size() : 0);
                      for (int i = 0; i < npopups; i++) {
                          PopupMenu popup = (PopupMenu) popups.elementAt(i);
@@ -6559,37 +6559,37 @@
                              inputContext.removeNotify(this );
                          }
                      }
- 
+
                      if (nativeInLightFixer != null) {
                          nativeInLightFixer.uninstall();
                      }
- 
+
                      ComponentPeer p = peer;
                      if (p != null) {
- 
+
                          if (bufferStrategy instanceof  FlipBufferStrategy) {
                              ((FlipBufferStrategy) bufferStrategy)
                                      .destroyBuffers();
                          }
- 
+
                          if (dropTarget != null)
                              dropTarget.removeNotify(peer);
- 
+
                          // Hide peer first to stop system events such as cursor moves.
                          if (visible) {
                              p.hide();
                          }
- 
+
                          peer = null; // Stop peer updates.
                          peerFont = null;
- 
+
                          Toolkit.getEventQueue().removeSourceEvents(this , false);
                          KeyboardFocusManager.getCurrentKeyboardFocusManager()
                                  .discardKeyEvents(this );
- 
+
                          p.dispose();
                      }
- 
+
                      if (hierarchyListener != null
                              || (eventMask & AWTEvent.HIERARCHY_EVENT_MASK) != 0
                              || Toolkit
@@ -6606,7 +6606,7 @@
                      }
                  }
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processFocusEvent(FocusEvent).
@@ -6615,7 +6615,7 @@
              public boolean gotFocus(Event evt, Object what) {
                  return false;
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by processFocusEvent(FocusEvent).
@@ -6624,7 +6624,7 @@
              public boolean lostFocus(Event evt, Object what) {
                  return false;
              }
- 
+
              /**
               * Returns whether this <code>Component</code> can become the focus
               * owner.
@@ -6642,7 +6642,7 @@
                  }
                  return focusable;
              }
- 
+
              /**
               * Returns whether this Component can be focused.
               *
@@ -6654,7 +6654,7 @@
              public boolean isFocusable() {
                  return isFocusTraversable();
              }
- 
+
              /**
               * Sets the focusable state of this Component to the specified value. This
               * value overrides the Component's default focusability.
@@ -6672,7 +6672,7 @@
                      this .focusable = focusable;
                  }
                  isFocusTraversableOverridden = FOCUS_TRAVERSABLE_SET;
- 
+
                  firePropertyChange("focusable", oldFocusable, focusable);
                  if (oldFocusable && !focusable) {
                      if (isFocusOwner()) {
@@ -6681,11 +6681,11 @@
                      KeyboardFocusManager.clearMostRecentFocusOwner(this );
                  }
              }
- 
+
              final boolean isFocusTraversableOverridden() {
                  return (isFocusTraversableOverridden != FOCUS_TRAVERSABLE_DEFAULT);
              }
- 
+
              /**
               * Sets the focus traversal keys for a given traversal operation for this
               * Component.
@@ -6763,10 +6763,10 @@
                      throw new IllegalArgumentException(
                              "invalid focus traversal key identifier");
                  }
- 
+
                  setFocusTraversalKeys_NoIDCheck(id, keystrokes);
              }
- 
+
              /**
               * Returns the Set of focus traversal keys for a given traversal operation
               * for this Component. (See
@@ -6799,10 +6799,10 @@
                      throw new IllegalArgumentException(
                              "invalid focus traversal key identifier");
                  }
- 
+
                  return getFocusTraversalKeys_NoIDCheck(id);
              }
- 
+
              // We define these methods so that Container does not need to repeat this
              // code. Container cannot call super.<method> because Container allows
              // DOWN_CYCLE_TRAVERSAL_KEY while Component does not. The Component method
@@ -6811,22 +6811,22 @@
              final void setFocusTraversalKeys_NoIDCheck(int id,
                      Set<? extends AWTKeyStroke> keystrokes) {
                  Set oldKeys;
- 
+
                  synchronized (this ) {
                      if (focusTraversalKeys == null) {
                          initializeFocusTraversalKeys();
                      }
- 
+
                      if (keystrokes != null) {
                          for (Iterator iter = keystrokes.iterator(); iter
                                  .hasNext();) {
                              Object obj = iter.next();
- 
+
                              if (obj == null) {
                                  throw new IllegalArgumentException(
                                          "cannot set null focus traversal key");
                              }
- 
+
                              // Fix for 6195828:
                              //According to javadoc this method should throw IAE instead of ClassCastException
                              if (!(obj instanceof  AWTKeyStroke)) {
@@ -6834,17 +6834,17 @@
                                          "object is expected to be AWTKeyStroke");
                              }
                              AWTKeyStroke keystroke = (AWTKeyStroke) obj;
- 
+
                              if (keystroke.getKeyChar() != KeyEvent.CHAR_UNDEFINED) {
                                  throw new IllegalArgumentException(
                                          "focus traversal keys cannot map to KEY_TYPED events");
                              }
- 
+
                              for (int i = 0; i < focusTraversalKeys.length; i++) {
                                  if (i == id) {
                                      continue;
                                  }
- 
+
                                  if (getFocusTraversalKeys_NoIDCheck(i)
                                          .contains(keystroke)) {
                                      throw new IllegalArgumentException(
@@ -6853,21 +6853,21 @@
                              }
                          }
                      }
- 
+
                      oldKeys = focusTraversalKeys[id];
                      focusTraversalKeys[id] = (keystrokes != null) ? Collections
                              .unmodifiableSet(new HashSet(keystrokes)) : null;
                  }
- 
+
                  firePropertyChange(focusTraversalKeyPropertyNames[id], oldKeys,
                          keystrokes);
              }
- 
+
              final Set getFocusTraversalKeys_NoIDCheck(int id) {
                  // Okay to return Set directly because it is an unmodifiable view
                  Set keystrokes = (focusTraversalKeys != null) ? focusTraversalKeys[id]
                          : null;
- 
+
                  if (keystrokes != null) {
                      return keystrokes;
                  } else {
@@ -6881,7 +6881,7 @@
                      }
                  }
              }
- 
+
              /**
               * Returns whether the Set of focus traversal keys for the given focus
               * traversal operation has been explicitly defined for this Component. If
@@ -6906,10 +6906,10 @@
                      throw new IllegalArgumentException(
                              "invalid focus traversal key identifier");
                  }
- 
+
                  return (focusTraversalKeys != null && focusTraversalKeys[id] != null);
              }
- 
+
              /**
               * Sets whether focus traversal keys are enabled for this Component.
               * Components for which focus traversal keys are disabled receive key
@@ -6936,7 +6936,7 @@
                  firePropertyChange("focusTraversalKeysEnabled",
                          oldFocusTraversalKeysEnabled, focusTraversalKeysEnabled);
              }
- 
+
              /**
               * Returns whether focus traversal keys are enabled for this Component.
               * Components for which focus traversal keys are disabled receive key
@@ -6953,7 +6953,7 @@
              public boolean getFocusTraversalKeysEnabled() {
                  return focusTraversalKeysEnabled;
              }
- 
+
              /**
               * Requests that this Component get the input focus, and that this
               * Component's top-level ancestor become the focused Window. This
@@ -6991,11 +6991,11 @@
              public void requestFocus() {
                  requestFocusHelper(false, true);
              }
- 
+
              void requestFocus(CausedFocusEvent.Cause cause) {
                  requestFocusHelper(false, true, cause);
              }
- 
+
              /**
               * Requests that this <code>Component</code> get the input focus,
               * and that this <code>Component</code>'s top-level ancestor
@@ -7058,11 +7058,11 @@
              protected boolean requestFocus(boolean temporary) {
                  return requestFocusHelper(temporary, true);
              }
- 
+
              boolean requestFocus(boolean temporary, CausedFocusEvent.Cause cause) {
                  return requestFocusHelper(temporary, true, cause);
              }
- 
+
              /**
               * Requests that this Component get the input focus, if this
               * Component's top-level ancestor is already the focused
@@ -7110,11 +7110,11 @@
              public boolean requestFocusInWindow() {
                  return requestFocusHelper(false, false);
              }
- 
+
              boolean requestFocusInWindow(CausedFocusEvent.Cause cause) {
                  return requestFocusHelper(false, false, cause);
              }
- 
+
              /**
               * Requests that this <code>Component</code> get the input focus,
               * if this <code>Component</code>'s top-level ancestor is already
@@ -7175,19 +7175,19 @@
              protected boolean requestFocusInWindow(boolean temporary) {
                  return requestFocusHelper(temporary, false);
              }
- 
+
              boolean requestFocusInWindow(boolean temporary,
                      CausedFocusEvent.Cause cause) {
                  return requestFocusHelper(temporary, false, cause);
              }
- 
+
              final boolean requestFocusHelper(boolean temporary,
                      boolean focusedWindowChangeAllowed) {
                  return requestFocusHelper(temporary,
                          focusedWindowChangeAllowed,
                          CausedFocusEvent.Cause.UNKNOWN);
              }
- 
+
              final boolean requestFocusHelper(boolean temporary,
                      boolean focusedWindowChangeAllowed,
                      CausedFocusEvent.Cause cause) {
@@ -7196,10 +7196,10 @@
                      focusLog.finest("requestFocus is not accepted");
                      return false;
                  }
- 
+
                  // Update most-recent map
                  KeyboardFocusManager.setMostRecentFocusOwner(this );
- 
+
                  Component window = this ;
                  while ((window != null) && !(window instanceof  Window)) {
                      if (!window.isVisible()) {
@@ -7208,7 +7208,7 @@
                      }
                      window = window.parent;
                  }
- 
+
                  ComponentPeer peer = this .peer;
                  Component heavyweight = (peer instanceof  LightweightPeer) ? getNativeContainer()
                          : this ;
@@ -7222,7 +7222,7 @@
                      focusLog.finest("Peer is null");
                      return false;
                  }
- 
+
                  // Focus this Component
                  long time = EventQueue.getMostRecentEventTime();
                  boolean success = peer.requestFocus(this , temporary,
@@ -7237,7 +7237,7 @@
                  }
                  return success;
              }
- 
+
              private boolean isRequestFocusAccepted(boolean temporary,
                      boolean focusedWindowChangeAllowed,
                      CausedFocusEvent.Cause cause) {
@@ -7245,19 +7245,19 @@
                      focusLog.finest("Not focusable or not visible");
                      return false;
                  }
- 
+
                  ComponentPeer peer = this .peer;
                  if (peer == null) {
                      focusLog.finest("peer is null");
                      return false;
                  }
- 
+
                  Window window = getContainingWindow();
                  if (window == null || !((Window) window).isFocusableWindow()) {
                      focusLog.finest("Component doesn't have toplevel");
                      return false;
                  }
- 
+
                  // We have passed all regular checks for focus request,
                  // now let's call RequestFocusController and see what it says.
                  Component focusOwner = KeyboardFocusManager
@@ -7272,7 +7272,7 @@
                          focusOwner = null;
                      }
                  }
- 
+
                  if (focusOwner == this  || focusOwner == null) {
                      // Controller is supposed to verify focus transfers and for this it
                      // should know both from and to components.  And it shouldn't verify
@@ -7280,7 +7280,7 @@
                      focusLog.finest("focus owner is null or this");
                      return true;
                  }
- 
+
                  if (CausedFocusEvent.Cause.ACTIVATION == cause) {
                      // we shouldn't call RequestFocusController in case we are
                      // in activation.  We do request focus on component which
@@ -7291,7 +7291,7 @@
                      focusLog.finest("cause is activation");
                      return true;
                  }
- 
+
                  boolean ret = Component.requestFocusController
                          .acceptRequestFocus(focusOwner, this , temporary,
                                  focusedWindowChangeAllowed, cause);
@@ -7299,15 +7299,15 @@
                      focusLog.log(Level.FINEST,
                              "RequestFocusController returns {0}", ret);
                  }
- 
+
                  return ret;
              }
- 
+
              private static RequestFocusController requestFocusController = new DummyRequestFocusController();
- 
+
              // Swing access this method through reflection to implement InputVerifier's functionality.
              // Perhaps, we should make this method public (later ;)
-             private static class DummyRequestFocusController implements 
+             private static class DummyRequestFocusController implements
                      RequestFocusController {
                  public boolean acceptRequestFocus(Component from, Component to,
                          boolean temporary, boolean focusedWindowChangeAllowed,
@@ -7315,7 +7315,7 @@
                      return true;
                  }
              };
- 
+
              synchronized static void setRequestFocusController(
                      RequestFocusController requestController) {
                  if (requestController == null) {
@@ -7324,7 +7324,7 @@
                      requestFocusController = requestController;
                  }
              }
- 
+
              private void autoTransferFocus(boolean clearOnFailure) {
                  Component toTest = KeyboardFocusManager
                          .getCurrentKeyboardFocusManager().getFocusOwner();
@@ -7334,24 +7334,24 @@
                      }
                      return;
                  }
- 
+
                  // Check if there are pending focus requests.  We shouldn't do
                  // auto-transfer if user has already took care of this
                  // component becoming ineligible to hold focus.
                  if (!KeyboardFocusManager.isAutoFocusTransferEnabled()) {
                      return;
                  }
- 
+
                  // the following code will execute only if this Component is the focus
                  // owner
- 
+
                  if (!(isDisplayable() && isVisible() && isEnabled() && isFocusable())) {
                      doAutoTransfer(clearOnFailure);
                      return;
                  }
- 
+
                  toTest = getParent();
- 
+
                  while (toTest != null && !(toTest instanceof  Window)) {
                      if (!(toTest.isDisplayable() && toTest.isVisible() && (toTest
                              .isEnabled() || toTest.isLightweight()))) {
@@ -7361,10 +7361,10 @@
                      toTest = toTest.getParent();
                  }
              }
- 
+
              private void doAutoTransfer(boolean clearOnFailure) {
                  if (focusLog.isLoggable(Level.FINER)) {
-                     focusLog.log(Level.FINER, "this = " + this 
+                     focusLog.log(Level.FINER, "this = " + this
                              + ", clearOnFailure = " + clearOnFailure);
                  }
                  if (clearOnFailure) {
@@ -7380,7 +7380,7 @@
                      transferFocus();
                  }
              }
- 
+
              /**
               * Transfers the focus to the next component, as though this Component were
               * the focus owner.
@@ -7390,7 +7390,7 @@
              public void transferFocus() {
                  nextFocus();
              }
- 
+
              /**
               * Returns the Container which is the focus cycle root of this Component's
               * focus traversal cycle. Each focus traversal cycle has only a single
@@ -7412,7 +7412,7 @@
                  }
                  return rootAncestor;
              }
- 
+
              /**
               * Returns whether the specified Container is the focus cycle root of this
               * Component's focus traversal cycle. Each focus traversal cycle has only
@@ -7429,7 +7429,7 @@
                  Container rootAncestor = getFocusCycleRootAncestor();
                  return (rootAncestor == container);
              }
- 
+
              /**
               * @deprecated As of JDK version 1.1,
               * replaced by transferFocus().
@@ -7438,7 +7438,7 @@
              public void nextFocus() {
                  nextFocusHelper();
              }
- 
+
              private boolean nextFocusHelper() {
                  Component toFocus = preNextFocusHelper();
                  if (focusLog.isLoggable(Level.FINER)) {
@@ -7450,11 +7450,11 @@
                  return postNextFocusHelper(toFocus,
                          CausedFocusEvent.Cause.TRAVERSAL_FORWARD);
              }
- 
+
              Container getTraversalRoot() {
                  return getFocusCycleRootAncestor();
              }
- 
+
              final Component preNextFocusHelper() {
                  Container rootAncestor = getTraversalRoot();
                  Component comp = this ;
@@ -7496,7 +7496,7 @@
                  }
                  return null;
              }
- 
+
              static boolean postNextFocusHelper(Component toFocus,
                      CausedFocusEvent.Cause cause) {
                  if (toFocus != null) {
@@ -7509,7 +7509,7 @@
                  }
                  return false;
              }
- 
+
              /**
               * Transfers the focus to the previous component, as though this Component
               * were the focus owner.
@@ -7540,7 +7540,7 @@
                      }
                  }
              }
- 
+
              /**
               * Transfers the focus up one focus traversal cycle. Typically, the focus
               * owner is set to this Component's focus cycle root, and the current focus
@@ -7562,7 +7562,7 @@
                                  .isEnabled()); rootAncestor = rootAncestor
                          .getFocusCycleRootAncestor()) {
                  }
- 
+
                  if (rootAncestor != null) {
                      Container rootAncestorRootAncestor = rootAncestor
                              .getFocusCycleRootAncestor();
@@ -7575,7 +7575,7 @@
                              .requestFocus(CausedFocusEvent.Cause.TRAVERSAL_UP);
                  } else {
                      Window window = getContainingWindow();
- 
+
                      if (window != null) {
                          Component toFocus = window.getFocusTraversalPolicy()
                                  .getDefaultComponent(window);
@@ -7589,13 +7589,13 @@
                      }
                  }
              }
- 
+
              /**
-              * Returns <code>true</code> if this <code>Component</code> is the 
+              * Returns <code>true</code> if this <code>Component</code> is the
               * focus owner.  This method is obsolete, and has been replaced by
               * <code>isFocusOwner()</code>.
               *
-              * @return <code>true</code> if this <code>Component</code> is the 
+              * @return <code>true</code> if this <code>Component</code> is the
               *         focus owner; <code>false</code> otherwise
               * @since 1.2
               */
@@ -7603,19 +7603,19 @@
                  return (KeyboardFocusManager.getCurrentKeyboardFocusManager()
                          .getFocusOwner() == this );
              }
- 
+
              /**
-              * Returns <code>true</code> if this <code>Component</code> is the 
+              * Returns <code>true</code> if this <code>Component</code> is the
               *    focus owner.
               *
-              * @return <code>true</code> if this <code>Component</code> is the 
+              * @return <code>true</code> if this <code>Component</code> is the
               *     focus owner; <code>false</code> otherwise
               * @since 1.4
               */
              public boolean isFocusOwner() {
                  return hasFocus();
              }
- 
+
              /**
               * Adds the specified popup menu to the component.
               * @param     popup the popup menu to be added to the component.
@@ -7633,7 +7633,7 @@
                      }
                      popups.addElement(popup);
                      popup.parent = this ;
- 
+
                      if (peer != null) {
                          if (popup.peer == null) {
                              popup.addNotify();
@@ -7641,7 +7641,7 @@
                      }
                  }
              }
- 
+
              /**
               * Removes the specified popup menu from the component.
               * @param     popup the popup menu to be removed
@@ -7667,14 +7667,14 @@
                      }
                  }
              }
- 
+
              /**
-              * Returns a string representing the state of this component. This 
-              * method is intended to be used only for debugging purposes, and the 
-              * content and format of the returned string may vary between 
-              * implementations. The returned string may be empty but may not be 
+              * Returns a string representing the state of this component. This
+              * method is intended to be used only for debugging purposes, and the
+              * content and format of the returned string may vary between
+              * implementations. The returned string may be empty but may not be
               * <code>null</code>.
-              * 
+              *
               * @return  a string representation of this component's state
               * @since     JDK1.0
               */
@@ -7693,7 +7693,7 @@
                  }
                  return str;
              }
- 
+
              /**
               * Returns a string representation of this component and its values.
               * @return    a string representation of this component
@@ -7702,7 +7702,7 @@
              public String toString() {
                  return getClass().getName() + "[" + paramString() + "]";
              }
- 
+
              /**
               * Prints a listing of this component to the standard system output
               * stream <code>System.out</code>.
@@ -7712,7 +7712,7 @@
              public void list() {
                  list(System.out, 0);
              }
- 
+
              /**
               * Prints a listing of this component to the specified output
               * stream.
@@ -7722,7 +7722,7 @@
              public void list(PrintStream out) {
                  list(out, 0);
              }
- 
+
              /**
               * Prints out a list, starting at the specified indentation, to the
               * specified print stream.
@@ -7737,7 +7737,7 @@
                  }
                  out.println(this );
              }
- 
+
              /**
               * Prints a listing to the specified print writer.
               * @param  out  the print writer to print to
@@ -7746,7 +7746,7 @@
              public void list(PrintWriter out) {
                  list(out, 0);
              }
- 
+
              /**
               * Prints out a list, starting at the specified indentation, to
               * the specified print writer.
@@ -7761,7 +7761,7 @@
                  }
                  out.println(this );
              }
- 
+
              /*
               * Fetches the native container somewhere higher up in the component
               * tree that contains this component.
@@ -7773,7 +7773,7 @@
                  }
                  return p;
              }
- 
+
              /**
               * Adds a PropertyChangeListener to the listener list. The listener is
               * registered for all bound properties of this class, including the
@@ -7818,7 +7818,7 @@
                  }
                  changeSupport.addPropertyChangeListener(listener);
              }
- 
+
              /**
               * Removes a PropertyChangeListener from the listener list. This method
               * should be used to remove PropertyChangeListeners that were registered
@@ -7839,7 +7839,7 @@
                  }
                  changeSupport.removePropertyChangeListener(listener);
              }
- 
+
              /**
               * Returns an array of all the property change listeners
               * registered on this component.
@@ -7860,7 +7860,7 @@
                  }
                  return changeSupport.getPropertyChangeListeners();
              }
- 
+
              /**
               * Adds a PropertyChangeListener to the listener list for a specific
               * property. The specified property may be user-defined, or one of the
@@ -7902,7 +7902,7 @@
                  }
                  changeSupport.addPropertyChangeListener(propertyName, listener);
              }
- 
+
              /**
               * Removes a <code>PropertyChangeListener</code> from the listener
               * list for a specific property. This method should be used to remove
@@ -7927,9 +7927,9 @@
                  changeSupport.removePropertyChangeListener(propertyName,
                          listener);
              }
- 
+
              /**
-              * Returns an array of all the listeners which have been associated 
+              * Returns an array of all the listeners which have been associated
               * with the named property.
               *
               * @return all of the <code>PropertyChangeListener</code>s associated with
@@ -7949,9 +7949,9 @@
                  }
                  return changeSupport.getPropertyChangeListeners(propertyName);
              }
- 
+
              /**
-              * Support for reporting bound property changes for Object properties. 
+              * Support for reporting bound property changes for Object properties.
               * This method can be called when a bound property has changed and it will
               * send the appropriate PropertyChangeEvent to any registered
               * PropertyChangeListeners.
@@ -7971,9 +7971,9 @@
                  changeSupport.firePropertyChange(propertyName, oldValue,
                          newValue);
              }
- 
+
              /**
-              * Support for reporting bound property changes for boolean properties. 
+              * Support for reporting bound property changes for boolean properties.
               * This method can be called when a bound property has changed and it will
               * send the appropriate PropertyChangeEvent to any registered
               * PropertyChangeListeners.
@@ -7992,9 +7992,9 @@
                  changeSupport.firePropertyChange(propertyName, oldValue,
                          newValue);
              }
- 
+
              /**
-              * Support for reporting bound property changes for integer properties. 
+              * Support for reporting bound property changes for integer properties.
               * This method can be called when a bound property has changed and it will
               * send the appropriate PropertyChangeEvent to any registered
               * PropertyChangeListeners.
@@ -8013,7 +8013,7 @@
                  changeSupport.firePropertyChange(propertyName, oldValue,
                          newValue);
              }
- 
+
              /**
               * Reports a bound property change.
               *
@@ -8033,7 +8033,7 @@
                  firePropertyChange(propertyName, Byte.valueOf(oldValue), Byte
                          .valueOf(newValue));
              }
- 
+
              /**
               * Reports a bound property change.
               *
@@ -8053,7 +8053,7 @@
                  firePropertyChange(propertyName, new Character(oldValue),
                          new Character(newValue));
              }
- 
+
              /**
               * Reports a bound property change.
               *
@@ -8073,7 +8073,7 @@
                  firePropertyChange(propertyName, Short.valueOf(oldValue), Short
                          .valueOf(newValue));
              }
- 
+
              /**
               * Reports a bound property change.
               *
@@ -8093,7 +8093,7 @@
                  firePropertyChange(propertyName, Long.valueOf(oldValue), Long
                          .valueOf(newValue));
              }
- 
+
              /**
               * Reports a bound property change.
               *
@@ -8113,7 +8113,7 @@
                  firePropertyChange(propertyName, Float.valueOf(oldValue), Float
                          .valueOf(newValue));
              }
- 
+
              /**
               * Reports a bound property change.
               *
@@ -8133,16 +8133,16 @@
                  firePropertyChange(propertyName, Double.valueOf(oldValue),
                          Double.valueOf(newValue));
              }
- 
+
              // Serialization support.
- 
+
              /**
               * Component Serialized Data Version.
               *
               * @serial
               */
              private int componentSerializedDataVersion = 4;
- 
+
              /**
               * This hack is for Swing serialization. It will invoke
               * the Swing package private method <code>compWriteObjectNotify</code>.
@@ -8193,7 +8193,7 @@
                      }
                  }
              }
- 
+
              /**
               * Writes default serializable fields to stream.  Writes
               * a variety of serializable listeners as optional data.
@@ -8240,9 +8240,9 @@
               */
              private void writeObject(ObjectOutputStream s) throws IOException {
                  doSwingSerialization();
- 
+
                  s.defaultWriteObject();
- 
+
                  AWTEventMulticaster.save(s, componentListenerK,
                          componentListener);
                  AWTEventMulticaster.save(s, focusListenerK, focusListener);
@@ -8252,24 +8252,24 @@
                          mouseMotionListener);
                  AWTEventMulticaster.save(s, inputMethodListenerK,
                          inputMethodListener);
- 
+
                  s.writeObject(null);
                  s.writeObject(componentOrientation);
- 
+
                  AWTEventMulticaster.save(s, hierarchyListenerK,
                          hierarchyListener);
                  AWTEventMulticaster.save(s, hierarchyBoundsListenerK,
                          hierarchyBoundsListener);
                  s.writeObject(null);
- 
+
                  AWTEventMulticaster.save(s, mouseWheelListenerK,
                          mouseWheelListener);
                  s.writeObject(null);
- 
+
              }
- 
+
              /**
-              * Reads the <code>ObjectInputStream</code> and if it isn't 
+              * Reads the <code>ObjectInputStream</code> and if it isn't
               * <code>null</code> adds a listener to receive a variety
               * of events fired by the component.
               * Unrecognized keys or values will be ignored.
@@ -8280,7 +8280,7 @@
              private void readObject(ObjectInputStream s)
                      throws ClassNotFoundException, IOException {
                  s.defaultReadObject();
- 
+
                  appContext = AppContext.getAppContext();
                  coalescingEnabled = checkCoalescing();
                  if (componentSerializedDataVersion < 4) {
@@ -8293,41 +8293,41 @@
                      initializeFocusTraversalKeys();
                      focusTraversalKeysEnabled = true;
                  }
- 
+
                  Object keyOrNull;
                  while (null != (keyOrNull = s.readObject())) {
                      String key = ((String) keyOrNull).intern();
- 
+
                      if (componentListenerK == key)
                          addComponentListener((ComponentListener) (s
                                  .readObject()));
- 
+
                      else if (focusListenerK == key)
                          addFocusListener((FocusListener) (s.readObject()));
- 
+
                      else if (keyListenerK == key)
                          addKeyListener((KeyListener) (s.readObject()));
- 
+
                      else if (mouseListenerK == key)
                          addMouseListener((MouseListener) (s.readObject()));
- 
+
                      else if (mouseMotionListenerK == key)
                          addMouseMotionListener((MouseMotionListener) (s
                                  .readObject()));
- 
+
                      else if (inputMethodListenerK == key)
                          addInputMethodListener((InputMethodListener) (s
                                  .readObject()));
- 
+
                      else
                          // skip value for unrecognized key
                          s.readObject();
- 
+
                  }
- 
+
                  // Read the component's orientation if it's present
                  Object orient = null;
- 
+
                  try {
                      orient = s.readObject();
                  } catch (java.io.OptionalDataException e) {
@@ -8335,24 +8335,24 @@
                      // e.eof will be true to indicate that there is no more
                      // data available for this object.
                      // If e.eof is not true, throw the exception as it
-                     // might have been caused by reasons unrelated to 
+                     // might have been caused by reasons unrelated to
                      // componentOrientation.
- 
+
                      if (!e.eof) {
                          throw (e);
                      }
                  }
- 
+
                  if (orient != null) {
                      componentOrientation = (ComponentOrientation) orient;
                  } else {
                      componentOrientation = ComponentOrientation.UNKNOWN;
                  }
- 
+
                  try {
                      while (null != (keyOrNull = s.readObject())) {
                          String key = ((String) keyOrNull).intern();
- 
+
                          if (hierarchyListenerK == key) {
                              addHierarchyListener((HierarchyListener) (s
                                      .readObject()));
@@ -8369,18 +8369,18 @@
                      // e.eof will be true to indicate that there is no more
                      // data available for this object.
                      // If e.eof is not true, throw the exception as it
-                     // might have been caused by reasons unrelated to 
+                     // might have been caused by reasons unrelated to
                      // hierarchy and hierarchyBounds listeners.
- 
+
                      if (!e.eof) {
                          throw (e);
                      }
                  }
- 
+
                  try {
                      while (null != (keyOrNull = s.readObject())) {
                          String key = ((String) keyOrNull).intern();
- 
+
                          if (mouseWheelListenerK == key) {
                              addMouseWheelListener((MouseWheelListener) (s
                                      .readObject()));
@@ -8394,14 +8394,14 @@
                      // e.eof will be true to indicate that there is no more
                      // data available for this object.
                      // If e.eof is not true, throw the exception as it
-                     // might have been caused by reasons unrelated to 
+                     // might have been caused by reasons unrelated to
                      // mouse wheel listeners
- 
+
                      if (!e.eof) {
                          throw (e);
                      }
                  }
- 
+
                  if (popups != null) {
                      int npopups = popups.size();
                      for (int i = 0; i < npopups; i++) {
@@ -8410,7 +8410,7 @@
                      }
                  }
              }
- 
+
              /**
               * Sets the language-sensitive orientation that is to be used to order
               * the elements or text within this component.  Language-sensitive
@@ -8438,20 +8438,20 @@
              public void setComponentOrientation(ComponentOrientation o) {
                  ComponentOrientation oldValue = componentOrientation;
                  componentOrientation = o;
- 
+
                  // This is a bound property, so report the change to
                  // any registered listeners.  (Cheap if there are none.)
                  firePropertyChange("componentOrientation", oldValue, o);
- 
+
                  // This could change the preferred size of the Component.
                  if (valid) {
                      invalidate();
                  }
              }
- 
+
              /**
               * Retrieves the language-sensitive orientation that is to be used to order
-              * the elements or text within this component.  <code>LayoutManager</code> 
+              * the elements or text within this component.  <code>LayoutManager</code>
               * and <code>Component</code>
               * subclasses that wish to respect orientation should call this method to
               * get the component's orientation before performing layout or drawing.
@@ -8463,7 +8463,7 @@
              public ComponentOrientation getComponentOrientation() {
                  return componentOrientation;
              }
- 
+
              /**
               * Sets the <code>ComponentOrientation</code> property of this component
               * and all components contained within it.
@@ -8482,9 +8482,9 @@
                  }
                  setComponentOrientation(orientation);
              }
- 
+
              transient NativeInLightFixer nativeInLightFixer;
- 
+
              /**
               * Checks that this component meets the prerequesites to be focus owner:
               * - it is enabled, visible, focusable
@@ -8495,11 +8495,11 @@
               * @since 1.5
               */
              final boolean canBeFocusOwner() {
-                 // - it is enabled, visible, focusable        
+                 // - it is enabled, visible, focusable
                  if (!(isEnabled() && isDisplayable() && isVisible() && isFocusable())) {
                      return false;
                  }
- 
+
                  // - it's parents are all enabled and showing
                  synchronized (getTreeLock()) {
                      if (parent != null) {
@@ -8508,7 +8508,7 @@
                  }
                  return true;
              }
- 
+
              /**
               * This odd class is to help out a native component that has been
               * embedded in a lightweight component.  Moving lightweight
@@ -8522,12 +8522,12 @@
               */
              final class NativeInLightFixer implements  ComponentListener,
                      ContainerListener {
- 
+
                  NativeInLightFixer() {
                      lightParents = new Vector();
                      install(parent);
                  }
- 
+
                  void install(Container parent) {
                      lightParents.clear();
                      Container p = parent;
@@ -8535,7 +8535,7 @@
                      // stash a reference to the components that are being observed so that
                      // we can reliably remove ourself as a listener later.
                      for (; p.peer instanceof  LightweightPeer; p = p.parent) {
- 
+
                          // register listeners and stash a reference
                          p.addComponentListener(this );
                          p.addContainerListener(this );
@@ -8546,7 +8546,7 @@
                      // to get notified if the top-level lightweight is removed.
                      nativeHost = p;
                      p.addContainerListener(this );
- 
+
                      // kick start the fixup.  Since the event isn't looked at
                      // we can simulate movement notification.
                      componentMoved(null);
@@ -8558,15 +8558,15 @@
                          }
                      }
                  }
- 
+
                  void uninstall() {
                      if (nativeHost != null) {
                          removeReferences();
                      }
                  }
- 
+
                  // --- ComponentListener -------------------------------------------
- 
+
                  /**
                   * Invoked when one of the lightweight parents has been resized.
                   * This doesn't change the position of the native child so it
@@ -8574,7 +8574,7 @@
                   */
                  public void componentResized(ComponentEvent e) {
                  }
- 
+
                  /**
                   * Invoked when one of the lightweight parents has been moved.
                   * The native peer must be told of the new position which is
@@ -8587,7 +8587,7 @@
                          int nativeY = y;
                          for (Component c = parent; (c != null)
                                  && (c.peer instanceof  LightweightPeer); c = c.parent) {
- 
+
                              nativeX += c.x;
                              nativeY += c.y;
                          }
@@ -8597,7 +8597,7 @@
                          }
                      }
                  }
- 
+
                  /**
                   * Invoked when a lightweight parent component has been
                   * shown.  The associated native component must also be
@@ -8612,7 +8612,7 @@
                          }
                      }
                  }
- 
+
                  /**
                   * Invoked when one of the lightweight parents become visible.
                   * Returns true if component and all its lightweight
@@ -8627,7 +8627,7 @@
                      }
                      return isLwParentsVisible;
                  }
- 
+
                  /**
                   * Invoked when component has been hidden.
                   */
@@ -8640,16 +8640,16 @@
                          }
                      }
                  }
- 
+
                  // --- ContainerListener ------------------------------------
- 
+
                  /**
                   * Invoked when a component has been added to a lightweight
                   * parent.  This doesn't effect the native component.
                   */
                  public void componentAdded(ContainerEvent e) {
                  }
- 
+
                  /**
                   * Invoked when a lightweight parent has been removed.
                   * This means the services of this listener are no longer
@@ -8671,7 +8671,7 @@
                          }
                      }
                  }
- 
+
                  /**
                   * Removes references to this object so it can be
                   * garbage collected.
@@ -8687,11 +8687,11 @@
                      lightParents.clear();
                      nativeHost = null;
                  }
- 
+
                  Vector lightParents;
                  Container nativeHost;
              }
- 
+
              /**
               * Returns the <code>Window</code> ancestor of the component.
               * @return Window ancestor of the component or component by itself if it is Window;
@@ -8700,7 +8700,7 @@
              Window getContainingWindow() {
                  return getContainingWindow(this );
              }
- 
+
              /**
               * Returns the <code>Window</code> ancestor of the component <code>comp</code>.
               * @return Window ancestor of the component or component by itself if it is Window;
@@ -8710,15 +8710,15 @@
                  while (comp != null && !(comp instanceof  Window)) {
                      comp = comp.getParent();
                  }
- 
+
                  return (Window) comp;
              }
- 
+
              /**
               * Initialize JNI field and method IDs
               */
              private static native void initIDs();
- 
+
              /*
               * --- Accessibility Support ---
               *
@@ -8726,9 +8726,9 @@
               *  though it won't actually implement the interface - that will be up
               *  to the individual objects which extend Component.
               */
- 
+
              AccessibleContext accessibleContext = null;
- 
+
              /**
               * Gets the <code>AccessibleContext</code> associated
               * with this <code>Component</code>.
@@ -8745,7 +8745,7 @@
              public AccessibleContext getAccessibleContext() {
                  return accessibleContext;
              }
- 
+
              /**
               * Inner class of Component used to provide default support for
               * accessibility.  This class is not meant to be used directly by
@@ -8758,25 +8758,25 @@
              protected abstract class AccessibleAWTComponent extends
                      AccessibleContext implements  Serializable,
                      AccessibleComponent {
- 
+
                  private static final long serialVersionUID = 642321655757800191L;
- 
+
                  /**
                   * Though the class is abstract, this should be called by
-                  * all sub-classes. 
+                  * all sub-classes.
                   */
                  protected AccessibleAWTComponent() {
                  }
- 
+
                  protected ComponentListener accessibleAWTComponentHandler = null;
                  protected FocusListener accessibleAWTFocusHandler = null;
- 
+
                  /**
                   * Fire PropertyChange listener, if one is registered,
                   * when shown/hidden..
                   * @since 1.3
                   */
-                 protected class AccessibleAWTComponentHandler implements 
+                 protected class AccessibleAWTComponentHandler implements
                          ComponentListener {
                      public void componentHidden(ComponentEvent e) {
                          if (accessibleContext != null) {
@@ -8786,7 +8786,7 @@
                                              AccessibleState.VISIBLE, null);
                          }
                      }
- 
+
                      public void componentShown(ComponentEvent e) {
                          if (accessibleContext != null) {
                              accessibleContext
@@ -8795,20 +8795,20 @@
                                              null, AccessibleState.VISIBLE);
                          }
                      }
- 
+
                      public void componentMoved(ComponentEvent e) {
                      }
- 
+
                      public void componentResized(ComponentEvent e) {
                      }
                  } // inner class AccessibleAWTComponentHandler
- 
+
                  /**
                   * Fire PropertyChange listener, if one is registered,
                   * when focus events happen
                   * @since 1.3
                   */
-                 protected class AccessibleAWTFocusHandler implements 
+                 protected class AccessibleAWTFocusHandler implements
                          FocusListener {
                      public void focusGained(FocusEvent event) {
                          if (accessibleContext != null) {
@@ -8818,7 +8818,7 @@
                                              null, AccessibleState.FOCUSED);
                          }
                      }
- 
+
                      public void focusLost(FocusEvent event) {
                          if (accessibleContext != null) {
                              accessibleContext
@@ -8828,7 +8828,7 @@
                          }
                      }
                  } // inner class AccessibleAWTFocusHandler
- 
+
                  /**
                   * Adds a <code>PropertyChangeListener</code> to the listener list.
                   *
@@ -8838,17 +8838,17 @@
                          PropertyChangeListener listener) {
                      if (accessibleAWTComponentHandler == null) {
                          accessibleAWTComponentHandler = new AccessibleAWTComponentHandler();
-                         Component.this 
+                         Component.this
                                  .addComponentListener(accessibleAWTComponentHandler);
                      }
                      if (accessibleAWTFocusHandler == null) {
                          accessibleAWTFocusHandler = new AccessibleAWTFocusHandler();
-                         Component.this 
+                         Component.this
                                  .addFocusListener(accessibleAWTFocusHandler);
                      }
                      super .addPropertyChangeListener(listener);
                  }
- 
+
                  /**
                   * Remove a PropertyChangeListener from the listener list.
                   * This removes a PropertyChangeListener that was registered
@@ -8859,18 +8859,18 @@
                  public void removePropertyChangeListener(
                          PropertyChangeListener listener) {
                      if (accessibleAWTComponentHandler != null) {
-                         Component.this 
+                         Component.this
                                  .removeComponentListener(accessibleAWTComponentHandler);
                          accessibleAWTComponentHandler = null;
                      }
                      if (accessibleAWTFocusHandler != null) {
-                         Component.this 
+                         Component.this
                                  .removeFocusListener(accessibleAWTFocusHandler);
                          accessibleAWTFocusHandler = null;
                      }
                      super .removePropertyChangeListener(listener);
                  }
- 
+
                  // AccessibleContext methods
                  //
                  /**
@@ -8883,7 +8883,7 @@
                   * If the object has a tooltip, the tooltip text may also be an
                   * appropriate String to return.
                   *
-                  * @return the localized name of the object -- can be 
+                  * @return the localized name of the object -- can be
                   *         <code>null</code> if this
                   *         object does not have a name
                   * @see javax.accessibility.AccessibleContext#setAccessibleName
@@ -8891,7 +8891,7 @@
                  public String getAccessibleName() {
                      return accessibleName;
                  }
- 
+
                  /**
                   * Gets the accessible description of this object.  This should be
                   * a concise, localized description of what this object is - what
@@ -8903,14 +8903,14 @@
                   * text as the description, but something like "Saves the current
                   * text document" instead).
                   *
-                  * @return the localized description of the object -- can be 
+                  * @return the localized description of the object -- can be
                   *        <code>null</code> if this object does not have a description
                   * @see javax.accessibility.AccessibleContext#setAccessibleDescription
                   */
                  public String getAccessibleDescription() {
                      return accessibleDescription;
                  }
- 
+
                  /**
                   * Gets the role of this object.
                   *
@@ -8921,7 +8921,7 @@
                  public AccessibleRole getAccessibleRole() {
                      return AccessibleRole.AWT_COMPONENT;
                  }
- 
+
                  /**
                   * Gets the state of this object.
                   *
@@ -8932,13 +8932,13 @@
                  public AccessibleStateSet getAccessibleStateSet() {
                      return Component.this .getAccessibleStateSet();
                  }
- 
+
                  /**
                   * Gets the <code>Accessible</code> parent of this object.
                   * If the parent of this object implements <code>Accessible</code>,
                   * this method should simply return <code>getParent</code>.
                   *
-                  * @return the <code>Accessible</code> parent of this 
+                  * @return the <code>Accessible</code> parent of this
                   *      object -- can be <code>null</code> if this
                   *      object does not have an <code>Accessible</code> parent
                   */
@@ -8953,7 +8953,7 @@
                      }
                      return null;
                  }
- 
+
                  /**
                   * Gets the index of this object in its accessible parent.
                   *
@@ -8964,7 +8964,7 @@
                  public int getAccessibleIndexInParent() {
                      return Component.this .getAccessibleIndexInParent();
                  }
- 
+
                  /**
                   * Returns the number of accessible children in the object.  If all
                   * of the children of this object implement <code>Accessible</code>,
@@ -8975,7 +8975,7 @@
                  public int getAccessibleChildrenCount() {
                      return 0; // Components don't have children
                  }
- 
+
                  /**
                   * Returns the nth <code>Accessible</code> child of the object.
                   *
@@ -8985,7 +8985,7 @@
                  public Accessible getAccessibleChild(int i) {
                      return null; // Components don't have children
                  }
- 
+
                  /**
                   * Returns the locale of this object.
                   *
@@ -8994,10 +8994,10 @@
                  public Locale getLocale() {
                      return Component.this .getLocale();
                  }
- 
+
                  /**
                   * Gets the <code>AccessibleComponent</code> associated
-                  * with this object if one exists.  
+                  * with this object if one exists.
                   * Otherwise return <code>null</code>.
                   *
                   * @return the component
@@ -9005,7 +9005,7 @@
                  public AccessibleComponent getAccessibleComponent() {
                      return this ;
                  }
- 
+
                  // AccessibleComponent methods
                  //
                  /**
@@ -9017,7 +9017,7 @@
                  public Color getBackground() {
                      return Component.this .getBackground();
                  }
- 
+
                  /**
                   * Sets the background color of this object.
                   * (For transparency, see <code>isOpaque</code>.)
@@ -9028,7 +9028,7 @@
                  public void setBackground(Color c) {
                      Component.this .setBackground(c);
                  }
- 
+
                  /**
                   * Gets the foreground color of this object.
                   *
@@ -9038,7 +9038,7 @@
                  public Color getForeground() {
                      return Component.this .getForeground();
                  }
- 
+
                  /**
                   * Sets the foreground color of this object.
                   *
@@ -9047,7 +9047,7 @@
                  public void setForeground(Color c) {
                      Component.this .setForeground(c);
                  }
- 
+
                  /**
                   * Gets the <code>Cursor</code> of this object.
                   *
@@ -9057,7 +9057,7 @@
                  public Cursor getCursor() {
                      return Component.this .getCursor();
                  }
- 
+
                  /**
                   * Sets the <code>Cursor</code> of this object.
                   * <p>
@@ -9069,7 +9069,7 @@
                  public void setCursor(Cursor cursor) {
                      Component.this .setCursor(cursor);
                  }
- 
+
                  /**
                   * Gets the <code>Font</code> of this object.
                   *
@@ -9079,7 +9079,7 @@
                  public Font getFont() {
                      return Component.this .getFont();
                  }
- 
+
                  /**
                   * Sets the <code>Font</code> of this object.
                   *
@@ -9088,7 +9088,7 @@
                  public void setFont(Font f) {
                      Component.this .setFont(f);
                  }
- 
+
                  /**
                   * Gets the <code>FontMetrics</code> of this object.
                   *
@@ -9104,7 +9104,7 @@
                          return Component.this .getFontMetrics(f);
                      }
                  }
- 
+
                  /**
                   * Determines if the object is enabled.
                   *
@@ -9113,7 +9113,7 @@
                  public boolean isEnabled() {
                      return Component.this .isEnabled();
                  }
- 
+
                  /**
                   * Sets the enabled state of the object.
                   *
@@ -9138,7 +9138,7 @@
                          }
                      }
                  }
- 
+
                  /**
                   * Determines if the object is visible.  Note: this means that the
                   * object intends to be visible; however, it may not in fact be
@@ -9151,7 +9151,7 @@
                  public boolean isVisible() {
                      return Component.this .isVisible();
                  }
- 
+
                  /**
                   * Sets the visible state of the object.
                   *
@@ -9176,7 +9176,7 @@
                          }
                      }
                  }
- 
+
                  /**
                   * Determines if the object is showing.  This is determined by checking
                   * the visibility of the object and ancestors of the object.  Note:
@@ -9189,7 +9189,7 @@
                  public boolean isShowing() {
                      return Component.this .isShowing();
                  }
- 
+
                  /**
                   * Checks whether the specified point is within this object's bounds,
                   * where the point's x and y coordinates are defined to be relative to
@@ -9202,11 +9202,11 @@
                  public boolean contains(Point p) {
                      return Component.this .contains(p);
                  }
- 
+
                  /**
                   * Returns the location of the object on the screen.
                   *
-                  * @return location of object on screen -- can be 
+                  * @return location of object on screen -- can be
                   *    <code>null</code> if this object is not on the screen
                   */
                  public Point getLocationOnScreen() {
@@ -9218,20 +9218,20 @@
                          }
                      }
                  }
- 
+
                  /**
                   * Gets the location of the object relative to the parent in the form
                   * of a point specifying the object's top-left corner in the screen's
                   * coordinate space.
                   *
                   * @return an instance of Point representing the top-left corner of
-                  * the object's bounds in the coordinate space of the screen; 
+                  * the object's bounds in the coordinate space of the screen;
                   * <code>null</code> if this object or its parent are not on the screen
                   */
                  public Point getLocation() {
                      return Component.this .getLocation();
                  }
- 
+
                  /**
                   * Sets the location of the object relative to the parent.
                   * @param p  the coordinates of the object
@@ -9239,7 +9239,7 @@
                  public void setLocation(Point p) {
                      Component.this .setLocation(p);
                  }
- 
+
                  /**
                   * Gets the bounds of this object in the form of a Rectangle object.
                   * The bounds specify this object's width, height, and location
@@ -9251,7 +9251,7 @@
                  public Rectangle getBounds() {
                      return Component.this .getBounds();
                  }
- 
+
                  /**
                   * Sets the bounds of this object in the form of a
                   * <code>Rectangle</code> object.
@@ -9263,9 +9263,9 @@
                  public void setBounds(Rectangle r) {
                      Component.this .setBounds(r);
                  }
- 
+
                  /**
-                  * Returns the size of this object in the form of a 
+                  * Returns the size of this object in the form of a
                   * <code>Dimension</code> object. The height field of the
                   * <code>Dimension</code> object contains this objects's
                   * height, and the width field of the <code>Dimension</code>
@@ -9278,7 +9278,7 @@
                  public Dimension getSize() {
                      return Component.this .getSize();
                  }
- 
+
                  /**
                   * Resizes this object so that it has width and height.
                   *
@@ -9287,7 +9287,7 @@
                  public void setSize(Dimension d) {
                      Component.this .setSize(d);
                  }
- 
+
                  /**
                   * Returns the <code>Accessible</code> child,
                   * if one exists, contained at the local
@@ -9303,7 +9303,7 @@
                  public Accessible getAccessibleAt(Point p) {
                      return null; // Components don't have children
                  }
- 
+
                  /**
                   * Returns whether this object can accept focus or not.
                   *
@@ -9312,14 +9312,14 @@
                  public boolean isFocusTraversable() {
                      return Component.this .isFocusTraversable();
                  }
- 
+
                  /**
                   * Requests focus for this object.
                   */
                  public void requestFocus() {
                      Component.this .requestFocus();
                  }
- 
+
                  /**
                   * Adds the specified focus listener to receive focus events from this
                   * component.
@@ -9329,7 +9329,7 @@
                  public void addFocusListener(FocusListener l) {
                      Component.this .addFocusListener(l);
                  }
- 
+
                  /**
                   * Removes the specified focus listener so it no longer receives focus
                   * events from this component.
@@ -9339,9 +9339,9 @@
                  public void removeFocusListener(FocusListener l) {
                      Component.this .removeFocusListener(l);
                  }
- 
+
              } // inner class AccessibleAWTComponent
- 
+
              /**
               * Gets the index of this object in its accessible parent.
               * If this object does not have an accessible parent, returns
@@ -9367,7 +9367,7 @@
                      return -1;
                  }
              }
- 
+
              /**
               * Gets the current state set of this object.
               *
@@ -9426,7 +9426,7 @@
                      return states;
                  }
              }
- 
+
              /**
               * Checks that the given object is instance of the given class.
               * @param obj Object to be checked
@@ -9439,7 +9439,7 @@
                      return false;
                  if (className == null)
                      return false;
- 
+
                  Class cls = obj.getClass();
                  while (cls != null) {
                      if (cls.getName().equals(className)) {
@@ -9449,5 +9449,5 @@
                  }
                  return false;
              }
- 
+
          }

@@ -122,11 +122,12 @@ function main
 
     replace [program]
         P [program]
-	construct TransformedProgram [stringlit]
-		"TransformedForBalkingPatt.java"
+
+	%construct TransformedProgram [stringlit]
+	%	"TransformedForBalkingPatt.java"
 	by
         P [GetAllBooleanVariables] [findBalkingPatternSynchMod] [findBalkingPatternSynchMod2] [printPatternNotFound] [printOutput] [printMethodIDs]
-		[fput TransformedProgram]
+	%	[fput TransformedProgram]
 end function
 
 function printPatternNotFound
@@ -139,7 +140,7 @@ function printPatternNotFound
 		Counter [= 0]
 
 	construct InstanceFound [stringlit]
-		"*** No instances of Balking Pattern found. "
+		"*** No instances of Balking Pattern found."
 
 	construct InstanceFoundPrint [id]
 		_ [unquote InstanceFound] [print]
