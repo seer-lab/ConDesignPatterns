@@ -43,11 +43,9 @@ if __name__== "__main__":
     examples_dir = "./examples/"
 
     # set up command-line arguments
-    parser = argparse.ArgumentParser(description="Run all example programs against all TXL rules present.")
-    parser.add_argument("-o", action="store_true")
+    parser = argparse.ArgumentParser(description="ConDesignPatterns: Static concurrency design pattern detection and annotation in Java using TXL. This script will run given example programs against all TXL rules present.")
+    # parser.add_argument("-o", action="store_true")
+    parser.add_argument("-i", metavar="INPUT PATH", help="Path to the input examples programs (default: ./examples/)", default=examples_dir)
     args = parser.parse_args()
 
-    # if the -o flag is present, run the original examples instead
-    if args.o: examples_dir = "./original_examples/"
-
-    run_all_examples(examples_dir)
+    run_all_examples(args.i)

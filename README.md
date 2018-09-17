@@ -10,13 +10,17 @@ Static concurrency design pattern detection and annotation in Java using TXL.
 
 ### 1.
 
-Scan all examples under the `examples/` directory against all rules under the `txl/rules/` directory:
+Scan all examples under the `./examples/` directory against all rules under the `txl/rules/` directory:
 
 ```
 $ python runall.py
 ```
 
-> The `-o` flag can be used to run the TXL rules against the original program examples, taken from "Patterns in Java - Volume 1".
+If programs examples other than those present in the `./examples/` directory want to be ran instead, then the -i flag can be used to specify the path to the alternate directory of choice.
+
+```
+$ python runall.py -i INPUT_PATH
+```
 
 ### 2.
 
